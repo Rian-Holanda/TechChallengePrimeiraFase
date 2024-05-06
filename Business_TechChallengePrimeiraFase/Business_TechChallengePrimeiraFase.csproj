@@ -1,0 +1,20 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net8.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Folder Include="Contatos\Applicacation\Interfaces\" />
+    <Folder Include="Contatos\Domain\" />
+    <Folder Include="Regioes\Application\Interfaces\" />
+    <Folder Include="Regioes\Domain\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\DataAccess_TechChallengePrimeiraFase\DataAccess_TechChallengePrimeiraFase.csproj" />
+  </ItemGroup>
+
+</Project>
