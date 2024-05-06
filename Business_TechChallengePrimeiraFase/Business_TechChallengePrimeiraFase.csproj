@@ -15,6 +15,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\DataAccess_TechChallengePrimeiraFase\DataAccess_TechChallengePrimeiraFase.csproj" />
+    <ProjectReference Include="..\Entities_TechChallengePrimeiraFase\Entities_TechChallengePrimeiraFase.csproj" />
   </ItemGroup>
 
 </Project>
