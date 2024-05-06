@@ -6,4 +6,18 @@
     <Nullable>enable</Nullable>
   </PropertyGroup>
 
+	<ItemGroup>
+		<ProjectReference Include="..\Entities_TechChallengePrimeiraFase\Entities_TechChallengePrimeiraFase.csproj" />
+		<ProjectReference Include="..\Infrastructure_TechChallengePrimeiraFase\Infrastructure_TechChallengePrimeiraFase.csproj" />
+	</ItemGroup>
+
+	<ItemGroup>
+		<Folder Include="Contatos\Command\" />
+		<Folder Include="Contatos\Mapping\" />
+		<Folder Include="Contatos\Queries\" />
+		<Folder Include="Regioes\Command\" />
+		<Folder Include="Regioes\Mapping\" />
+		<Folder Include="Regioes\Queries\" />
+	</ItemGroup>
+
 </Project>
