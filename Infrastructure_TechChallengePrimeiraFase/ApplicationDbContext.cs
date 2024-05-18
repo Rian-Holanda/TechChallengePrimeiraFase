@@ -14,7 +14,7 @@ public class ApplicationDbContext : DbContext, IApplicationDbContext
 
     public DbSet<Pessoa> Pessoas { get; set; }
     public DbSet<ContatoPessoa> ContatoPessoas { get; set; }
-    public DbSet<Regiao> Regioes { get; set; }
+    public DbSet<Regioes> Regioes { get; set; }
     public DbSet<RegiaoCodigoArea> RegiaoCodigoAreas { get; set; }
 
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
@@ -58,7 +58,7 @@ public class ApplicationDbContext : DbContext, IApplicationDbContext
         });
 
 
-        modelBuilder.Entity<Regiao>(entity =>
+        modelBuilder.Entity<Regioes>(entity =>
         {
             entity.ToTable("tb_Regiao");
             entity.HasKey(e => e.Id);

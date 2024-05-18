@@ -7,7 +7,7 @@ namespace Infrastructure_TechChallengePrimeiraFase
     {
         DbSet<Pessoa> Pessoas { get; set; }
         DbSet<ContatoPessoa> ContatoPessoas { get; set; }
-        DbSet<Regiao> Regioes { get; set; }
+        DbSet<Regioes> Regioes { get; set; }
         DbSet<RegiaoCodigoArea> RegiaoCodigoAreas { get; set; }
     }
 }
