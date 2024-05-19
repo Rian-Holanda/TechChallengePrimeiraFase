@@ -2,7 +2,7 @@
 
 namespace Entities_TechChallengePrimeiraFase.Entities
 {
-    public class Regioes
+    public class RegioesEntity
     {
 
         private int _id;
@@ -12,7 +12,7 @@ namespace Entities_TechChallengePrimeiraFase.Entities
         public string? Sigla { get { return _sigla; } set { _sigla = value; } }
 
         // Propriedades de navegação
-        public ICollection<RegiaoCodigoArea>? RegiaoCodigoAreas { get; set; }
+        public ICollection<RegioesCodigosAreasEntity>? RegiaoCodigoAreas { get; set; }
 
 
     }

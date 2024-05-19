@@ -12,10 +12,10 @@ public class ApplicationDbContext : DbContext, IApplicationDbContext
         _configuration = configuration;
     }
 
-    public DbSet<Pessoa> Pessoas { get; set; }
-    public DbSet<ContatoPessoa> ContatoPessoas { get; set; }
-    public DbSet<Regioes> Regioes { get; set; }
-    public DbSet<RegiaoCodigoArea> RegiaoCodigoAreas { get; set; }
+    public DbSet<PessoasEntity> Pessoas { get; set; }
+    public DbSet<ContatosPessoaEntity> ContatosPessoas { get; set; }
+    public DbSet<RegioesEntity> Regioes { get; set; }
+    public DbSet<RegioesCodigosAreasEntity> RegioesCodigosAreas { get; set; }
 
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
     {
@@ -34,7 +34,7 @@ public class ApplicationDbContext : DbContext, IApplicationDbContext
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
-        modelBuilder.Entity<Pessoa>(entity =>
+        modelBuilder.Entity<PessoasEntity>(entity =>
         {
             entity.ToTable("tb_Pessoa");
             entity.HasKey(e => e.Id);
@@ -42,7 +42,7 @@ public class ApplicationDbContext : DbContext, IApplicationDbContext
             entity.Property(e => e.Email).IsRequired();
         });
 
-        modelBuilder.Entity<ContatoPessoa>(entity =>
+        modelBuilder.Entity<ContatosPessoaEntity>(entity =>
         {
             entity.ToTable("tb_ContatoPessoa");
             entity.HasKey(e => e.Id);
@@ -58,14 +58,14 @@ public class ApplicationDbContext : DbContext, IApplicationDbContext
         });
 
 
-        modelBuilder.Entity<Regioes>(entity =>
+        modelBuilder.Entity<RegioesEntity>(entity =>
         {
             entity.ToTable("tb_Regiao");
             entity.HasKey(e => e.Id);
             entity.Property(e => e.Sigla).IsRequired();
         });
 
-        modelBuilder.Entity<RegiaoCodigoArea>(entity =>
+        modelBuilder.Entity<RegioesCodigosAreasEntity>(entity =>
         {
             entity.ToTable("tb_RegiaoCodigoArea");
             entity.HasKey(e => e.Id);
