@@ -22,7 +22,6 @@ namespace DataAccess_TechChallengePrimeiraFase.Regioes.Command
             this.logger = logger;
         }
 
-
         public int InserirPessoa(PessoasEntity pessoaEntity)
         {
             try 

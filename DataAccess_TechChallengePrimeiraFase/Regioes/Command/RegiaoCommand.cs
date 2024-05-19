@@ -14,12 +14,17 @@ namespace DataAccess_TechChallengePrimeiraFase.Regioes.Command
     public class RegiaoCommand : IRegiaoCommand
     {
         private readonly IApplicationDbContext context;
-        private readonly ILogger<RegiaoCommand> logger;
+        private readonly ILogger<RegiaoCommand>? logger;
 
         public RegiaoCommand( IApplicationDbContext context, ILogger<RegiaoCommand> logger)
         {
             this.context = context;
             this.logger = logger;
+        }
+
+        public RegiaoCommand(IApplicationDbContext context)
+        {
+            this.context = context;
         }
 
 

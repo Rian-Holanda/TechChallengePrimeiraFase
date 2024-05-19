@@ -12,6 +12,11 @@ public class ApplicationDbContext : DbContext, IApplicationDbContext
         _configuration = configuration;
     }
 
+    public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options) : base(options)
+    {
+        
+    }
+
     public DbSet<PessoasEntity> Pessoas { get; set; }
     public DbSet<ContatosPessoaEntity> ContatosPessoas { get; set; }
     public DbSet<RegioesEntity> Regioes { get; set; }
