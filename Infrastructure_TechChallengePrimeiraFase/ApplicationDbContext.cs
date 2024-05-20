@@ -52,6 +52,7 @@ public class ApplicationDbContext : DbContext, IApplicationDbContext
             entity.ToTable("tb_ContatoPessoa");
             entity.HasKey(e => e.Id);
             entity.Property(e => e.Numero).IsRequired();
+            entity.Property(e => e.TipoContatoPessoa).IsRequired();
 
             entity.HasOne(d => d.Pessoa)
                 .WithMany(p => p.ContatoPessoas)
