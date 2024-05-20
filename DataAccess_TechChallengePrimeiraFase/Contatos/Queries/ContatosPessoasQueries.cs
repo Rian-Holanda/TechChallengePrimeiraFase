@@ -28,12 +28,13 @@ namespace DataAccess_TechChallengePrimeiraFase.Contatos.Queries
             try
             {
                 var query  = from pessoa in context.Pessoas
-                                           join contato in context.ContatosPessoas on pessoa.Id equals contato.IdPessoa
-                                           join regiao in context.Regioes on contato.IdRegiao equals regiao.Id
-                                           select new
-                                           {
-                                               Sigla = regiao.Sigla
-                                           }.Sigla;
+                             join contato in context.ContatosPessoas on pessoa.Id equals contato.IdPessoa
+                             join regiao in context.Regioes on contato.IdRegiao equals regiao.Id
+                             where contato.Numero == numeroPessoa && pessoa.Nome == nomePessoa
+                             select new
+                             {
+                                 Sigla = regiao.Sigla
+                             }.Sigla;
 
                 var regiaoSigla = query.FirstOrDefault();
 
