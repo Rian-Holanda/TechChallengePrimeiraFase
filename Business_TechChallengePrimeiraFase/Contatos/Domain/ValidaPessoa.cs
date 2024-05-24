@@ -1,36 +1,26 @@
-﻿using Business_TechChallengePrimeiraFase.Contatos.Applicacation.Interfaces;
-using Entities_TechChallengePrimeiraFase.Entities;
-using FluentValidation;
+﻿using FluentValidation;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Net.Mail;
 using System.Text;
 using System.Threading.Tasks;
+using Entities_TechChallengePrimeiraFase.Entities;
 
 namespace Business_TechChallengePrimeiraFase.Contatos.Domain
 {
-    public class ValidaPessoa : IValidaPessoa
+    public class ValidaPessoa : AbstractValidator<PessoasEntity>
     {
-        public bool ValidaEmail(string? email)
+        public ValidaPessoa() 
         {
-            if (!String.IsNullOrEmpty(email))
-            {
-                var emailVerificado = email.Trim();
+            RuleFor(p => p.Email)
+                .NotNull().WithMessage("Preencha o e-mail")
+                .NotEmpty().WithMessage("Preencha o e-mail");
 
-                if (emailVerificado.EndsWith(".")) { return false; }
+            RuleFor(p => p.Nome)
+                .NotNull().WithMessage("Preencha o nome")
+                .NotEmpty().WithMessage("Preencha o nome")
+                .MaximumLength(200);
 
-                try
-                {
-                    var enderecoEmail = new System.Net.Mail.MailAddress(email);
-                    return enderecoEmail.Address == emailVerificado;
-                }
-                catch
-                {
-                    return false;
-                }
-            }
-            else { return false; }
         }
     }
 }

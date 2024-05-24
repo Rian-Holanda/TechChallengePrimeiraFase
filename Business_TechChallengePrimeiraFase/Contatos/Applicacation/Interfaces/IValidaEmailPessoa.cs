@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Business_TechChallengePrimeiraFase.Contatos.Applicacation.Interfaces
 {
-    public interface IValidaPessoa
+    public interface IValidaEmailPessoa
     {
         public bool ValidaEmail(string? email);
 
