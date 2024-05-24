@@ -7,15 +7,16 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Folder Include="Contatos\Applicacation\Interfaces\" />
-    <Folder Include="Contatos\Domain\" />
-    <Folder Include="Regioes\Application\Interfaces\" />
-    <Folder Include="Regioes\Domain\" />
+    <PackageReference Include="FluentValidation" Version="11.9.1" />
   </ItemGroup>
 
   <ItemGroup>
     <ProjectReference Include="..\DataAccess_TechChallengePrimeiraFase\DataAccess_TechChallengePrimeiraFase.csproj" />
     <ProjectReference Include="..\Entities_TechChallengePrimeiraFase\Entities_TechChallengePrimeiraFase.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Regioes\Domain\" />
   </ItemGroup>
 
 </Project>
