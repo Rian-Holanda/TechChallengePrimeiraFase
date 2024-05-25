@@ -2,7 +2,9 @@
 using Business_TechChallengePrimeiraFase.Regioes.Application.Interfaces;
 using Business_TechChallengePrimeiraFase.Regioes.Domain;
 using Castle.Core.Logging;
+using DataAccess_TechChallengePrimeiraFase.Regioes.Command;
 using DataAccess_TechChallengePrimeiraFase.Regioes.Queries;
+using Entities_TechChallengePrimeiraFase.Entities;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Storage;
 using Microsoft.Extensions.DependencyInjection;
@@ -22,6 +24,7 @@ namespace UnitTest_TechChallengePrimeiraFase.Regioes
 
         private Mock<IValidacoesRegioes> _mockValidacoesRigioes = new Mock<IValidacoesRegioes>();
         private ILogger<RegiaoQueries> _logger;
+        private ILogger<RegiaoCommand> loggerRegiaoCommand;
 
         //using the same connection string
         public static string connectionString = $"Data Source=(localdb)\\MSSQLLocalDB;Initial Catalog=DBFACULDADE;Integrated Security=True;";
@@ -29,8 +32,8 @@ namespace UnitTest_TechChallengePrimeiraFase.Regioes
         public RegioesUnitTest()
         {
             var serviceProvider = new ServiceCollection()
-          .AddEntityFrameworkSqlServer()
-          .BuildServiceProvider();
+                            .AddEntityFrameworkSqlServer()
+                            .BuildServiceProvider();
 
             var builder = new DbContextOptionsBuilder<ApplicationDbContext>();
 
@@ -59,6 +62,66 @@ namespace UnitTest_TechChallengePrimeiraFase.Regioes
             Assert.Equal(resultado.Sigla, sigla);
         }
 
+        [Fact]
+        public void ValidaInsertRegiao() 
+        {
+            RegioesEntity regioesEntity = new RegioesEntity
+            {
+                Sigla = "RJ"
+            };
+
+            RegiaoCommand regiaoCommand = new RegiaoCommand(_context, loggerRegiaoCommand);
+
+            Assert.True(regiaoCommand.InserirRegiao(regioesEntity) > 0);
+        }
+
+        [Fact]
+        public void ValidaGetRegioes()
+        {
+            RegiaoCommand regiaoCommand = new RegiaoCommand(_context, loggerRegiaoCommand);
+
+            Assert.True(regiaoCommand.GetRegioes().Count > 0);
+        }
+
+        [Fact]
+        public void ValidaGetRegiao()
+        {
+            RegiaoCommand regiaoCommand = new RegiaoCommand(_context, loggerRegiaoCommand);
+
+            var regioes = regiaoCommand.GetRegioes();
+
+            var regiao = regioes.Last();
+
+            Assert.True(regiaoCommand.GetRegiao(regiao.Id) != null);
+        }
+
+        [Fact]
+
+        public void UpdateRegiao()
+        {
+            RegiaoCommand regiaoCommand = new RegiaoCommand(_context, loggerRegiaoCommand);
+
+            var regioes = regiaoCommand.GetRegioes();
+
+            var regiao = regiaoCommand.GetRegiao(2);
+
+            regiao.Sigla = "MG";
+
+            Assert.True(regiaoCommand.AlterarRegiao(regiao,regiao.Id));
+        }
+
+        [Fact]
+        public void DeleteRegiao()
+        {
+            RegiaoCommand regiaoCommand = new RegiaoCommand(_context, loggerRegiaoCommand);
+
+            var regioes = regiaoCommand.GetRegioes();
+
+            var regiao = regiaoCommand.GetRegiao(1002);
+
+
+            Assert.True(regiaoCommand.ExcluirRegiao(regiao.Id));
+        }
 
     }
 }
