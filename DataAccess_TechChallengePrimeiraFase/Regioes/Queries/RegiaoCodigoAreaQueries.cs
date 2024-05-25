@@ -1,5 +1,6 @@
 ﻿using DataAccess_TechChallengePrimeiraFase.Regioes.Interface;
 using Infrastructure_TechChallengePrimeiraFase;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
 using System;
 using System.Collections.Generic;
@@ -38,6 +39,23 @@ namespace DataAccess_TechChallengePrimeiraFase.Regioes.Queries
             catch (Exception ex) 
             {
                 return 0;
+            }
+        }
+
+        public string? GetSiglaCodigoArea(int ddd)
+        {
+            try 
+            {
+                var resultRegiao = context.RegioesCodigosAreas
+                                    .Where(rc => rc.DDD == ddd)
+                                    .Include(r => r.Regiao)
+                                    .First();
+
+                return resultRegiao?.Regiao?.Sigla;
+            }
+            catch (Exception ex) 
+            {
+                return String.Empty;
             }
         }
 

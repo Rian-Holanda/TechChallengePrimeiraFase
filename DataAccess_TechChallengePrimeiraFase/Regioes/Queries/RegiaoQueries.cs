@@ -1,5 +1,6 @@
 ﻿using DataAccess_TechChallengePrimeiraFase.Contatos.Queries;
 using DataAccess_TechChallengePrimeiraFase.Regioes.Interface;
+using Entities_TechChallengePrimeiraFase.Entities;
 using Infrastructure_TechChallengePrimeiraFase;
 using Microsoft.Extensions.Logging;
 using System;
@@ -36,6 +37,22 @@ namespace DataAccess_TechChallengePrimeiraFase.Regioes.Queries
             { 
                 return String.Empty;
             }
+        }
+
+        public RegioesEntity GetRegiaoExistente(string? sigla) 
+        {
+            try 
+            {
+                var regiao = context.Regioes.Where(r => r.Sigla == sigla).First();
+
+                return regiao;
+            }
+            catch (Exception ex) 
+            {
+                return new RegioesEntity();
+            }
+
+           
         }
     }
 }

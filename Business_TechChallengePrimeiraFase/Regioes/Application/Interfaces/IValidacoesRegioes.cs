@@ -6,8 +6,10 @@ using System.Threading.Tasks;
 
 namespace Business_TechChallengePrimeiraFase.Regioes.Application.Interfaces
 {
-    internal interface IValidacoesRegioes
+    public interface IValidacoesRegioes
     {
-        public bool ValidaRegiaoExistente();
+        public bool ValidaRegiaoExistente(string sigla);
+
+        public bool ValidaCodigoAreaExistente(int ddd);
     }
 }

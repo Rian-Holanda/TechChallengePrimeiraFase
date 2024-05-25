@@ -15,8 +15,4 @@
     <ProjectReference Include="..\Entities_TechChallengePrimeiraFase\Entities_TechChallengePrimeiraFase.csproj" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="Regioes\Domain\" />
-  </ItemGroup>
-
 </Project>
