@@ -104,8 +104,6 @@ namespace UnitTest_TechChallengePrimeiraFase.Regioes
                     Assert.True(RegiaoCodigoAreaCommand.GetRegiaoCodigoArea(regiaoCodigoArea.Id) != null);
                 }
             }
-
-
         }
 
         [Fact]
@@ -126,9 +124,6 @@ namespace UnitTest_TechChallengePrimeiraFase.Regioes
                     Assert.True(RegiaoCodigoAreaCommand.AlterarRegiaoCodigoArea(regiaoCodigoArea, regiaoCodigoArea.Id));
                 }
             }
-
-            
-
         }
 
         [Fact]

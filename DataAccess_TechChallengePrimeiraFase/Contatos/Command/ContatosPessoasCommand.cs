@@ -7,6 +7,7 @@ using AutoMapper;
 using DataAccess_TechChallengePrimeiraFase.Regioes.Interface;
 using Entities_TechChallengePrimeiraFase.Entities;
 using Infrastructure_TechChallengePrimeiraFase;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
 
 namespace DataAccess_TechChallengePrimeiraFase.Regioes.Command
@@ -77,7 +78,11 @@ namespace DataAccess_TechChallengePrimeiraFase.Regioes.Command
         {
             try 
             {
-                var contatoPessoa = context.ContatosPessoas.Where(cp => cp.Id == idContatoPessoa).FirstOrDefault();
+                var contatoPessoa = context.ContatosPessoas
+                                    .Where(cp => cp.Id == idContatoPessoa)
+                                    .Include(p => p.Pessoa)
+                                    .Include(r => r.Regiao)
+                                    .FirstOrDefault();
 
                 return (contatoPessoa is not null)? contatoPessoa : null;
             }
@@ -93,7 +98,11 @@ namespace DataAccess_TechChallengePrimeiraFase.Regioes.Command
         {
             try 
             { 
-                var contatosPessoas = context.ContatosPessoas.Select(cp => cp).ToList();
+                var contatosPessoas = context.ContatosPessoas
+                                     .Select(cp => cp)
+                                     .Include(p => p.Pessoa)
+                                     .Include(r => r.Regiao)
+                                     .ToList();
 
                 return contatosPessoas;
             }

@@ -11,7 +11,7 @@ namespace Business_TechChallengePrimeiraFase.Contatos.Domain
 {
     public class ContatoPessoaDomain : AbstractValidator<ContatosPessoaEntity>
     {
-        ContatoPessoaDomain() 
+        public ContatoPessoaDomain() 
         {
             RuleFor(cp => cp.Numero)
                 .NotEmpty().WithMessage("Informe o número.")
@@ -21,11 +21,11 @@ namespace Business_TechChallengePrimeiraFase.Contatos.Domain
                 .NotNull().WithMessage("Região e código de ´´area não informados");
         }
 
-        public bool ValidaContato(ValidaContatoPessoa validaContatoPessoa, ContatosPessoaEntity contatosPessoaEntity) 
+        public bool ValidaTipoContato(ValidaContatoPessoa validaContatoPessoa, ContatosPessoaEntity contatosPessoaEntity) 
         {
-            return (contatosPessoaEntity.TipoContatoPessoa == 1)? 
-                   ValidaContato(new ValidaContatoPessoaCelular(), contatosPessoaEntity):
-                   ValidaContato(new ValidaContatoPessoaFixo(), contatosPessoaEntity);         
+            return (contatosPessoaEntity.TipoContatoPessoa == 1)?
+                   validaContatoPessoa.ValidaContato(contatosPessoaEntity):
+                   validaContatoPessoa.ValidaContato(contatosPessoaEntity);         
         }
 
        
