@@ -8,7 +8,7 @@ namespace DataAccess_TechChallengePrimeiraFase.Regioes.Interface
 {
     public interface IRegiaoCodigoAreaQueries
     {
-        int? GetDDD(int idRegiao);
+        List<int> GetDDDs(string sigla);
 
         string? GetSiglaCodigoArea(int ddd);
     }

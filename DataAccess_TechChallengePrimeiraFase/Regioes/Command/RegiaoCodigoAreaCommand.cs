@@ -7,6 +7,7 @@ using AutoMapper;
 using DataAccess_TechChallengePrimeiraFase.Regioes.Interface;
 using Entities_TechChallengePrimeiraFase.Entities;
 using Infrastructure_TechChallengePrimeiraFase;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
 
 namespace DataAccess_TechChallengePrimeiraFase.Regioes.Command
@@ -31,6 +32,7 @@ namespace DataAccess_TechChallengePrimeiraFase.Regioes.Command
             }
             catch (Exception ex) 
             {
+                logger.LogError(ex.Message);
                 return 0;
             }
         }
@@ -47,7 +49,8 @@ namespace DataAccess_TechChallengePrimeiraFase.Regioes.Command
                 return (result != 0);
             }
             catch (Exception ex) 
-            { 
+            {
+                logger.LogError(ex.Message);
                 return false;
             }
         }
@@ -66,6 +69,7 @@ namespace DataAccess_TechChallengePrimeiraFase.Regioes.Command
             }
             catch (Exception ex) 
             {
+                logger.LogError(ex.Message);
                 return false;
             }
         }
@@ -80,6 +84,7 @@ namespace DataAccess_TechChallengePrimeiraFase.Regioes.Command
             }
             catch (Exception ex) 
             {
+                logger.LogError(ex.Message);
                 return null;
             }
              
@@ -89,12 +94,16 @@ namespace DataAccess_TechChallengePrimeiraFase.Regioes.Command
         {
             try 
             { 
-                var regioesCodigosAreas = context.RegioesCodigosAreas.Select(r => r).ToList();
+                var regioesCodigosAreas = context.RegioesCodigosAreas
+                                                 .Select(r => r)
+                                                 .Include(r => r.Regiao)
+                                                 .ToList();
 
                 return regioesCodigosAreas;
             }
             catch (Exception ex) 
             {
+                logger.LogError(ex.Message);
                 return new List<RegioesCodigosAreasEntity>();
             }
 

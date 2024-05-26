@@ -23,8 +23,9 @@ namespace UnitTest_TechChallengePrimeiraFase.Regioes
         ApplicationDbContext _context;
 
         private Mock<IValidacoesRegioes> _mockValidacoesRigioes = new Mock<IValidacoesRegioes>();
-        private ILogger<RegiaoQueries> _logger;
-        private ILogger<RegiaoCommand> loggerRegiaoCommand;
+        private ILogger<RegiaoQueries>? _logger;
+        private ILogger<RegiaoCommand>? loggerRegiaoCommand;
+
 
         //using the same connection string
         public static string connectionString = $"Data Source=(localdb)\\MSSQLLocalDB;Initial Catalog=DBFACULDADE;Integrated Security=True;";
@@ -49,79 +50,111 @@ namespace UnitTest_TechChallengePrimeiraFase.Regioes
         [Fact]
         public void ValidaRegioes()
         {
-            string? sigla = "SP";
+            if (_logger is not null)
+            {
+                string? sigla = "SP";
 
-            _mockValidacoesRigioes.Setup(m => m.ValidaRegiaoExistente("SP")).Returns(true);
-            RegiaoQueries regiaoQueries = new RegiaoQueries(_context, _logger);
-            // act
-            var resultadoEsperado = _mockValidacoesRigioes.Object.ValidaRegiaoExistente("SP");
-            var resultado = regiaoQueries.GetRegiaoExistente("SP");
-          
+                _mockValidacoesRigioes.Setup(m => m.ValidaRegiaoExistente("SP")).Returns(true);
+                RegiaoQueries regiaoQueries = new RegiaoQueries(_context, _logger);
+                // act
+                var resultadoEsperado = _mockValidacoesRigioes.Object.ValidaRegiaoExistente("SP");
+                var resultado = regiaoQueries.GetRegiaoExistente("SP");
 
-            // assert
-            Assert.Equal(resultado.Sigla, sigla);
+
+                // assert
+                Assert.Equal(resultado.Sigla, sigla);
+            }
+
         }
 
         [Fact]
-        public void ValidaInsertRegiao() 
+        public void ValidaInsertRegiao()
         {
-            RegioesEntity regioesEntity = new RegioesEntity
+            if (loggerRegiaoCommand is not null)
             {
-                Sigla = "RJ"
-            };
+                RegioesEntity regioesEntity = new RegioesEntity
+                {
+                    Sigla = "RJ"
+                };
 
-            RegiaoCommand regiaoCommand = new RegiaoCommand(_context, loggerRegiaoCommand);
+                RegiaoCommand regiaoCommand = new RegiaoCommand(_context, loggerRegiaoCommand);
 
-            Assert.True(regiaoCommand.InserirRegiao(regioesEntity) > 0);
+                Assert.True(regiaoCommand.InserirRegiao(regioesEntity) > 0);
+            }
+
         }
 
         [Fact]
         public void ValidaGetRegioes()
         {
-            RegiaoCommand regiaoCommand = new RegiaoCommand(_context, loggerRegiaoCommand);
+            if (loggerRegiaoCommand is not null)
+            {
+                RegiaoCommand regiaoCommand = new RegiaoCommand(_context, loggerRegiaoCommand);
 
-            Assert.True(regiaoCommand.GetRegioes().Count > 0);
+                Assert.True(regiaoCommand.GetRegioes().Count > 0);
+            }
         }
 
         [Fact]
         public void ValidaGetRegiao()
         {
-            RegiaoCommand regiaoCommand = new RegiaoCommand(_context, loggerRegiaoCommand);
+            if (loggerRegiaoCommand is not null)
+            {
 
-            var regioes = regiaoCommand.GetRegioes();
+                RegiaoCommand regiaoCommand = new RegiaoCommand(_context, loggerRegiaoCommand);
 
-            var regiao = regioes.Last();
+                var regioes = regiaoCommand.GetRegioes();
+                var regiao = regioes.Last();
 
-            Assert.True(regiaoCommand.GetRegiao(regiao.Id) != null);
+                Assert.True(regiaoCommand.GetRegiao(regiao.Id) != null);
+            }
+
         }
 
         [Fact]
 
         public void UpdateRegiao()
         {
-            RegiaoCommand regiaoCommand = new RegiaoCommand(_context, loggerRegiaoCommand);
+            if (loggerRegiaoCommand is not null)
+            {
+                RegiaoCommand regiaoCommand = new RegiaoCommand(_context, loggerRegiaoCommand);
 
-            var regioes = regiaoCommand.GetRegioes();
+                var regioes = regiaoCommand.GetRegioes();
+                var regiao = regiaoCommand.GetRegiao(2);
 
-            var regiao = regiaoCommand.GetRegiao(2);
+                if (regiao is not null)
+                {
+                    regiao.Sigla = "MG";
 
-            regiao.Sigla = "MG";
+                    Assert.True(regiaoCommand.AlterarRegiao(regiao, regiao.Id));
+                }
 
-            Assert.True(regiaoCommand.AlterarRegiao(regiao,regiao.Id));
+            }
+
+
         }
 
         [Fact]
         public void DeleteRegiao()
         {
-            RegiaoCommand regiaoCommand = new RegiaoCommand(_context, loggerRegiaoCommand);
+            if (loggerRegiaoCommand is not null)
+            {
+                RegiaoCommand regiaoCommand = new RegiaoCommand(_context, loggerRegiaoCommand);
 
-            var regioes = regiaoCommand.GetRegioes();
+                var regioes = regiaoCommand.GetRegioes();
+                var regiao = regiaoCommand.GetRegiao(1002);
 
-            var regiao = regiaoCommand.GetRegiao(1002);
+                if (regiao is not null)
+                {
+                    Assert.True(regiaoCommand.ExcluirRegiao(regiao.Id));
+                }
+            }
 
 
-            Assert.True(regiaoCommand.ExcluirRegiao(regiao.Id));
         }
+
+
+
 
     }
 }

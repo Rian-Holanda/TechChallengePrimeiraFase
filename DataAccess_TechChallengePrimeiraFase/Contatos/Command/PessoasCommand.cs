@@ -30,6 +30,7 @@ namespace DataAccess_TechChallengePrimeiraFase.Regioes.Command
             }
             catch (Exception ex) 
             {
+                logger.LogError(ex.Message);
                 return 0;
             }
         }
@@ -46,7 +47,8 @@ namespace DataAccess_TechChallengePrimeiraFase.Regioes.Command
                 return (result != 0);
             }
             catch (Exception ex) 
-            { 
+            {
+                logger.LogError(ex.Message);
                 return false;
             }
         }
@@ -65,6 +67,7 @@ namespace DataAccess_TechChallengePrimeiraFase.Regioes.Command
             }
             catch (Exception ex) 
             {
+                logger.LogError(ex.Message);
                 return false;
             }
         }
@@ -79,6 +82,7 @@ namespace DataAccess_TechChallengePrimeiraFase.Regioes.Command
             }
             catch (Exception ex) 
             {
+                logger.LogError(ex.Message);
                 return null;
             }
              
@@ -94,6 +98,7 @@ namespace DataAccess_TechChallengePrimeiraFase.Regioes.Command
             }
             catch (Exception ex) 
             {
+                logger.LogError(ex.Message);
                 return new List<PessoasEntity>();
             }
 

@@ -14,17 +14,12 @@ namespace DataAccess_TechChallengePrimeiraFase.Regioes.Command
     public class RegiaoCommand : IRegiaoCommand
     {
         private readonly IApplicationDbContext context;
-        private readonly ILogger<RegiaoCommand>? logger;
+        private readonly ILogger<RegiaoCommand> logger;
 
         public RegiaoCommand( IApplicationDbContext context, ILogger<RegiaoCommand> logger)
         {
             this.context = context;
             this.logger = logger;
-        }
-
-        public RegiaoCommand(IApplicationDbContext context)
-        {
-            this.context = context;
         }
 
 
@@ -36,6 +31,7 @@ namespace DataAccess_TechChallengePrimeiraFase.Regioes.Command
             }
             catch (Exception ex) 
             {
+                logger.LogError(ex.Message);
                 return 0;
             }
         }
@@ -52,7 +48,8 @@ namespace DataAccess_TechChallengePrimeiraFase.Regioes.Command
                 return (result != 0);
             }
             catch (Exception ex) 
-            { 
+            {
+                logger.LogError(ex.Message);
                 return false;
             }
         }
@@ -68,6 +65,7 @@ namespace DataAccess_TechChallengePrimeiraFase.Regioes.Command
             }
             catch (Exception ex) 
             {
+                logger.LogError(ex.Message);
                 return false;
             }
         }
@@ -82,6 +80,7 @@ namespace DataAccess_TechChallengePrimeiraFase.Regioes.Command
             }
             catch (Exception ex) 
             {
+                logger.LogError(ex.Message);
                 return null;
             }
              
@@ -97,6 +96,7 @@ namespace DataAccess_TechChallengePrimeiraFase.Regioes.Command
             }
             catch (Exception ex) 
             {
+                logger.LogError(ex.Message);
                 return new List<RegioesEntity>();
             }
 

@@ -13,7 +13,7 @@ namespace DataAccess_TechChallengePrimeiraFase.Regioes.Queries
     public class RegiaoCodigoAreaQueries : IRegiaoCodigoAreaQueries
     {
         private readonly IApplicationDbContext context;
-        private readonly ILogger<RegiaoCodigoAreaQueries>? logger;
+        private readonly ILogger<RegiaoCodigoAreaQueries> logger;
 
         public RegiaoCodigoAreaQueries(IApplicationDbContext context, ILogger<RegiaoCodigoAreaQueries> logger)
         {
@@ -21,24 +21,25 @@ namespace DataAccess_TechChallengePrimeiraFase.Regioes.Queries
             this.logger = logger;
         }
 
-        public int? GetDDD(int idRegiao)
+        public List<int> GetDDDs(string sigla)
         {
             try 
             { 
                 var ddd = from regiao in context.Regioes
                           join regiaoCodigoArea in context.RegioesCodigosAreas on regiao.Id equals regiaoCodigoArea.IdRegiao
-                          where regiao.Id == idRegiao
+                          where regiao.Sigla == sigla
                           select new
                           {
                              DDD = regiaoCodigoArea.DDD
                           }.DDD;
 
 
-                return ddd.First();
+                return ddd.ToList();
             }
             catch (Exception ex) 
             {
-                return 0;
+                logger.LogError(ex.Message);
+                return new List<int>();
             }
         }
 
@@ -55,6 +56,7 @@ namespace DataAccess_TechChallengePrimeiraFase.Regioes.Queries
             }
             catch (Exception ex) 
             {
+                logger.LogError(ex.Message);
                 return String.Empty;
             }
         }
