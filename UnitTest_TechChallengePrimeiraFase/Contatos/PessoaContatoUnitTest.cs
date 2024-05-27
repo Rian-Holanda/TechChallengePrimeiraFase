@@ -1,4 +1,5 @@
 ﻿using Business_TechChallengePrimeiraFase.Contatos.Domain;
+using DataAccess_TechChallengePrimeiraFase.Contatos.Command;
 using DataAccess_TechChallengePrimeiraFase.Contatos.Queries;
 using DataAccess_TechChallengePrimeiraFase.Regioes.Command;
 using Entities_TechChallengePrimeiraFase.Entities;

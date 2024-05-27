@@ -17,15 +17,13 @@ namespace Business_TechChallengePrimeiraFase.Contatos.Domain
                 .NotEmpty().WithMessage("Informe o número.")
                 .NotNull().WithMessage("Informe o número.");
 
-            RuleFor(cp => cp.Regiao.RegiaoCodigoAreas)
-                .NotNull().WithMessage("Região e código de ´´area não informados");
+            RuleFor(cp => cp.Regiao.Sigla)
+                .NotNull().WithMessage("Informe a Sigla");
         }
 
         public bool ValidaTipoContato(ValidaContatoPessoa validaContatoPessoa, ContatosPessoaEntity contatosPessoaEntity) 
         {
-            return (contatosPessoaEntity.TipoContatoPessoa == 1)?
-                   validaContatoPessoa.ValidaContato(contatosPessoaEntity):
-                   validaContatoPessoa.ValidaContato(contatosPessoaEntity);         
+            return validaContatoPessoa.ValidaContato(contatosPessoaEntity);         
         }
 
        

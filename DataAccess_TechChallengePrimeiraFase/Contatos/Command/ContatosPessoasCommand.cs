@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using AutoMapper;
+using DataAccess_TechChallengePrimeiraFase.Contatos.Interface;
 using DataAccess_TechChallengePrimeiraFase.Regioes.Interface;
 using Entities_TechChallengePrimeiraFase.Entities;
 using Infrastructure_TechChallengePrimeiraFase;
@@ -100,8 +101,6 @@ namespace DataAccess_TechChallengePrimeiraFase.Regioes.Command
             { 
                 var contatosPessoas = context.ContatosPessoas
                                      .Select(cp => cp)
-                                     .Include(p => p.Pessoa)
-                                     .Include(r => r.Regiao)
                                      .ToList();
 
                 return contatosPessoas;

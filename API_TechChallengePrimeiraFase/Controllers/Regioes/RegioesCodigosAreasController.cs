@@ -31,10 +31,17 @@ namespace API_TechChallengePrimeiraFase.Controllers.Regioes
         public IActionResult GetCodigosAreasRegioes()
         {
             var regioesCodigosAreas = _regiaoCodigoAreaCommand.GetRegioesCodigosAreas();
+            List<RegiaoCodigoAreaModel> regioesCodigosAreasModel = new List<RegiaoCodigoAreaModel>();
 
             if (regioesCodigosAreas != null)
             {
-                return Ok(regioesCodigosAreas);
+                regioesCodigosAreasModel.AddRange(regioesCodigosAreas.Select(r => new RegiaoCodigoAreaModel()
+                {
+                    DDD = r.DDD,
+                    siglaRegiao = r.Regiao.Sigla
+                }));
+
+                return Ok(regioesCodigosAreasModel);
             }
             else
             {
@@ -51,6 +58,37 @@ namespace API_TechChallengePrimeiraFase.Controllers.Regioes
             if (regiaoCodigoArea != null)
             {
                 return Ok(regiaoCodigoArea);
+            }
+            else
+            {
+                return NoContent();
+            }
+        }
+
+        [HttpGet("GetSiglaCodigoArea/ddd")]
+        public IActionResult GetSiglaCodigoArea(int ddd)
+        {
+            var regiaoCodigoArea = _regiaoCodigoAreaQueries.GetSiglaCodigoArea(ddd);
+
+            if (regiaoCodigoArea != null)
+            {
+                return Ok(regiaoCodigoArea);
+            }
+            else
+            {
+                return NoContent();
+            }
+        }
+
+
+        [HttpGet("GetDDDs/siglaRegiao")]
+        public IActionResult GetSiglaCodigoArea(string siglaRegiao)
+        {
+            var DDDs = _regiaoCodigoAreaQueries.GetDDDs(siglaRegiao);
+
+            if (DDDs != null)
+            {
+                return Ok(DDDs);
             }
             else
             {

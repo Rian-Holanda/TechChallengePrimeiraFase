@@ -1,4 +1,4 @@
-﻿using Business_TechChallengePrimeiraFase.Contatos.Applicacation.Interfaces;
+﻿using Business_TechChallengePrimeiraFase.Contatos.Application.Interfaces;
 using Entities_TechChallengePrimeiraFase.Entities;
 using System;
 using System.Collections.Generic;

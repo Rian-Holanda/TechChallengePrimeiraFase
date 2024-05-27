@@ -3,7 +3,7 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Business_TechChallengePrimeiraFase;
 using DataAccess_TechChallengePrimeiraFase;
-using Business_TechChallengePrimeiraFase.Contatos.Applicacation.Interfaces;
+using Business_TechChallengePrimeiraFase.Contatos.Application.Interfaces;
 using DataAccess_TechChallengePrimeiraFase.Contatos.Interfaces;
 using DataAccess_TechChallengePrimeiraFase.Contatos.Queries;
 using DataAccess_TechChallengePrimeiraFase.Regioes.Command;
@@ -13,6 +13,8 @@ using Business_TechChallengePrimeiraFase.Regioes.Application.Interfaces;
 using Business_TechChallengePrimeiraFase.Regioes.Domain;
 using DataAccess_TechChallengePrimeiraFase.Regioes.Queries;
 using System.Text.Json.Serialization;
+using DataAccess_TechChallengePrimeiraFase.Contatos.Interface;
+using DataAccess_TechChallengePrimeiraFase.Contatos.Command;
 
 
 
@@ -46,6 +48,7 @@ builder.Services.AddScoped<IRegiaoCodigoAreaCommand, RegiaoCodigoAreaCommand>();
 builder.Services.AddScoped<IRegiaoCodigoAreaQueries, RegiaoCodigoAreaQueries>();
 builder.Services.AddScoped<IValidaEmailPessoa, ValidaEmailPessoa>();
 builder.Services.AddScoped<IValidacoesRegioes, ValidacoesRegioes>();
+
 
 
 var app = builder.Build();

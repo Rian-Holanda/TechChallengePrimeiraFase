@@ -4,12 +4,13 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using AutoMapper;
-using DataAccess_TechChallengePrimeiraFase.Regioes.Interface;
+using DataAccess_TechChallengePrimeiraFase.Contatos.Interface;
 using Entities_TechChallengePrimeiraFase.Entities;
 using Infrastructure_TechChallengePrimeiraFase;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
 
-namespace DataAccess_TechChallengePrimeiraFase.Regioes.Command
+namespace DataAccess_TechChallengePrimeiraFase.Contatos.Command
 {
     public class PessoasCommand : IPessoasCommand
     {
@@ -92,7 +93,10 @@ namespace DataAccess_TechChallengePrimeiraFase.Regioes.Command
         {
             try 
             { 
-                var pessoas = context.Pessoas.Select(p => p).ToList();
+                var pessoas = context.Pessoas
+                                     .Select(p => p)
+                                     .Include(cp => cp.ContatoPessoas)
+                                     .ToList();
 
                 return pessoas;
             }

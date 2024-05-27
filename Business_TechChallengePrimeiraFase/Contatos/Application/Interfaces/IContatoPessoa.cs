@@ -6,7 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 using FluentValidation;
 
-namespace Business_TechChallengePrimeiraFase.Contatos.Applicacation.Interfaces
+namespace Business_TechChallengePrimeiraFase.Contatos.Application.Interfaces
 {
     public interface IContatoPessoa
     {
