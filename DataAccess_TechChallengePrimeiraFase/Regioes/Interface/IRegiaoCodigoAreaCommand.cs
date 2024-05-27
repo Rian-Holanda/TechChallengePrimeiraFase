@@ -7,7 +7,7 @@ using Entities_TechChallengePrimeiraFase.Entities;
 
 namespace DataAccess_TechChallengePrimeiraFase.Regioes.Interface
 {
-    internal interface IRegiaoCodigoAreaCommand
+    public interface IRegiaoCodigoAreaCommand
     {
 
         int InserirRegiaoCodigoArea(RegioesCodigosAreasEntity regioesCodigosAreasEntity);

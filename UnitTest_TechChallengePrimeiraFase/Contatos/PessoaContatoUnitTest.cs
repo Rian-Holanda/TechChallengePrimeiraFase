@@ -4,6 +4,7 @@ using DataAccess_TechChallengePrimeiraFase.Regioes.Command;
 using Entities_TechChallengePrimeiraFase.Entities;
 using Entities_TechChallengePrimeiraFase.Enuns;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using System;
@@ -34,6 +35,7 @@ namespace UnitTest_TechChallengePrimeiraFase.Contatos
                             .BuildServiceProvider();
 
             var builder = new DbContextOptionsBuilder<ApplicationDbContext>();
+
 
             builder.UseSqlServer(connectionString)
                    .UseInternalServiceProvider(serviceProvider);

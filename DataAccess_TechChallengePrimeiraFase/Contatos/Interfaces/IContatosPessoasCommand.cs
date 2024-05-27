@@ -7,7 +7,7 @@ using Entities_TechChallengePrimeiraFase.Entities;
 
 namespace DataAccess_TechChallengePrimeiraFase.Regioes.Interface
 {
-    internal interface IContatosPessoasCommand
+    public interface IContatosPessoasCommand
     {
 
         int InserirContatoPessoa(ContatosPessoaEntity contatoPessoaEntity);

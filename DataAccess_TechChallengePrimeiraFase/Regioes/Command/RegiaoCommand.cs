@@ -7,6 +7,7 @@ using AutoMapper;
 using DataAccess_TechChallengePrimeiraFase.Regioes.Interface;
 using Entities_TechChallengePrimeiraFase.Entities;
 using Infrastructure_TechChallengePrimeiraFase;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
 
 namespace DataAccess_TechChallengePrimeiraFase.Regioes.Command
@@ -90,7 +91,10 @@ namespace DataAccess_TechChallengePrimeiraFase.Regioes.Command
         {
             try 
             { 
-                var regioes = context.Regioes.Select(r => r).ToList();
+                var regioes = context.Regioes
+                                     .Select(r => r)
+                                     .Include(cr => cr.RegiaoCodigoAreas)
+                                     .ToList();
 
                 return regioes;
             }

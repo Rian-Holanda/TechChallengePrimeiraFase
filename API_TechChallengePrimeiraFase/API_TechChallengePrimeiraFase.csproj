@@ -15,12 +15,12 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Controllers\Contatos\" />
-    <Folder Include="Controllers\Regioes\" />
+    <ProjectReference Include="..\Business_TechChallengePrimeiraFase\Business_TechChallengePrimeiraFase.csproj" />
+    <ProjectReference Include="..\DataAccess_TechChallengePrimeiraFase\DataAccess_TechChallengePrimeiraFase.csproj" />
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Business_TechChallengePrimeiraFase\Business_TechChallengePrimeiraFase.csproj" />
+    <Folder Include="Models\Pessoa\" />
   </ItemGroup>
 
 </Project>

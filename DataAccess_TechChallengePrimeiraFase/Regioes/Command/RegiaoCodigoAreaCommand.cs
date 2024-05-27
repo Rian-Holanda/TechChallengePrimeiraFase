@@ -96,7 +96,6 @@ namespace DataAccess_TechChallengePrimeiraFase.Regioes.Command
             { 
                 var regioesCodigosAreas = context.RegioesCodigosAreas
                                                  .Select(r => r)
-                                                 .Include(r => r.Regiao)
                                                  .ToList();
 
                 return regioesCodigosAreas;
