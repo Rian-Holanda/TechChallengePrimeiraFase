@@ -14,7 +14,7 @@ namespace DataAccess_TechChallengePrimeiraFase.Regioes.Queries
     public class RegiaoQueries : IRegiaoQueries
     {
         private readonly IApplicationDbContext context;
-        private readonly ILogger<RegiaoQueries>? logger;
+        private readonly ILogger<RegiaoQueries> logger;
 
         public RegiaoQueries(IApplicationDbContext context, ILogger<RegiaoQueries> logger)
         {
@@ -34,7 +34,8 @@ namespace DataAccess_TechChallengePrimeiraFase.Regioes.Queries
                 return sigla;   
             }
             catch (Exception ex) 
-            { 
+            {
+                logger.LogError(ex.Message);
                 return String.Empty;
             }
         }
@@ -49,6 +50,7 @@ namespace DataAccess_TechChallengePrimeiraFase.Regioes.Queries
             }
             catch (Exception ex) 
             {
+                logger.LogError(ex.Message);
                 return new RegioesEntity();
             }
 

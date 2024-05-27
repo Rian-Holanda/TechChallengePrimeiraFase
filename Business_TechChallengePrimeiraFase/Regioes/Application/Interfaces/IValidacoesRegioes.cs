@@ -11,5 +11,7 @@ namespace Business_TechChallengePrimeiraFase.Regioes.Application.Interfaces
         public bool ValidaRegiaoExistente(string sigla);
 
         public bool ValidaCodigoAreaExistente(int ddd);
+
+        public bool ValidaRegiao(string sigla);
     }
 }

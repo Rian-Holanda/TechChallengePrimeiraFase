@@ -4,9 +4,11 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using AutoMapper;
+using DataAccess_TechChallengePrimeiraFase.Contatos.Interface;
 using DataAccess_TechChallengePrimeiraFase.Regioes.Interface;
 using Entities_TechChallengePrimeiraFase.Entities;
 using Infrastructure_TechChallengePrimeiraFase;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
 
 namespace DataAccess_TechChallengePrimeiraFase.Regioes.Command
@@ -31,6 +33,7 @@ namespace DataAccess_TechChallengePrimeiraFase.Regioes.Command
             }
             catch (Exception ex) 
             {
+                logger.LogError(ex.Message);
                 return 0;
             }
         }
@@ -47,7 +50,8 @@ namespace DataAccess_TechChallengePrimeiraFase.Regioes.Command
                 return (result != 0);
             }
             catch (Exception ex) 
-            { 
+            {
+                logger.LogError(ex.Message);
                 return false;
             }
         }
@@ -66,6 +70,7 @@ namespace DataAccess_TechChallengePrimeiraFase.Regioes.Command
             }
             catch (Exception ex) 
             {
+                logger.LogError(ex.Message);
                 return false;
             }
         }
@@ -74,12 +79,17 @@ namespace DataAccess_TechChallengePrimeiraFase.Regioes.Command
         {
             try 
             {
-                var contatoPessoa = context.ContatosPessoas.Where(cp => cp.Id == idContatoPessoa).FirstOrDefault();
+                var contatoPessoa = context.ContatosPessoas
+                                    .Where(cp => cp.Id == idContatoPessoa)
+                                    .Include(p => p.Pessoa)
+                                    .Include(r => r.Regiao)
+                                    .FirstOrDefault();
 
                 return (contatoPessoa is not null)? contatoPessoa : null;
             }
             catch (Exception ex) 
             {
+                logger.LogError(ex.Message);
                 return null;
             }
              
@@ -89,12 +99,15 @@ namespace DataAccess_TechChallengePrimeiraFase.Regioes.Command
         {
             try 
             { 
-                var contatosPessoas = context.ContatosPessoas.Select(cp => cp).ToList();
+                var contatosPessoas = context.ContatosPessoas
+                                     .Select(cp => cp)
+                                     .ToList();
 
                 return contatosPessoas;
             }
             catch (Exception ex) 
             {
+                logger.LogError(ex.Message);
                 return new List<ContatosPessoaEntity>();
             }
 

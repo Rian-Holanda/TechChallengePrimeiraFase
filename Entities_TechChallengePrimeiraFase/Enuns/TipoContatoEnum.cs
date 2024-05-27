@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Entities_TechChallengePrimeiraFase.Enuns
 {
-    enum TipoContato
+    public enum TipoContatoEnum
     {
         Fixo,
         Celular

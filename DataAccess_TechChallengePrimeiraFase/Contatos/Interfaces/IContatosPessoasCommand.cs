@@ -5,9 +5,9 @@ using System.Text;
 using System.Threading.Tasks;
 using Entities_TechChallengePrimeiraFase.Entities;
 
-namespace DataAccess_TechChallengePrimeiraFase.Regioes.Interface
+namespace DataAccess_TechChallengePrimeiraFase.Contatos.Interface
 {
-    internal interface IContatosPessoasCommand
+    public interface IContatosPessoasCommand
     {
 
         int InserirContatoPessoa(ContatosPessoaEntity contatoPessoaEntity);

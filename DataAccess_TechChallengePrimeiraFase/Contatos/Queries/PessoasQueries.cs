@@ -13,7 +13,7 @@ namespace DataAccess_TechChallengePrimeiraFase.Contatos.Queries
     public class PessoasQueries: IPessoasQueries
     {
         private readonly IApplicationDbContext context;
-        private readonly ILogger<PessoasQueries>? logger;
+        private readonly ILogger<PessoasQueries> logger;
 
         public PessoasQueries(IApplicationDbContext context, ILogger<PessoasQueries> logger)
         {
@@ -34,6 +34,7 @@ namespace DataAccess_TechChallengePrimeiraFase.Contatos.Queries
             }
             catch(Exception ex) 
             {
+                logger.LogError(ex.Message);
                 return String.Empty;
             }
         }
@@ -51,6 +52,7 @@ namespace DataAccess_TechChallengePrimeiraFase.Contatos.Queries
             }
             catch (Exception ex)
             {
+                logger.LogError(ex.Message);
                 return String.Empty;
             }
         }

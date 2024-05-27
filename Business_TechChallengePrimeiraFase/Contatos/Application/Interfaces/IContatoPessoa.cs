@@ -6,7 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 using FluentValidation;
 
-namespace Business_TechChallengePrimeiraFase.Contatos.Applicacation.Interfaces
+namespace Business_TechChallengePrimeiraFase.Contatos.Application.Interfaces
 {
     public interface IContatoPessoa
     {
@@ -21,7 +21,7 @@ namespace Business_TechChallengePrimeiraFase.Contatos.Applicacation.Interfaces
             {
                 bool validacao = false;
 
-                if(contatosPessoaEntity is { Numero.Length: 10, IdRegiao: > 0 } 
+                if(contatosPessoaEntity is { Numero.Length: 11, IdRegiao: > 0 } 
                     && contatosPessoaEntity.Numero.Substring(2,1) == "9") 
                 {
                     validacao = true;

@@ -75,11 +75,9 @@ public class ApplicationDbContext : DbContext, IApplicationDbContext
         {
             entity.ToTable("tb_RegiaoCodigoArea");
             entity.HasKey(e => e.Id);
-
-
             entity.HasOne(d => d.Regiao)
-                .WithMany(p => p.RegiaoCodigoAreas)
-                .HasForeignKey(d => d.IdRegiao);
+                  .WithMany(p => p.RegiaoCodigoAreas)
+                  .HasForeignKey(d => d.IdRegiao);
         });
 
         base.OnModelCreating(modelBuilder);

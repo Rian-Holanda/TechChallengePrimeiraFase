@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace DataAccess_TechChallengePrimeiraFase.Contatos.Interfaces
 {
-    internal interface IPessoasQueries
+    public interface IPessoasQueries
     {
         string? GetEmailPessoa(int idPessoa);
         string? GetNomePessoa(int idPessoa);

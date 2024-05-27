@@ -12,15 +12,11 @@ namespace Business_TechChallengePrimeiraFase.Regioes.Domain
 {
     public class ValidacoesRegioes : IValidacoesRegioes
     {
-        private readonly ILogger _logger;
         private readonly IRegiaoCodigoAreaQueries _regiaoCodigoAreaQueries;
         private readonly IRegiaoQueries _regiaoQueries;
-        private readonly IDatabase _db;
 
-        public ValidacoesRegioes(ILogger logger, IDatabase db, IRegiaoCodigoAreaQueries regiaoCodigoAreaQueries, IRegiaoQueries regiaoQueries)
+        public ValidacoesRegioes(IRegiaoCodigoAreaQueries regiaoCodigoAreaQueries, IRegiaoQueries regiaoQueries)
         {
-            _logger = logger;
-            _db = db;
             _regiaoCodigoAreaQueries = regiaoCodigoAreaQueries;
             _regiaoQueries = regiaoQueries;
         }
@@ -52,6 +48,11 @@ namespace Business_TechChallengePrimeiraFase.Regioes.Domain
             {
                 return false;
             }
+        }
+
+        public bool ValidaRegiao(string sigla) 
+        {
+            return (sigla.Length == 2);
         }
     }
 }
