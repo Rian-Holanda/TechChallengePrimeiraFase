@@ -46,7 +46,7 @@ jobs:
       - name: Download artifact from build job
         uses: actions/download-artifact@v4
         with:
-          name: .API_TechChallengePrimeiraFase
+          name: API_TechChallengePrimeiraFase
       
       - name: Login to Azure
         uses: azure/login@v2
