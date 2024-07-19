@@ -61,7 +61,7 @@ jobs:
       - name: 'Run Azure webapp deploy action using publish profile credentials'
         uses: azure/webapps-deploy@v3
         with: 
-          app-name: ${{ env.AZURE_WEBAPP_NAME }} # Replace with your app name
+          app-name: apitechchallengefiap2 # Replace with your app name
           package: 'https://apitechchallengefiap2.azurewebsites.net'
       
       - name: logout
