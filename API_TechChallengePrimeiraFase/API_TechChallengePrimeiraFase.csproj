@@ -19,4 +19,8 @@
     <ProjectReference Include="..\DataAccess_TechChallengePrimeiraFase\DataAccess_TechChallengePrimeiraFase.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <None Include=".github\workflows\deploygit.yml" />
+  </ItemGroup>
+
 </Project>
