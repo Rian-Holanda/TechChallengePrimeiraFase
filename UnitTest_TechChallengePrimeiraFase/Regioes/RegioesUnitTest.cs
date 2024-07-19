@@ -1,5 +1,4 @@
-﻿using Business_TechChallengePrimeiraFase.Contatos.Applicacation.Interfaces;
-using Business_TechChallengePrimeiraFase.Regioes.Application.Interfaces;
+﻿using Business_TechChallengePrimeiraFase.Regioes.Application.Interfaces;
 using Business_TechChallengePrimeiraFase.Regioes.Domain;
 using Castle.Core.Logging;
 using DataAccess_TechChallengePrimeiraFase.Regioes.Command;
