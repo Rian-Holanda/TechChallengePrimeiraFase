@@ -30,8 +30,8 @@ jobs:
       - name: Upload artifact for deployment job
         uses: actions/upload-artifact@v4
         with:
-          name: .API_TechChallengePrimeiraFase
-          path: ${{env.DOTNET_ROOT}}/myapp
+          name: .net-app
+          path: ${{env.GITHUB_WORKSPACE}}\myapp
 
   deploy:
     runs-on: windows-latest
@@ -46,7 +46,7 @@ jobs:
       - name: Download artifact from build job
         uses: actions/download-artifact@v4
         with:
-          name: API_TechChallengePrimeiraFase
+          name: .net-app
       
       - name: Login to Azure
         uses: azure/login@v2
@@ -59,6 +59,6 @@ jobs:
         id: deploy-to-webapp
         uses: azure/webapps-deploy@v3
         with:
-          app-name: 'APITechChallengePrimeiraFase20240717125610'
+          app-name: 'apitechchallengefiap2'
           slot-name: 'production'
           package: .
