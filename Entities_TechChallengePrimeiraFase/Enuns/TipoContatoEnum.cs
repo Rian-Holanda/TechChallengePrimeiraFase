@@ -4,9 +4,11 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Entities_TechChallengePrimeiraFase
+namespace Entities_TechChallengePrimeiraFase.Enuns
 {
-    internal class Regioes
+    public enum TipoContatoEnum
     {
+        Fixo,
+        Celular
     }
 }

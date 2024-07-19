@@ -12,12 +12,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Contatos\Command\" />
-    <Folder Include="Contatos\Mapping\" />
-    <Folder Include="Contatos\Queries\" />
-    <Folder Include="Regioes\Command\" />
-    <Folder Include="Regioes\Mapping\" />
-    <Folder Include="Regioes\Queries\" />
+    <PackageReference Include="AutoMapper" Version="13.0.1" />
   </ItemGroup>
 
 </Project>

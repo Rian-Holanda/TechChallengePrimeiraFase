@@ -1,0 +1,55 @@
+﻿name: .NET Core
+
+on:
+  push:
+    branches:
+      - main
+
+permissions:
+      id-token: write
+      contents: read
+
+  
+
+env:
+  AZURE_WEBAPP_NAME: apitechchallengefiap2    # set this to your application's name
+  AZURE_WEBAPP_PACKAGE_PATH: '.'      # set this to the path to your web app project, defaults to the repository root
+  DOTNET_VERSION: '8.0.x'           # set this to the dot net version to use
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      # Checkout the repo
+      - uses: actions/checkout@main
+      - uses: azure/login@v1
+        with:
+          client-id: 7d614e99-401a-4396-b1c6-45c81557f45a
+          tenant-id: 19e1a926-58e8-4e9b-80cd-c303162635e2
+          subscription-id: Azure subscription 1
+
+      
+      # Setup .NET Core SDK
+      - name: Setup .NET Core
+        uses: actions/setup-dotnet@v3
+        with:
+          dotnet-version: ${{ env.DOTNET_VERSION }} 
+      
+      # Run dotnet build and publish
+      - name: dotnet build and publish
+        run: |
+          dotnet restore
+          dotnet build --configuration Release
+          dotnet publish -c Release --property:PublishDir='${{ env.AZURE_WEBAPP_PACKAGE_PATH }}/myapp' 
+          
+      # Deploy to Azure Web apps
+      - name: 'Run Azure webapp deploy action using publish profile credentials'
+        uses: azure/webapps-deploy@v3
+        with: 
+          app-name: ${{ env.AZURE_WEBAPP_NAME }} # Replace with your app name
+          package: '${{ env.AZURE_WEBAPP_PACKAGE_PATH }}/myapp'
+      
+      - name: logout
+        run: |
+          az logout
