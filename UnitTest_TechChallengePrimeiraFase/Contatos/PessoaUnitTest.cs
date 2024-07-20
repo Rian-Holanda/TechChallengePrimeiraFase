@@ -98,23 +98,20 @@ namespace UnitTest_TechChallengePrimeiraFase.Contatos
 
             PessoasCommand pessoasCommand = new PessoasCommand(_context, loggerPessoaCommand);
 
-            
-            //if (pessoasCommand.GetPessoas().Count > 0)
-            //{
-            //    int id = pessoas.FirstOrDefault().Id;
+            var pessoas = pessoasCommand.GetPessoas();
 
-            //    var pessoa = pessoasCommand.GetPessoa();
+            if (pessoas != null)
+            {
+                if (pessoas.Count > 0)
+                {
+                    var pessoa = pessoasCommand.GetPessoa(pessoas.First().Id);
 
-
-            //    if (pessoa is not null)
-            //    {
-
-            //        Assert.True(pessoasCommand.ExcluirPessoa(pessoa.Id));
-            //    }
-
-            //}
-
-
+                    if (pessoa is not null)
+                    {
+                        Assert.True(pessoasCommand.ExcluirPessoa(pessoa.Id));
+                    }
+                }
+            }
         }
     }
 }
