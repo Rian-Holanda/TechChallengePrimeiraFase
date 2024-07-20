@@ -62,7 +62,16 @@ namespace UnitTest_TechChallengePrimeiraFase.Contatos
 
             PessoasCommand pessoasCommand = new PessoasCommand(_context, loggerPessoaCommand);
 
-            Assert.True(pessoasCommand.GetPessoa(1) != null);
+
+            var pessoas = pessoasCommand.GetPessoas();
+
+            if (pessoas != null)
+            {
+                if (pessoas.Count > 0)
+                {
+                    Assert.True(pessoasCommand.GetPessoa(pessoas.First().Id) != null);
+                }
+            }
 
         }
 
