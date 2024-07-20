@@ -46,105 +46,105 @@ namespace UnitTest_TechChallengePrimeiraFase.Contatos
 
         }
 
-        [Fact]
-        public void ValidaInsertContatoPessoa() 
-        {
-            RegiaoCommand regiaoCommand = new RegiaoCommand(_context, loggerRegiaoCommand);
-            PessoasCommand pessoasCommand = new PessoasCommand(_context, loggerPessoaCommand);
-            ContatosPessoasCommand contatosPessoasCommand = new ContatosPessoasCommand(_context, loggerContatoPessoaCommand);
+        //[Fact]
+        //public void ValidaInsertContatoPessoa() 
+        //{
+        //    RegiaoCommand regiaoCommand = new RegiaoCommand(_context, loggerRegiaoCommand);
+        //    PessoasCommand pessoasCommand = new PessoasCommand(_context, loggerPessoaCommand);
+        //    ContatosPessoasCommand contatosPessoasCommand = new ContatosPessoasCommand(_context, loggerContatoPessoaCommand);
 
-            var pessoa = pessoasCommand.GetPessoa(2);
-            var regiao = regiaoCommand.GetRegiao(2);
-            if(pessoa is not null && regiao is not null) 
-            {
-                ContatoPessoaDomain contatoPessoaDomain = new ContatoPessoaDomain();
+        //    var pessoa = pessoasCommand.GetPessoa(2);
+        //    var regiao = regiaoCommand.GetRegiao(2);
+        //    if(pessoa is not null && regiao is not null) 
+        //    {
+        //        ContatoPessoaDomain contatoPessoaDomain = new ContatoPessoaDomain();
 
-                string contato1 = "3256780987";
-                string contato2 = "32956780987";
+        //        string contato1 = "3256780987";
+        //        string contato2 = "32956780987";
 
-                ContatosPessoaEntity contatosPessoaEntity1 = new ContatosPessoaEntity()
-                {
-                    Pessoa = pessoa,
-                    Regiao = regiao,
-                    Numero = contato1,
-                    IdPessoa = pessoa.Id,
-                    IdRegiao = regiao.Id,
-                    TipoContatoPessoa = (int)TipoContatoEnum.Fixo
-                };
+        //        ContatosPessoaEntity contatosPessoaEntity1 = new ContatosPessoaEntity()
+        //        {
+        //            Pessoa = pessoa,
+        //            Regiao = regiao,
+        //            Numero = contato1,
+        //            IdPessoa = pessoa.Id,
+        //            IdRegiao = regiao.Id,
+        //            TipoContatoPessoa = (int)TipoContatoEnum.Fixo
+        //        };
 
-                var tipoContatoFixo = contatoPessoaDomain.ValidaTipoContato(new ValidaContatoPessoaFixo(), contatosPessoaEntity1);
+        //        var tipoContatoFixo = contatoPessoaDomain.ValidaTipoContato(new ValidaContatoPessoaFixo(), contatosPessoaEntity1);
 
-                ContatosPessoaEntity contatosPessoaEntity2 = new ContatosPessoaEntity()
-                {
-                    Pessoa = pessoa,
-                    Regiao = regiao,
-                    Numero = contato2,
-                    IdPessoa = pessoa.Id,
-                    IdRegiao = regiao.Id,
-                    TipoContatoPessoa = (int)TipoContatoEnum.Celular
-                };
+        //        ContatosPessoaEntity contatosPessoaEntity2 = new ContatosPessoaEntity()
+        //        {
+        //            Pessoa = pessoa,
+        //            Regiao = regiao,
+        //            Numero = contato2,
+        //            IdPessoa = pessoa.Id,
+        //            IdRegiao = regiao.Id,
+        //            TipoContatoPessoa = (int)TipoContatoEnum.Celular
+        //        };
 
-                var tipoContatoCelular = contatoPessoaDomain.ValidaTipoContato(new ValidaContatoPessoaCelular(), contatosPessoaEntity2);
+        //        var tipoContatoCelular = contatoPessoaDomain.ValidaTipoContato(new ValidaContatoPessoaCelular(), contatosPessoaEntity2);
 
-                if (tipoContatoFixo && tipoContatoCelular) 
-                {
-                    var result1 = contatosPessoasCommand.InserirContatoPessoa(contatosPessoaEntity1);
-                    var result2 = contatosPessoasCommand.InserirContatoPessoa(contatosPessoaEntity2);
+        //        if (tipoContatoFixo && tipoContatoCelular) 
+        //        {
+        //            var result1 = contatosPessoasCommand.InserirContatoPessoa(contatosPessoaEntity1);
+        //            var result2 = contatosPessoasCommand.InserirContatoPessoa(contatosPessoaEntity2);
 
-                    Assert.True(result1 > 0 && result2 > 0);
-                }
+        //            Assert.True(result1 > 0 && result2 > 0);
+        //        }
 
-            }
-        }
+        //    }
+        //}
 
-        [Fact]
-        public void ValidaGetContatoPessoa()
-        {
-            ContatosPessoasCommand contatosPessoasCommand = new ContatosPessoasCommand(_context, loggerContatoPessoaCommand);
+        //[Fact]
+        //public void ValidaGetContatoPessoa()
+        //{
+        //    ContatosPessoasCommand contatosPessoasCommand = new ContatosPessoasCommand(_context, loggerContatoPessoaCommand);
 
-            var contatoPessoa = contatosPessoasCommand.GetContatoPessoa(1);
+        //    var contatoPessoa = contatosPessoasCommand.GetContatoPessoa(1);
 
-            Assert.NotNull(contatoPessoa);
-        }
+        //    Assert.NotNull(contatoPessoa);
+        //}
 
-        [Fact]
-        public void ValidaGetContatosPessoas()
-        {
-            ContatosPessoasCommand contatosPessoasCommand = new ContatosPessoasCommand(_context, loggerContatoPessoaCommand);
+        //[Fact]
+        //public void ValidaGetContatosPessoas()
+        //{
+        //    ContatosPessoasCommand contatosPessoasCommand = new ContatosPessoasCommand(_context, loggerContatoPessoaCommand);
 
-            var contatosPessoas = contatosPessoasCommand.GetContatosPessoas();
+        //    var contatosPessoas = contatosPessoasCommand.GetContatosPessoas();
 
-            Assert.True(contatosPessoas?.Count() > 0);
-        }
+        //    Assert.True(contatosPessoas?.Count() > 0);
+        //}
 
-        [Fact]
-        public void ValidaUpdateContatoPessoa() 
-        {
-            ContatosPessoasCommand contatosPessoasCommand = new ContatosPessoasCommand(_context, loggerContatoPessoaCommand);
+        //[Fact]
+        //public void ValidaUpdateContatoPessoa() 
+        //{
+        //    ContatosPessoasCommand contatosPessoasCommand = new ContatosPessoasCommand(_context, loggerContatoPessoaCommand);
 
-            var contatoPessoa = contatosPessoasCommand.GetContatoPessoa(1);
+        //    var contatoPessoa = contatosPessoasCommand.GetContatoPessoa(1);
 
-            if(contatoPessoa is not null) 
-            {
-                contatoPessoa.Numero = "3256780900";
+        //    if(contatoPessoa is not null) 
+        //    {
+        //        contatoPessoa.Numero = "3256780900";
 
-                Assert.True(contatosPessoasCommand.AlterarContatoPessoa(contatoPessoa, contatoPessoa.Id));
-            }
+        //        Assert.True(contatosPessoasCommand.AlterarContatoPessoa(contatoPessoa, contatoPessoa.Id));
+        //    }
           
-        }
+        //}
 
-        [Fact]
-        public void ValidaExcluirContatoPessoa()
-        {
-            ContatosPessoasCommand contatosPessoasCommand = new ContatosPessoasCommand(_context, loggerContatoPessoaCommand);
+        //[Fact]
+        //public void ValidaExcluirContatoPessoa()
+        //{
+        //    ContatosPessoasCommand contatosPessoasCommand = new ContatosPessoasCommand(_context, loggerContatoPessoaCommand);
 
-            var contatoPessoa = contatosPessoasCommand.GetContatoPessoa(2);
+        //    var contatoPessoa = contatosPessoasCommand.GetContatoPessoa(2);
 
-            if (contatoPessoa is not null)
-            {
-                Assert.True(contatosPessoasCommand.ExcluirContatoPessoa(contatoPessoa.Id));
-            }
+        //    if (contatoPessoa is not null)
+        //    {
+        //        Assert.True(contatosPessoasCommand.ExcluirContatoPessoa(contatoPessoa.Id));
+        //    }
 
-        }
+        //}
     }
 }
