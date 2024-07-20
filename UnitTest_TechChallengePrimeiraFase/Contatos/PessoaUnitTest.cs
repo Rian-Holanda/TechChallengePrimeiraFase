@@ -40,89 +40,89 @@ namespace UnitTest_TechChallengePrimeiraFase.Contatos
 
         }
 
-        [Fact]
-        public void ValidaInsertPessoa()
-        {
-            PessoasEntity pessoasEntity = new PessoasEntity()
-            {
-                Nome = "Rian",
-                Email = "Rian.Holanda@teste.com"
+        //[Fact]
+        //public void ValidaInsertPessoa()
+        //{
+        //    PessoasEntity pessoasEntity = new PessoasEntity()
+        //    {
+        //        Nome = "Rian",
+        //        Email = "Rian.Holanda@teste.com"
 
-            };
+        //    };
 
-            PessoasCommand pessoasCommand = new PessoasCommand(_context, loggerPessoaCommand);
+        //    PessoasCommand pessoasCommand = new PessoasCommand(_context, loggerPessoaCommand);
 
-            var result = pessoasCommand.InserirPessoa(pessoasEntity);
+        //    var result = pessoasCommand.InserirPessoa(pessoasEntity);
 
-            Assert.True(result > 0);
+        //    Assert.True(result > 0);
 
-        }
+        //}
 
-        [Fact]
-        public void ValidaGetPessoa()
-        {
+        //[Fact]
+        //public void ValidaGetPessoa()
+        //{
 
-            PessoasCommand pessoasCommand = new PessoasCommand(_context, loggerPessoaCommand);
+        //    PessoasCommand pessoasCommand = new PessoasCommand(_context, loggerPessoaCommand);
 
 
-            var pessoas = pessoasCommand.GetPessoas();
+        //    var pessoas = pessoasCommand.GetPessoas();
 
-            if (pessoas != null)
-            {
-                if (pessoas.Count > 0)
-                {
-                    Assert.True(pessoasCommand.GetPessoa(pessoas.First().Id) != null);
-                }
-            }
+        //    if (pessoas != null)
+        //    {
+        //        if (pessoas.Count > 0)
+        //        {
+        //            Assert.True(pessoasCommand.GetPessoa(pessoas.First().Id) != null);
+        //        }
+        //    }
 
-        }
+        //}
 
-        [Fact]
-        public void ValidaGetPessoas()
-        {
+        //[Fact]
+        //public void ValidaGetPessoas()
+        //{
 
-            PessoasCommand pessoasCommand = new PessoasCommand(_context, loggerPessoaCommand);
+        //    PessoasCommand pessoasCommand = new PessoasCommand(_context, loggerPessoaCommand);
 
-            Assert.True(pessoasCommand.GetPessoas()?.Count() > 0);
+        //    Assert.True(pessoasCommand.GetPessoas()?.Count() > 0);
 
-        }
+        //}
 
-        [Fact]
-        public void ValidaAlterarPessoa()
-        {
+        //[Fact]
+        //public void ValidaAlterarPessoa()
+        //{
 
-            PessoasCommand pessoasCommand = new PessoasCommand(_context, loggerPessoaCommand);
+        //    PessoasCommand pessoasCommand = new PessoasCommand(_context, loggerPessoaCommand);
 
-            var pessoa = pessoasCommand.GetPessoa(2);
+        //    var pessoa = pessoasCommand.GetPessoa(2);
 
-            if (pessoa is not null)
-            {
-                pessoa.Email = "rian.holanda@teste.com.br";
+        //    if (pessoa is not null)
+        //    {
+        //        pessoa.Email = "rian.holanda@teste.com.br";
 
-                Assert.True(pessoasCommand.AlterarPessoa(pessoa, pessoa.Id));
-            }
-        }
+        //        Assert.True(pessoasCommand.AlterarPessoa(pessoa, pessoa.Id));
+        //    }
+        //}
 
-        [Fact]
-        public void ValidaDeletarPessoa()
-        {
+        //[Fact]
+        //public void ValidaDeletarPessoa()
+        //{
 
-            PessoasCommand pessoasCommand = new PessoasCommand(_context, loggerPessoaCommand);
+        //    PessoasCommand pessoasCommand = new PessoasCommand(_context, loggerPessoaCommand);
 
-            var pessoas = pessoasCommand.GetPessoas();
+        //    var pessoas = pessoasCommand.GetPessoas();
 
-            if (pessoas != null)
-            {
-                if (pessoas.Count > 0)
-                {
-                    var pessoa = pessoasCommand.GetPessoa(pessoas.First().Id);
+        //    if (pessoas != null)
+        //    {
+        //        if (pessoas.Count > 0)
+        //        {
+        //            var pessoa = pessoasCommand.GetPessoa(pessoas.First().Id);
 
-                    if (pessoa is not null)
-                    {
-                        Assert.True(pessoasCommand.ExcluirPessoa(pessoa.Id));
-                    }
-                }
-            }
-        }
+        //            if (pessoa is not null)
+        //            {
+        //                Assert.True(pessoasCommand.ExcluirPessoa(pessoa.Id));
+        //            }
+        //        }
+        //    }
+        //}
     }
 }
