@@ -52,7 +52,9 @@ namespace UnitTest_TechChallengePrimeiraFase.Contatos
 
             PessoasCommand pessoasCommand = new PessoasCommand(_context, loggerPessoaCommand);
 
-            Assert.True(pessoasCommand.InserirPessoa(pessoasEntity) > 0);
+            var result = pessoasCommand.InserirPessoa(pessoasEntity);
+
+            Assert.True(result > 0);
 
         }
 
