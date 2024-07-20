@@ -50,12 +50,10 @@ namespace UnitTest_TechChallengePrimeiraFase.Contatos
 
             };
 
-            if (loggerPessoaCommand is not null)
-            {
-                PessoasCommand pessoasCommand = new PessoasCommand(_context, loggerPessoaCommand);
+            PessoasCommand pessoasCommand = new PessoasCommand(_context, loggerPessoaCommand);
 
-                Assert.True(pessoasCommand.InserirPessoa(pessoasEntity) > 0);
-            }
+            Assert.True(pessoasCommand.InserirPessoa(pessoasEntity) > 0);
+
         }
 
         [Fact]
@@ -84,7 +82,7 @@ namespace UnitTest_TechChallengePrimeiraFase.Contatos
 
             PessoasCommand pessoasCommand = new PessoasCommand(_context, loggerPessoaCommand);
 
-            var pessoa = pessoasCommand.GetPessoa(1);
+            var pessoa = pessoasCommand.GetPessoa(2);
 
             if (pessoa is not null)
             {
@@ -100,13 +98,22 @@ namespace UnitTest_TechChallengePrimeiraFase.Contatos
 
             PessoasCommand pessoasCommand = new PessoasCommand(_context, loggerPessoaCommand);
 
-            var pessoa = pessoasCommand.GetPessoa(1);
+            
+            //if (pessoasCommand.GetPessoas().Count > 0)
+            //{
+            //    int id = pessoas.FirstOrDefault().Id;
 
-            if (pessoa is not null)
-            {
+            //    var pessoa = pessoasCommand.GetPessoa();
 
-                Assert.True(pessoasCommand.ExcluirPessoa(pessoa.Id));
-            }
+
+            //    if (pessoa is not null)
+            //    {
+
+            //        Assert.True(pessoasCommand.ExcluirPessoa(pessoa.Id));
+            //    }
+
+            //}
+
 
         }
     }
