@@ -15,9 +15,9 @@ namespace DataAccess_TechChallengePrimeiraFase.Contatos.Command
     public class PessoasCommand : IPessoasCommand
     {
         private readonly IApplicationDbContext context;
-        private readonly ILogger<PessoasCommand> logger;
+        private readonly ILogger<PessoasCommand>? logger;
 
-        public PessoasCommand( IApplicationDbContext context, ILogger<PessoasCommand> logger)
+        public PessoasCommand( IApplicationDbContext context, ILogger<PessoasCommand>? logger)
         {
             this.context = context;
             this.logger = logger;
@@ -31,7 +31,7 @@ namespace DataAccess_TechChallengePrimeiraFase.Contatos.Command
             }
             catch (Exception ex) 
             {
-                logger.LogError(ex.Message);
+                logger?.LogError(ex.Message);
                 return 0;
             }
         }
@@ -49,7 +49,7 @@ namespace DataAccess_TechChallengePrimeiraFase.Contatos.Command
             }
             catch (Exception ex) 
             {
-                logger.LogError(ex.Message);
+                logger?.LogError(ex.Message);
                 return false;
             }
         }
@@ -68,7 +68,7 @@ namespace DataAccess_TechChallengePrimeiraFase.Contatos.Command
             }
             catch (Exception ex) 
             {
-                logger.LogError(ex.Message);
+                logger?.LogError(ex.Message);
                 return false;
             }
         }
@@ -83,7 +83,7 @@ namespace DataAccess_TechChallengePrimeiraFase.Contatos.Command
             }
             catch (Exception ex) 
             {
-                logger.LogError(ex.Message);
+                logger?.LogError(ex.Message);
                 return null;
             }
              
@@ -102,7 +102,7 @@ namespace DataAccess_TechChallengePrimeiraFase.Contatos.Command
             }
             catch (Exception ex) 
             {
-                logger.LogError(ex.Message);
+                logger?.LogError(ex.Message);
                 return new List<PessoasEntity>();
             }
 
