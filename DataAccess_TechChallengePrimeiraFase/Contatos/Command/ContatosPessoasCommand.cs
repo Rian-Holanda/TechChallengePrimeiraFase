@@ -16,9 +16,9 @@ namespace DataAccess_TechChallengePrimeiraFase.Regioes.Command
     public class ContatosPessoasCommand : IContatosPessoasCommand
     {
         private readonly IApplicationDbContext context;
-        private readonly ILogger<ContatosPessoasCommand> logger;
+        private readonly ILogger<ContatosPessoasCommand>? logger;
 
-        public ContatosPessoasCommand( IApplicationDbContext context, ILogger<ContatosPessoasCommand> logger)
+        public ContatosPessoasCommand( IApplicationDbContext context, ILogger<ContatosPessoasCommand>? logger)
         {
             this.context = context;
             this.logger = logger;
@@ -33,7 +33,7 @@ namespace DataAccess_TechChallengePrimeiraFase.Regioes.Command
             }
             catch (Exception ex) 
             {
-                logger.LogError(ex.Message);
+                logger?.LogError(ex.Message);
                 return 0;
             }
         }
@@ -51,7 +51,7 @@ namespace DataAccess_TechChallengePrimeiraFase.Regioes.Command
             }
             catch (Exception ex) 
             {
-                logger.LogError(ex.Message);
+                logger?.LogError(ex.Message);
                 return false;
             }
         }
@@ -70,7 +70,7 @@ namespace DataAccess_TechChallengePrimeiraFase.Regioes.Command
             }
             catch (Exception ex) 
             {
-                logger.LogError(ex.Message);
+                logger?.LogError(ex.Message);
                 return false;
             }
         }
@@ -89,7 +89,7 @@ namespace DataAccess_TechChallengePrimeiraFase.Regioes.Command
             }
             catch (Exception ex) 
             {
-                logger.LogError(ex.Message);
+                logger?.LogError(ex.Message);
                 return null;
             }
              
@@ -107,7 +107,7 @@ namespace DataAccess_TechChallengePrimeiraFase.Regioes.Command
             }
             catch (Exception ex) 
             {
-                logger.LogError(ex.Message);
+                logger?.LogError(ex.Message);
                 return new List<ContatosPessoaEntity>();
             }
 
