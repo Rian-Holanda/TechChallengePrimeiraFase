@@ -1,4 +1,7 @@
-﻿using System;
+﻿using API_TechChallengePrimeiraFase.Models.Regiao;
+using API_TechChallengePrimeiraFase.Teste;
+using Microsoft.AspNetCore.Mvc.Testing;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net.Http.Json;
@@ -7,29 +10,67 @@ using System.Threading.Tasks;
 
 namespace UnitTest_TechChallengePrimeiraFase.TestesIntegracao
 {
-    public  class RegiaoTeste
+    public class RegiaoTeste :
+   IClassFixture<WebApplicationFactory<IApiMarker>>
     {
+        private readonly HttpClient _httpClient;
+
+        public RegiaoTeste(WebApplicationFactory<IApiMarker> appFactory)
+        {
+            _httpClient = appFactory.CreateClient();
+        }
+
         [Fact]
-        //public async Task Get_ReturnDepartment_WhenDepartmentExist()
-        //{
-        //    Guid departmentId = Guid.Parse("f002392c-70e1-42dd-a3e9-467ee9c42284");
+        public async Task GetRegioes()
+        {
+            var response = await _httpClient.GetAsync($"/Regiao/GetRegioes");
 
-        //    var httpClient = new HttpClient
-        //    {
-        //        BaseAddress = new Uri("http://localhost:7200") // the base address of our API projext
-        //    };
+            var teste = response;
 
-        //    var response = await httpClient
-        //      .GetAsync($"/api/department/{departmentId}");
+            Assert.NotNull(response);
 
-        //    Assert.NotNull(response);
+            Assert.Equal(System.Net.HttpStatusCode.OK, response.StatusCode);
 
-        //    Assert.Equal(System.Net.HttpStatusCode.OK, response.StatusCode);
+        }
 
-        //    var department = await response.Content
-        //        .ReadFromJsonAsync<GetDepartmentResponse>();
+        [Fact]
+        public async Task GetSiglaCodigoArea()
+        {
+            var response = await _httpClient.GetAsync($"/RegioesCodigosAreas/GetSiglaCodigoArea/ddd");
 
-        //    Assert.Equal(departmentId, department.Id);
+            var teste = response;
+
+            Assert.NotNull(response);
+
+            Assert.Equal(System.Net.HttpStatusCode.OK, response.StatusCode);
+
+            var codigoArea = await response.Content.ReadFromJsonAsync<RegiaoCodigoAreaModel>();
+
+            Assert.Equal("SP", codigoArea?.siglaRegiao);
+
+        }
+
+        [Fact]
+        public async Task GetDDDs()
+        {
+            var response = await _httpClient.GetAsync($"/RegioesCodigosAreas/GetDDDs/siglaRegiao?siglaRegiao=SP");
+
+            var teste = response;
+
+            var ddds = await response.Content.ReadFromJsonAsync<List<int>>();
+
+            if (ddds != null) 
+            {
+                Assert.NotNull(response);
+
+                Assert.Equal(System.Net.HttpStatusCode.OK, response.StatusCode);
+
+                var ddd = ddds.Where(a => a == 11).Count();
+
+                Assert.Equal(1, ddd);
+            }
+
+
         }
     }
 }
