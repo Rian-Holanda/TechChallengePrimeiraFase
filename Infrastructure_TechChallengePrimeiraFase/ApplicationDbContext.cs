@@ -14,7 +14,7 @@ public class ApplicationDbContext : DbContext, IApplicationDbContext
 
     public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options) : base(options)
     {
-        
+
     }
 
     public DbSet<PessoasEntity> Pessoas { get; set; }
