@@ -19,7 +19,7 @@ jobs:
       - name: Set up .NET Core
         uses: actions/setup-dotnet@v4
         with:
-          dotnet-version: '8.0'
+          dotnet-version: '8.x'
 
       - name: Build with dotnet
         run: dotnet build --configuration Release
@@ -28,7 +28,8 @@ jobs:
         run: dotnet test --verbosity normal
 
       - name: dotnet publish
-        run: dotnet publish -c Release -o ${{env.DOTNET_ROOT}}/myapp
+        run:  dotnet publish -c Release
+        #run: dotnet publish -c Release -o "${{env.github.workspace}}\myapp"
 
       - name: Upload artifact for deployment job
         uses: actions/upload-artifact@v4
