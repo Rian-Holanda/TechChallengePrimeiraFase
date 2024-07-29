@@ -28,7 +28,7 @@ jobs:
         run: dotnet test --no-restore --verbosity normal
 
       - name: dotnet publish
-        run: dotnet publish -c Release -o "${{env.GITHUB_WORKSPACE}}\myapp" --self-contained true /p:UseAppHost=true
+        run: dotnet publish -c Release -o "${{env.GITHUB_WORKSPACE}}\myapp" --use-current-runtime /p:UseAppHost=true
 
       - name: Upload artifact for deployment job
         uses: actions/upload-artifact@v4
