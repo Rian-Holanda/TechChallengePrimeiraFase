@@ -36,7 +36,7 @@ namespace UnitTest_TechChallengePrimeiraFase.TestesIntegracao
         [Fact]
         public async Task GetSiglaCodigoArea()
         {
-            var response = await _httpClient.GetAsync($"/RegioesCodigosAreas/GetSiglaCodigoArea/ddd");
+            var response = await _httpClient.GetAsync($"/RegioesCodigosAreas/GetSiglaCodigoArea/ddd?ddd=11");
 
             var teste = response;
 
@@ -44,33 +44,37 @@ namespace UnitTest_TechChallengePrimeiraFase.TestesIntegracao
 
             Assert.Equal(System.Net.HttpStatusCode.OK, response.StatusCode);
 
-            var codigoArea = await response.Content.ReadFromJsonAsync<RegiaoCodigoAreaModel>();
-
-            Assert.Equal("SP", codigoArea?.siglaRegiao);
-
-        }
-
-        [Fact]
-        public async Task GetDDDs()
-        {
-            var response = await _httpClient.GetAsync($"/RegioesCodigosAreas/GetDDDs/siglaRegiao?siglaRegiao=SP");
-
-            var teste = response;
-
-            var ddds = await response.Content.ReadFromJsonAsync<List<int>>();
-
-            if (ddds != null) 
+            if (response != null)
             {
-                Assert.NotNull(response);
+                string codigoArea = response.Content.ReadAsStringAsync().Result;
 
-                Assert.Equal(System.Net.HttpStatusCode.OK, response.StatusCode);
-
-                var ddd = ddds.Where(a => a == 11).Count();
-
-                Assert.Equal(1, ddd);
+                Assert.Equal("SP", codigoArea);
             }
-
+           
 
         }
+
+    [Fact]
+    public async Task GetDDDs()
+    {
+        var response = await _httpClient.GetAsync($"/RegioesCodigosAreas/GetDDDs/siglaRegiao?siglaRegiao=SP");
+
+        var teste = response;
+
+        var ddds = await response.Content.ReadFromJsonAsync<List<int>>();
+
+        if (ddds != null)
+        {
+            Assert.NotNull(response);
+
+            Assert.Equal(System.Net.HttpStatusCode.OK, response.StatusCode);
+
+            var ddd = ddds.Where(a => a == 11).Count();
+
+            Assert.Equal(1, ddd);
+        }
+
+
     }
+}
 }
