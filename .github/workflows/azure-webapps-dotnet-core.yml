@@ -22,13 +22,13 @@ jobs:
           dotnet-version: '8.0'
 
       - name: Build with dotnet
-        run: dotnet build --configuration Release
+        run: dotnet build --configuration Release --no-restore
 
       - name: Test with the dotnet CLI
         run: dotnet test --no-restore --verbosity normal
 
       - name: dotnet publish
-        run: dotnet publish -c Release -o "${{env.GITHUB_WORKSPACE}}\myapp" --self-contained
+        run: dotnet publish -c Release -o "${{env.GITHUB_WORKSPACE}}\myapp"
 
       - name: Upload artifact for deployment job
         uses: actions/upload-artifact@v4
