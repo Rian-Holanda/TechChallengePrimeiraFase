@@ -1,67 +1,100 @@
-# Docs for the Azure Web Apps Deploy action: https://github.com/Azure/webapps-deploy
-# More GitHub Actions for Azure: https://github.com/Azure/actions
+# # Docs for the Azure Web Apps Deploy action: https://github.com/Azure/webapps-deploy
+# # More GitHub Actions for Azure: https://github.com/Azure/actions
 
-name: Build and deploy ASP.Net Core app to Azure Web App - APITechChallengePrimeiraFase20240717125610
+# name: Build and deploy ASP.Net Core app to Azure Web App - APITechChallengePrimeiraFase20240717125610
 
-on:
-  push:
-    branches:
-      - main
-  workflow_dispatch:
+# on:
+#   push:
+#     branches:
+#       - main
+#   workflow_dispatch:
+
+# jobs:
+#   build:
+#     runs-on: windows-latest
+
+#     steps:
+#       - uses: actions/checkout@v4
+
+#       - name: Set up .NET Core
+#         uses: actions/setup-dotnet@v4
+#         with:
+#           dotnet-version: '8.0'
+
+#       - name: Build with dotnet
+#         run: dotnet build --configuration Release -restore
+
+#       - name: Test with the dotnet CLI
+#         run: dotnet test --no-restore --verbosity normal
+
+#       - name: dotnet publish
+#         run: dotnet publish -c Release --property:PublishDir "${{env.GITHUB_WORKSPACE}}\myapp"
+
+#       - name: Upload artifact for deployment job
+#         uses: actions/upload-artifact@v4
+#         with:
+#           name: .net-app
+#           path: ${{env.GITHUB_WORKSPACE}}\myapp
+
+#   deploy:
+#     runs-on: windows-latest
+#     needs: build
+#     environment:
+#       name: 'production'
+#       url: ${{ steps.deploy-to-webapp.outputs.webapp-url }}
+#     permissions:
+#       id-token: write #This is required for requesting the JWT
+
+#     steps:
+#       - name: Download artifact from build job
+#         uses: actions/download-artifact@v4
+#         with:
+#           name: .net-app
+      
+#       - name: Login to Azure
+#         uses: azure/login@v2
+#         with:
+#           client-id: 5bb777b3-3b71-4192-a37d-e4c888c68358
+#           tenant-id: 19e1a926-58e8-4e9b-80cd-c303162635e2
+#           subscription-id: 7d614e99-401a-4396-b1c6-45c81557f45a
+
+#       - name: Deploy to Azure Web App
+#         id: deploy-to-webapp
+#         uses: azure/webapps-deploy@v3
+#         with:
+#           app-name: 'apitechchallengefiap2'
+#           slot-name: 'production'
+#           package: .
+
 
 jobs:
-  build:
+  publish:
+
     runs-on: windows-latest
 
     steps:
-      - uses: actions/checkout@v4
+    - uses: actions/checkout@v3
+    - name: Setup .NET Core
+      uses: actions/setup-dotnet@v3
+      with:
+        dotnet-version: '8.0'
 
-      - name: Set up .NET Core
-        uses: actions/setup-dotnet@v4
-        with:
-          dotnet-version: '8.0'
-
-      - name: Build with dotnet
-        run: dotnet build --configuration Release -restore
-
-      - name: Test with the dotnet CLI
-        run: dotnet test --no-restore --verbosity normal
-
-      - name: dotnet publish
-        run: dotnet publish -c Release --property:PublishDir "${{env.GITHUB_WORKSPACE}}\myapp"
-
-      - name: Upload artifact for deployment job
-        uses: actions/upload-artifact@v4
-        with:
-          name: .net-app
-          path: ${{env.GITHUB_WORKSPACE}}\myapp
-
-  deploy:
-    runs-on: windows-latest
-    needs: build
-    environment:
-      name: 'production'
-      url: ${{ steps.deploy-to-webapp.outputs.webapp-url }}
-    permissions:
-      id-token: write #This is required for requesting the JWT
-
-    steps:
-      - name: Download artifact from build job
-        uses: actions/download-artifact@v4
-        with:
-          name: .net-app
+    - name: Install dependencies
+      run: dotnet restore
       
-      - name: Login to Azure
-        uses: azure/login@v2
-        with:
-          client-id: 5bb777b3-3b71-4192-a37d-e4c888c68358
-          tenant-id: 19e1a926-58e8-4e9b-80cd-c303162635e2
-          subscription-id: 7d614e99-401a-4396-b1c6-45c81557f45a
-
-      - name: Deploy to Azure Web App
-        id: deploy-to-webapp
-        uses: azure/webapps-deploy@v3
-        with:
-          app-name: 'apitechchallengefiap2'
-          slot-name: 'production'
-          package: .
+    - name: Build
+      run: |
+        cd DotNet.WebApp
+        dotnet build --configuration Release --no-restore
+        dotnet publish -c Release -o "${{env.GITHUB_WORKSPACE}}\myapp"  --self-contained true /p:UseAppHost=true
+    - name: Test
+      run: |
+        cd DotNet.WebApp.Tests
+        dotnet test --no-restore --verbosity normal
+      
+    - uses: azure/webapps-deploy@v2
+      name: Deploy
+      with:
+        app-name: 'apitechchallengefiap2'
+        publish-profile: 'production'
+        package: '${{ env.AZURE_WEBAPP_PACKAGE_PATH }}/dotnet-webapp'
