@@ -22,7 +22,7 @@ jobs:
           dotnet-version: '8.x'
 
       - name: Build with dotnet
-        run: dotnet build --configuration Release --no-restore
+        run: dotnet build --configuration Release -restore
 
       - name: Test with the dotnet CLI
         run: dotnet test --no-restore --verbosity normal
