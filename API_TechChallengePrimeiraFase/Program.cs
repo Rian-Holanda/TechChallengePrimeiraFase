@@ -69,8 +69,8 @@ else
    
 }
 
-app.UseMetricServer();
-app.UseHttpMetrics();
+//app.UseMetricServer();
+//app.UseHttpMetrics();
 
 app.UseHttpsRedirection();
 
