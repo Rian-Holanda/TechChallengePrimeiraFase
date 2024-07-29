@@ -28,8 +28,7 @@ jobs:
         run: dotnet test --verbosity normal
 
       - name: dotnet publish
-        run:  dotnet publish -c Release
-        #run: dotnet publish -c Release -o "${{env.github.workspace}}\myapp"
+        run: dotnet publish -c Release -o  D:\a\TechChallengePrimeiraFase\TechChallengePrimeiraFase\API_TechChallengePrimeiraFase\bin\Release\net8.0
 
       - name: Upload artifact for deployment job
         uses: actions/upload-artifact@v4
