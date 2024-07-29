@@ -15,10 +15,14 @@ using DataAccess_TechChallengePrimeiraFase.Regioes.Queries;
 using System.Text.Json.Serialization;
 using DataAccess_TechChallengePrimeiraFase.Contatos.Interface;
 using DataAccess_TechChallengePrimeiraFase.Contatos.Command;
+using OpenTelemetry.Metrics;
+using Prometheus;
 
 
 
 var builder = WebApplication.CreateBuilder(args);
+
+
 
 // Add services to the container.
 
@@ -50,7 +54,6 @@ builder.Services.AddScoped<IValidaEmailPessoa, ValidaEmailPessoa>();
 builder.Services.AddScoped<IValidacoesRegioes, ValidacoesRegioes>();
 
 
-
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
@@ -58,12 +61,17 @@ if (app.Environment.IsDevelopment())
 {
     app.UseSwagger();
     app.UseSwaggerUI();
+
 }
 else 
 {
     app.UseSwagger();
     app.UseSwaggerUI();
+   
 }
+
+app.UseMetricServer();
+app.UseHttpMetrics();
 
 app.UseHttpsRedirection();
 
