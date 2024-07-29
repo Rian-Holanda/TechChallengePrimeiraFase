@@ -62,6 +62,6 @@ jobs:
         id: deploy-to-webapp
         uses: azure/webapps-deploy@v3
         with:
-          app-name: 'apitechchallengeprimeirafase20240717125610'
+          app-name: 'apitechchallengefiap2'
           slot-name: 'production'
           package: .
