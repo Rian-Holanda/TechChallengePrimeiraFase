@@ -15,7 +15,6 @@ using DataAccess_TechChallengePrimeiraFase.Regioes.Queries;
 using System.Text.Json.Serialization;
 using DataAccess_TechChallengePrimeiraFase.Contatos.Interface;
 using DataAccess_TechChallengePrimeiraFase.Contatos.Command;
-using Prometheus;
 
 
 
