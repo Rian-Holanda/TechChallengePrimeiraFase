@@ -18,17 +18,17 @@ namespace UnitTest_TechChallengePrimeiraFase.TestesIntegracao
             _httpClient = appFactory.CreateClient();
         }
 
-        //[Fact]
-        //public async Task GetPessoas()
-        //{
-        //    var response = await _httpClient.GetAsync($"/Pessoa/GetPessoas");
+        [Fact]
+        public async Task GetPessoas()
+        {
+            var response = await _httpClient.GetAsync($"/Pessoa/GetPessoas");
 
-        //    var teste = response;
+            var teste = response;
 
-        //    Assert.NotNull(response);
+            Assert.NotNull(response);
 
-        //    Assert.Equal(System.Net.HttpStatusCode.OK, response.StatusCode);
+            Assert.Equal(System.Net.HttpStatusCode.OK, response.StatusCode);
 
-        //}
+        }
     }
 }
