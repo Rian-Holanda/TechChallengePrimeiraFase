@@ -1,0 +1,6 @@
+@Servico_Regioes_TechChallenge_HostAddress = http://localhost:5092
+
+GET {{Servico_Regioes_TechChallenge_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
