@@ -35,7 +35,8 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Util\Rabbit\Pessoas\" />
+    <Folder Include="Util\Rabbit\Contatos\Interface\" />
+    <Folder Include="Util\Rabbit\Contatos\Producer\" />
     <Folder Include="Util\Rabbit\Regioes\" />
   </ItemGroup>
 

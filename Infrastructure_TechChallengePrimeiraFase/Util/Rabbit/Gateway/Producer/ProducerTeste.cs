@@ -9,17 +9,17 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Infrastructure_TechChallengePrimeiraFase.Util.Rabbit.Gateway
+namespace Infrastructure_TechChallengePrimeiraFase.Util.Rabbit.Gateway.Producer
 {
-    public class ProducerPessoa
+    public class ProducerTeste
     {
         RabbitConfig rabbitConfig = new RabbitConfig();
 
-        public bool TesteConexaoRabbitPublish(string mensagem) 
+        public bool TesteConexaoRabbitPublish(string mensagem)
         {
             var factory = rabbitConfig.Config();
 
-            try 
+            try
             {
 
                 using (var connection = factory.CreateConnection())
@@ -41,7 +41,7 @@ namespace Infrastructure_TechChallengePrimeiraFase.Util.Rabbit.Gateway
 
                 return true;
             }
-            catch (Exception ex) 
+            catch (Exception ex)
             {
                 return false;
 

@@ -1,4 +1,4 @@
-﻿using Infrastructure_TechChallengePrimeiraFase.Util.Rabbit.Gateway;
+﻿using Infrastructure_TechChallengePrimeiraFase.Util.Rabbit.Gateway.Producer;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace UnitTest_TechChallengePrimeiraFase.TesteRabbit
 {
-    
+
     public class TesteRabbit
     {
         [Fact]
@@ -16,11 +16,10 @@ namespace UnitTest_TechChallengePrimeiraFase.TesteRabbit
             var mensagemPublish = "TESTE";
             var mensagemConsume = "";
 
-            ProducerPessoa producerPessoa = new ProducerPessoa();
+            ProducerTeste producerTeste = new ProducerTeste();
 
-            producerPessoa.TesteConexaoRabbitPublish(mensagemPublish);
-
-            mensagemConsume = producerPessoa.TesteConexaoRabbitConsume();
+            producerTeste.TesteConexaoRabbitPublish(mensagemPublish);
+            mensagemConsume = producerTeste.TesteConexaoRabbitConsume();
 
             Assert.Equal(mensagemConsume, mensagemPublish);
         }
