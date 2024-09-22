@@ -59,38 +59,13 @@ namespace Infrastructure_TechChallengePrimeiraFase.Util.Rabbit.Gateway.Producer
             }
         }
 
-        public async Task<bool> InserirPessoa(string json)
+        public bool InserirPessoa(string json)
         {
             try
             {
-                var guid = Guid.NewGuid();
+                bool result =  PublicarMensagem(json);
 
-                using (var connection = rabbitConfig.Config().CreateConnection())
-                {
-                    using (var channel = connection.CreateModel())
-                    {
-                        channel.QueueDeclare(
-                                queue: "Pessoas",
-                                durable: true,
-                                exclusive: false,
-                                autoDelete: false,
-                                arguments: null);
-
-                        var message = new { Objeto = json, Mensagem = "InserirPessoa", Ticket = guid };
-                        var body = Encoding.UTF8.GetBytes(JsonConvert.SerializeObject(message));
-                        channel.BasicPublish(exchange: "", routingKey: "Pessoas", body: body);
-
-                        var data = new
-                        {
-                            Guid = guid.ToString()
-                        };
-
-
-                        var insert =  await _httpClient.PostAsJsonAsync("https://localhost:44343/InserirPessoa", data);
-
-                        return true;
-                    }
-                }
+                return  result;
             }
             catch
             {
@@ -102,26 +77,7 @@ namespace Infrastructure_TechChallengePrimeiraFase.Util.Rabbit.Gateway.Producer
         {
             try
             {
-                using (var connection = rabbitConfig.Config().CreateConnection())
-                {
-                    using (var channel = connection.CreateModel())
-                    {
-                        channel.QueueDeclare(
-                                queue: "Pessoas",
-                                durable: true,
-                                exclusive: false,
-                                autoDelete: false,
-                                arguments: null);
-
-                        var message = new { Objeto = json, Mensagem = "AlterarPessoa" };
-                        var body = Encoding.UTF8.GetBytes(JsonConvert.SerializeObject(message));
-                        channel.BasicPublish(exchange: "", routingKey: "Pessoas", body: body);
-
-                        var insert =  _httpClient.PostAsJsonAsync("https://localhost:44343/AlterarPessoa", body);
-
-                        return true;
-                    }
-                }
+                return PublicarMensagem(json);
             }
             catch
             {
@@ -133,6 +89,18 @@ namespace Infrastructure_TechChallengePrimeiraFase.Util.Rabbit.Gateway.Producer
         {
             try
             {
+                return PublicarMensagem(id.ToString());
+            }
+            catch
+            {
+                return false;
+            }
+        }
+
+        public bool PublicarMensagem (string mensagem) 
+        {
+            try 
+            {
                 using (var connection = rabbitConfig.Config().CreateConnection())
                 {
                     using (var channel = connection.CreateModel())
@@ -144,17 +112,16 @@ namespace Infrastructure_TechChallengePrimeiraFase.Util.Rabbit.Gateway.Producer
                                 autoDelete: false,
                                 arguments: null);
 
-                        var message = new { IdPessoa = id.ToString(), Mensagem = "InserirPessoa" };
+                        var message = new { Mensagem = mensagem };
                         var body = Encoding.UTF8.GetBytes(JsonConvert.SerializeObject(message));
                         channel.BasicPublish(exchange: "", routingKey: "Pessoas", body: body);
-
-                        var insert =  _httpClient.PostAsJsonAsync("https://localhost:44343/AlterarPessoa", id);
 
                         return true;
                     }
                 }
+
             }
-            catch
+            catch 
             {
                 return false;
             }

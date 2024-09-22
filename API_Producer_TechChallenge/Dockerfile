@@ -11,17 +11,17 @@ EXPOSE 8081
 FROM mcr.microsoft.com/dotnet/sdk:8.0-nanoserver-1809 AS build
 ARG BUILD_CONFIGURATION=Release
 WORKDIR /src
-COPY ["API_Gateway_TechChallenge/API_Gateway_TechChallenge.csproj", "API_Gateway_TechChallenge/"]
-RUN dotnet restore "./API_Gateway_TechChallenge/API_Gateway_TechChallenge.csproj"
+COPY ["API_Producer_TechChallenge/API_Producer_TechChallenge.csproj", "API_Producer_TechChallenge/"]
+RUN dotnet restore "./API_Producer_TechChallenge/API_Producer_TechChallenge.csproj"
 COPY . .
-WORKDIR "/src/API_Gateway_TechChallenge"
-RUN dotnet build "./API_Gateway_TechChallenge.csproj" -c %BUILD_CONFIGURATION% -o /app/build
+WORKDIR "/src/API_Producer_TechChallenge"
+RUN dotnet build "./API_Producer_TechChallenge.csproj" -c %BUILD_CONFIGURATION% -o /app/build
 
 FROM build AS publish
 ARG BUILD_CONFIGURATION=Release
-RUN dotnet publish "./API_Gateway_TechChallenge.csproj" -c %BUILD_CONFIGURATION% -o /app/publish /p:UseAppHost=false
+RUN dotnet publish "./API_Producer_TechChallenge.csproj" -c %BUILD_CONFIGURATION% -o /app/publish /p:UseAppHost=false
 
 FROM base AS final
 WORKDIR /app
 COPY --from=publish /app/publish .
-ENTRYPOINT ["dotnet", "API_Gateway_TechChallenge.dll"]
+ENTRYPOINT ["dotnet", "API_Producer_TechChallenge.dll"]

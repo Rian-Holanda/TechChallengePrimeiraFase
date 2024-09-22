@@ -32,18 +32,10 @@ namespace API_Gateway_TechChallenge.Controllers.Contatos
         [HttpGet("GetPessoasProducer")]
         public async Task<IActionResult> GetPessoasProducerAsync()
         {
-            var pessoas = await _pessoa.GetPessoas();
+            //var pessoas = await _pessoa.GetPessoas();
 
 
-            if (pessoas.Count > 0) 
-            {
-                return Ok(pessoas);
-            }
-             
-            else
-            {
-                return NoContent();
-            }
+                return Ok();
         }
 
 
@@ -102,23 +94,25 @@ namespace API_Gateway_TechChallenge.Controllers.Contatos
         public async Task<IActionResult> InserirPessoa([FromBody] PessoasModel pessoasModel)
         {
 
-            PessoasEntity pessoa = new PessoasEntity()
-            {
-                Nome = pessoasModel.Nome,
-                Email = pessoasModel.Email
-            };
+            //PessoasEntity pessoa = new PessoasEntity()
+            //{
+            //    Nome = pessoasModel.Nome,
+            //    Email = pessoasModel.Email
+            //};
 
-            var result = await _pessoa.InserirPessoa(JsonConvert.SerializeObject(pessoa));
+            //var result = await _pessoa.InserirPessoa(JsonConvert.SerializeObject(pessoa));
 
-            if (result) 
-            {
-                return Ok("Sucesso");
-            }
+            //if (result) 
+            //{
+            //    return Ok("Sucesso");
+            //}
 
-            else 
-            {
-                return BadRequest();
-            }
+            return Ok();
+
+            //else 
+            //{
+            //    return BadRequest();
+            //}
 
         }
 

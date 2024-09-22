@@ -6,12 +6,10 @@ using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.AspNetCore.Mvc;
 using System.Text.Json;
 using DataAccess_TechChallengePrimeiraFase.Contatos.Interface;
-using API_TechChallengePrimeiraFase.Models.Pessoa;
+using API_Producer_TechChallenge.Models.Pessoa;
 using Business_TechChallengePrimeiraFase.Contatos.Domain;
-using Infrastructure_TechChallengePrimeiraFase.Util.Rabbit.Gateway.Interface;
-using Newtonsoft.Json;
 
-namespace API_TechChallengePrimeiraFase.Controllers.Contatos
+namespace API_Producer_TechChallenge.Controllers.Contatos
 {
     [ApiController]
     [Route("[controller]")]
@@ -20,16 +18,15 @@ namespace API_TechChallengePrimeiraFase.Controllers.Contatos
         private readonly IPessoasQueries _pessoasQueries;
         private readonly IPessoasCommand _pessoasCommand;
         private readonly IValidaEmailPessoa _validaEmailPessoa;
-        private readonly IPessoaProducer _pessooaProducer;
+
         private ValidaPessoa validaPessoa = new ValidaPessoa();
 
-        public PessoaController(IPessoasQueries pessoasQueries, IPessoasCommand pessoasCommand, IValidaEmailPessoa validaEmailPessoa, IPessoaProducer pessoaProducer)
+        public PessoaController(IPessoasQueries pessoasQueries, IPessoasCommand pessoasCommand, IValidaEmailPessoa validaEmailPessoa)
         {
 
             _pessoasCommand = pessoasCommand;
             _pessoasQueries = pessoasQueries;
             _validaEmailPessoa = validaEmailPessoa;
-            _pessooaProducer = pessoaProducer;
         }
 
         [HttpGet("GetPessoas")]
@@ -92,11 +89,11 @@ namespace API_TechChallengePrimeiraFase.Controllers.Contatos
             {
                 var resultValidacao = validaPessoa.Validate(pessoa);
 
-                var result =  _pessooaProducer.InserirPessoa(JsonConvert.SerializeObject(pessoa));
+                var result = _pessoasCommand.InserirPessoa(pessoa);
 
-                if (result)
+                if (result > 0)
                 {
-                    return Ok("Pessoa inserida na fila");
+                    return Ok();
                 }
                 else
                 {
