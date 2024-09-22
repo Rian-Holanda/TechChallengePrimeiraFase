@@ -3,8 +3,12 @@ using Business_TechChallengePrimeiraFase.Contatos.Domain;
 using DataAccess_TechChallengePrimeiraFase.Contatos.Interface;
 using DataAccess_TechChallengePrimeiraFase.Contatos.Interfaces;
 using Entities_TechChallengePrimeiraFase.Entities;
+using Infrastructure_TechChallengePrimeiraFase.Util.Rabbit.Contatos.Consumer;
 using Infrastructure_TechChallengePrimeiraFase.Util.Rabbit.Gateway;
+using Infrastructure_TechChallengePrimeiraFase.Util.Rabbit.Gateway.Interface;
 using Microsoft.AspNetCore.Mvc;
+using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
 
 namespace Servico_Pessoas_TechChellenge.Controllers.Contatos
 {
@@ -13,19 +17,22 @@ namespace Servico_Pessoas_TechChellenge.Controllers.Contatos
 
         private readonly IPessoasCommand _pessoasCommand;
         private readonly IValidaEmailPessoa _validaEmailPessoa;
+        private readonly IPessoaProducer _pessoaProducer;
 
+        private ConsumerPessoa ConsumerPessoa = new ConsumerPessoa();
         private ValidaPessoa validaPessoa = new ValidaPessoa();
 
-        public PessoaController( IPessoasCommand pessoasCommand, IValidaEmailPessoa validaEmailPessoa)
+        public PessoaController( IPessoasCommand pessoasCommand, IValidaEmailPessoa validaEmailPessoa, IPessoaProducer pessoaProducer)
         {
 
             _pessoasCommand = pessoasCommand;
             _validaEmailPessoa = validaEmailPessoa;
+            _pessoaProducer = pessoaProducer;   
         }
 
 
-        [HttpGet("GetPessoasConsumer")]
-        public IActionResult GetPessoasProducer() 
+        [HttpGet("GetPessoas")]
+        public IActionResult GetPessoas() 
         {
             var pessoas = _pessoasCommand.GetPessoas();
 
@@ -57,31 +64,40 @@ namespace Servico_Pessoas_TechChellenge.Controllers.Contatos
         }
 
         [HttpPost("InserirPessoa")]
-        public IActionResult InserirPessoa([FromBody] Pessoa pessoasModel)
+        public  IActionResult InserirPessoa(string guid)
         {
 
-            PessoasEntity pessoa = new PessoasEntity()
+            var resutl = ConsumerPessoa.InsertPessoa(guid);
+
+            if (resutl != "") 
             {
-                Nome = pessoasModel.Nome,
-                Email = pessoasModel.Email
-            };
+                dynamic data = JObject.Parse(resutl);
 
-            if (_validaEmailPessoa.ValidaEmail(pessoa.Email))
-            {
-                var resultValidacao = validaPessoa.Validate(pessoa);
+                var teste = data["Objeto"].Value;
 
-                var result = _pessoasCommand.InserirPessoa(pessoa);
+                var pessoa = JsonConvert.DeserializeObject<Pessoa>(teste);
 
-                if (result > 0)
-                {
-                    return Ok();
-                }
-                else
-                {
-                    return NoContent();
-                }
+                //PessoasEntity pessoa = new PessoasEntity()
+                //{
+                //    Nome = pessoasModel.Nome,
+                //    Email = pessoasModel.Email
+                //};
+
+
+                //if (_validaEmailPessoa.ValidaEmail(pessoa.Email))
+                //{
+                //    var resultValidacao = validaPessoa.Validate(pessoa);
+
+                //    var result = _pessoasCommand.InserirPessoa(pessoa);
+
+
+                return Ok("Sucesso");
             }
-            return NoContent();
+            else 
+            {  
+                return BadRequest(); 
+            }
+
 
         }
 

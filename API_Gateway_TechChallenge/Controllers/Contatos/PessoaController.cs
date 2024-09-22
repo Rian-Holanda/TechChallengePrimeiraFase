@@ -10,6 +10,7 @@ using API_Gateway_TechChallenge.Models.Pessoa;
 using Business_TechChallengePrimeiraFase.Contatos.Domain;
 using Infrastructure_TechChallengePrimeiraFase.Util.Rabbit.Gateway.Interface;
 using DataAccess_TechChallengePrimeiraFase.Contatos.Command;
+using Newtonsoft.Json;
 
 namespace API_Gateway_TechChallenge.Controllers.Contatos
 {
@@ -17,10 +18,10 @@ namespace API_Gateway_TechChallenge.Controllers.Contatos
     [Route("[controller]")]
     public class PessoaController : ControllerBase
     {
-        private readonly IPessoa _pessoa;
+        private readonly IPessoaProducer _pessoa;
         private ValidaPessoa validaPessoa = new ValidaPessoa();
 
-        public PessoaController(IPessoa pessoa)
+        public PessoaController(IPessoaProducer pessoa)
         {
             _pessoa = pessoa;
         }
@@ -97,34 +98,29 @@ namespace API_Gateway_TechChallenge.Controllers.Contatos
         //    }
         //}
 
-        //[HttpPost("InserirPessoa")]
-        //public IActionResult InserirPessoa([FromBody] PessoasModel pessoasModel)
-        //{
+        [HttpPost("InserirPessoa")]
+        public IActionResult InserirPessoa([FromBody] PessoasModel pessoasModel)
+        {
 
-        //    PessoasEntity pessoa = new PessoasEntity()
-        //    {
-        //        Nome = pessoasModel.Nome,
-        //        Email = pessoasModel.Email
-        //    };
+            PessoasEntity pessoa = new PessoasEntity()
+            {
+                Nome = pessoasModel.Nome,
+                Email = pessoasModel.Email
+            };
 
-        //    if (_validaEmailPessoa.ValidaEmail(pessoa.Email))
-        //    {
-        //        var resultValidacao = validaPessoa.Validate(pessoa);
+            var result = _pessoa.InserirPessoa(JsonConvert.SerializeObject(pessoa));
 
-        //        var result = _pessoasCommand.InserirPessoa(pessoa);
+            if (result) 
+            {
+                return Ok("Sucesso");
+            }
 
-        //        if (result > 0)
-        //        {
-        //            return Ok();
-        //        }
-        //        else
-        //        {
-        //            return NoContent();
-        //        }
-        //    }
-        //    return NoContent();
+            else 
+            {
+                return BadRequest();
+            }
 
-        //}
+        }
 
         //[HttpPut("AlterarPessoa/id")]
         //public IActionResult AlterarPessoa(int id, [FromBody] PessoasModel pessoasModel)

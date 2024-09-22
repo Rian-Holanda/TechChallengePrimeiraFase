@@ -6,10 +6,10 @@ using System.Threading.Tasks;
 
 namespace Infrastructure_TechChallengePrimeiraFase.Util.Rabbit.Gateway.Interface
 {
-    public interface IPessoa
+    public interface IPessoaProducer
     {
         Task<List<Pessoa>> GetPessoas();
-        bool GetPessoa(int id);
+        Task<Pessoa> GetPessoa(int id);
         bool InserirPessoa(string json);
         bool AlterarPessoa(string json);
         bool ExcluirPessoa(int id);

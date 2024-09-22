@@ -13,6 +13,8 @@ using Infrastructure_TechChallengePrimeiraFase;
 using Microsoft.EntityFrameworkCore;
 using System.Text.Json.Serialization;
 using Prometheus;
+using Infrastructure_TechChallengePrimeiraFase.Util.Rabbit.Gateway.Interface;
+using Infrastructure_TechChallengePrimeiraFase.Util.Rabbit.Gateway.Producer;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -33,6 +35,7 @@ builder.Services.AddDbContext<IApplicationDbContext, ApplicationDbContext>(optio
     options.UseSqlServer(config.GetConnectionString("ConnectionString")));
 
 
+builder.Services.AddScoped<IPessoaProducer, PessoaProducer>();
 builder.Services.AddScoped<IContatosPessoasQueries, ContatosPessoasQueries>();
 builder.Services.AddScoped<IContatosPessoasCommand, ContatosPessoasCommand>();
 builder.Services.AddScoped<IPessoasCommand, PessoasCommand>();

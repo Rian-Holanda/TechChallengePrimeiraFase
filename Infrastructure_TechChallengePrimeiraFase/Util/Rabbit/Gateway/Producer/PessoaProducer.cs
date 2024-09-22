@@ -12,7 +12,7 @@ using System.Threading.Tasks;
 
 namespace Infrastructure_TechChallengePrimeiraFase.Util.Rabbit.Gateway.Producer
 {
-    public class PessoaService : IPessoa
+    public class PessoaProducer : IPessoaProducer
     {
         RabbitConfig rabbitConfig = new RabbitConfig();
         private readonly HttpClient _httpClient = new HttpClient();
@@ -38,33 +38,24 @@ namespace Infrastructure_TechChallengePrimeiraFase.Util.Rabbit.Gateway.Producer
                 return new List<Pessoa>();
             }
         }
-        public bool GetPessoa(int id)
+        public async Task<Pessoa> GetPessoa(int id)
         {
             try
             {
-                using (var connection = rabbitConfig.Config().CreateConnection())
+                var pessoa = await _httpClient.GetFromJsonAsync<Pessoa>("https://localhost:44343/GetPessoa");
+
+                if (pessoa is not null )
                 {
-                    using (var channel = connection.CreateModel())
-                    {
-                        channel.QueueDeclare(
-                                queue: "Pessoas",
-                                durable: true,
-                                exclusive: false,
-                                autoDelete: false,
-                                arguments: null);
-
-                        var message = new { IdPessoa = id.ToString(), Mensagem = "GetPessoa" };
-                        var body = Encoding.UTF8.GetBytes(JsonConvert.SerializeObject(message));
-                        channel.BasicPublish(exchange: "", routingKey: "Pessoas", body: body);
-
-                        return true;
-                    }
+                    return pessoa;
                 }
-
+                else
+                {
+                    return new Pessoa();
+                }
             }
             catch
             {
-                return false;
+                return new Pessoa();
             }
         }
 
@@ -72,6 +63,8 @@ namespace Infrastructure_TechChallengePrimeiraFase.Util.Rabbit.Gateway.Producer
         {
             try
             {
+                var guid = Guid.NewGuid();
+
                 using (var connection = rabbitConfig.Config().CreateConnection())
                 {
                     using (var channel = connection.CreateModel())
@@ -83,9 +76,11 @@ namespace Infrastructure_TechChallengePrimeiraFase.Util.Rabbit.Gateway.Producer
                                 autoDelete: false,
                                 arguments: null);
 
-                        var message = new { Objeto = json, Mensagem = "InserirPessoa" };
+                        var message = new { Objeto = json, Mensagem = "InserirPessoa", Ticket = guid };
                         var body = Encoding.UTF8.GetBytes(JsonConvert.SerializeObject(message));
                         channel.BasicPublish(exchange: "", routingKey: "Pessoas", body: body);
+
+                        var insert =  _httpClient.PostAsJsonAsync("https://localhost:44343/InserirPessoa", guid.ToString() );
 
                         return true;
                     }
@@ -116,6 +111,8 @@ namespace Infrastructure_TechChallengePrimeiraFase.Util.Rabbit.Gateway.Producer
                         var body = Encoding.UTF8.GetBytes(JsonConvert.SerializeObject(message));
                         channel.BasicPublish(exchange: "", routingKey: "Pessoas", body: body);
 
+                        var insert =  _httpClient.PostAsJsonAsync("https://localhost:44343/AlterarPessoa", body);
+
                         return true;
                     }
                 }
@@ -144,6 +141,8 @@ namespace Infrastructure_TechChallengePrimeiraFase.Util.Rabbit.Gateway.Producer
                         var message = new { IdPessoa = id.ToString(), Mensagem = "InserirPessoa" };
                         var body = Encoding.UTF8.GetBytes(JsonConvert.SerializeObject(message));
                         channel.BasicPublish(exchange: "", routingKey: "Pessoas", body: body);
+
+                        var insert =  _httpClient.PostAsJsonAsync("https://localhost:44343/AlterarPessoa", id);
 
                         return true;
                     }
