@@ -21,7 +21,7 @@ namespace Infrastructure_TechChallengePrimeiraFase.Util.Rabbit.Gateway.Producer
         {
             try
             {
-                var pessoas = await _httpClient.GetFromJsonAsync<List<Pessoa>>("https://localhost:44343/GetPessoasConsumer");
+                var pessoas = await _httpClient.GetFromJsonAsync<List<Pessoa>>("https://localhost:44343/GetPessoas");
 
                 if (pessoas?.Count > 0)
                 {
@@ -59,7 +59,7 @@ namespace Infrastructure_TechChallengePrimeiraFase.Util.Rabbit.Gateway.Producer
             }
         }
 
-        public bool InserirPessoa(string json)
+        public async Task<bool> InserirPessoa(string json)
         {
             try
             {
@@ -80,7 +80,13 @@ namespace Infrastructure_TechChallengePrimeiraFase.Util.Rabbit.Gateway.Producer
                         var body = Encoding.UTF8.GetBytes(JsonConvert.SerializeObject(message));
                         channel.BasicPublish(exchange: "", routingKey: "Pessoas", body: body);
 
-                        var insert =  _httpClient.PostAsJsonAsync("https://localhost:44343/InserirPessoa", guid.ToString() );
+                        var data = new
+                        {
+                            Guid = guid.ToString()
+                        };
+
+
+                        var insert =  await _httpClient.PostAsJsonAsync("https://localhost:44343/InserirPessoa", data);
 
                         return true;
                     }

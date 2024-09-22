@@ -99,7 +99,7 @@ namespace API_Gateway_TechChallenge.Controllers.Contatos
         //}
 
         [HttpPost("InserirPessoa")]
-        public IActionResult InserirPessoa([FromBody] PessoasModel pessoasModel)
+        public async Task<IActionResult> InserirPessoa([FromBody] PessoasModel pessoasModel)
         {
 
             PessoasEntity pessoa = new PessoasEntity()
@@ -108,7 +108,7 @@ namespace API_Gateway_TechChallenge.Controllers.Contatos
                 Email = pessoasModel.Email
             };
 
-            var result = _pessoa.InserirPessoa(JsonConvert.SerializeObject(pessoa));
+            var result = await _pessoa.InserirPessoa(JsonConvert.SerializeObject(pessoa));
 
             if (result) 
             {

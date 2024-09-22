@@ -10,7 +10,7 @@ namespace Infrastructure_TechChallengePrimeiraFase.Util.Rabbit.Gateway.Interface
     {
         Task<List<Pessoa>> GetPessoas();
         Task<Pessoa> GetPessoa(int id);
-        bool InserirPessoa(string json);
+        Task<bool> InserirPessoa(string json);
         bool AlterarPessoa(string json);
         bool ExcluirPessoa(int id);
 

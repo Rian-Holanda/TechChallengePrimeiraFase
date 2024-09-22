@@ -7,6 +7,7 @@ using Infrastructure_TechChallengePrimeiraFase.Util.Rabbit.Contatos.Consumer;
 using Infrastructure_TechChallengePrimeiraFase.Util.Rabbit.Gateway;
 using Infrastructure_TechChallengePrimeiraFase.Util.Rabbit.Gateway.Interface;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Hosting;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 
@@ -64,18 +65,21 @@ namespace Servico_Pessoas_TechChellenge.Controllers.Contatos
         }
 
         [HttpPost("InserirPessoa")]
-        public  IActionResult InserirPessoa(string guid)
+        public async Task<IActionResult> InserirPessoa([FromBody] object data)
         {
+            dynamic dynamicGuid = JsonConvert.DeserializeObject<dynamic>(data.ToString());
 
-            var resutl = ConsumerPessoa.InsertPessoa(guid);
+            var guid = dynamicGuid.guid.ToString();
 
-            if (resutl != "") 
+            var resutl = await ConsumerPessoa.InsertPessoa(guid);
+
+            if (resutl != "")
             {
-                dynamic data = JObject.Parse(resutl);
+                dynamic dataResult = JObject.Parse(resutl);
 
-                var teste = data["Objeto"].Value;
+                var teste = dataResult["Objeto"].Value;
 
-                var pessoa = JsonConvert.DeserializeObject<Pessoa>(teste);
+                Pessoa pessoa = JsonConvert.DeserializeObject<Pessoa>(teste);
 
                 //PessoasEntity pessoa = new PessoasEntity()
                 //{
@@ -90,8 +94,10 @@ namespace Servico_Pessoas_TechChellenge.Controllers.Contatos
 
                 //    var result = _pessoasCommand.InserirPessoa(pessoa);
 
+                var message = new { Ticket = "Guid", Mensagem = "Pessoa: " + pessoa.Nome + " cadastrada com sucesso" };
+                ConsumerPessoa.StatusInserirPessoa(JsonConvert.SerializeObject(message));
 
-                return Ok("Sucesso");
+                return Ok("Cadastro da pessoa: " + pessoa.Nome + " concluído");
             }
             else 
             {  
