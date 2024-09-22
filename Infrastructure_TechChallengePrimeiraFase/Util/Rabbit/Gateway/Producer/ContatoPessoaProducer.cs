@@ -1,30 +1,26 @@
 ﻿using Infrastructure_TechChallengePrimeiraFase.Util.Rabbit.Factory;
 using Infrastructure_TechChallengePrimeiraFase.Util.Rabbit.Gateway.Interface;
-using Newtonsoft.Json;
-using RabbitMQ.Client;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Net.Http.Json;
 using System.Text;
-using System.Threading.Channels;
 using System.Threading.Tasks;
 
 namespace Infrastructure_TechChallengePrimeiraFase.Util.Rabbit.Gateway.Producer
 {
-    public class PessoaProducer : IPessoaProducer
+    public class ContatoPessoaProducer : IContatoPessoaProducer
     {
         MensagemRabbit mensagemRabbit = new MensagemRabbit();
         RabbitConfig rabbitConfig = new RabbitConfig();
         private readonly HttpClient _httpClient = new HttpClient();
 
-        public bool InserirPessoa(string json)
+        public bool InserirContatoPessoa(string json)
         {
             try
             {
-                bool result = mensagemRabbit.PublicarMensagem(json, "InsertPessoa");
+                bool result = mensagemRabbit.PublicarMensagem(json, "InsertContatoPessoa");
 
-                return  result;
+                return result;
             }
             catch
             {
@@ -32,11 +28,11 @@ namespace Infrastructure_TechChallengePrimeiraFase.Util.Rabbit.Gateway.Producer
             }
         }
 
-        public bool AlterarPessoa(string json)
+        public bool AlterarContatoPessoa(string json)
         {
             try
             {
-                return mensagemRabbit.PublicarMensagem(json, "UpdatePessoa");
+                return mensagemRabbit.PublicarMensagem(json, "UpdateContatoPessoa");
             }
             catch
             {
@@ -44,11 +40,11 @@ namespace Infrastructure_TechChallengePrimeiraFase.Util.Rabbit.Gateway.Producer
             }
         }
 
-        public bool ExcluirPessoa(int id)
+        public bool ExcluirContatoPessoa(int id)
         {
             try
             {
-                return mensagemRabbit.PublicarMensagem(id.ToString(), "ExcluirPessoa");
+                return mensagemRabbit.PublicarMensagem(id.ToString(), "ExcluirContatoPessoa");
             }
             catch
             {

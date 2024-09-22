@@ -54,7 +54,7 @@ builder.Services.AddScoped<IRegiaoCodigoAreaQueries, RegiaoCodigoAreaQueries>();
 builder.Services.AddScoped<IValidaEmailPessoa, ValidaEmailPessoa>();
 builder.Services.AddScoped<IValidacoesRegioes, ValidacoesRegioes>();
 builder.Services.AddScoped<IPessoaProducer, PessoaProducer>();
-
+builder.Services.AddScoped<IContatoPessoaProducer, ContatoPessoaProducer>();
 
 var app = builder.Build();
 

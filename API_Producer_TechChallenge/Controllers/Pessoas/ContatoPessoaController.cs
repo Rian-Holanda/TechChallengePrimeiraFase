@@ -13,6 +13,8 @@ using DataAccess_TechChallengePrimeiraFase.Regioes.Command;
 using DataAccess_TechChallengePrimeiraFase.Regioes.Interface;
 using static Business_TechChallengePrimeiraFase.Contatos.Domain.ValidaContatoPessoa;
 using Entities_TechChallengePrimeiraFase.Enuns;
+using Infrastructure_TechChallengePrimeiraFase.Util.Rabbit.Gateway.Interface;
+using Newtonsoft.Json;
 
 namespace API_Producer_TechChallenge.Controllers.Contatos
 {
@@ -24,15 +26,17 @@ namespace API_Producer_TechChallenge.Controllers.Contatos
         private readonly IContatosPessoasCommand _contatosPessoasCommand;
         private readonly IPessoasCommand _pessoasCommand;
         private readonly IRegiaoQueries _regiaoQueries;
+        private readonly IContatoPessoaProducer _contatoPessoaProducer;
 
         private ContatoPessoaDomain contatoPessoaDomain = new ContatoPessoaDomain();
 
-        public ContatoPessoaController(IContatosPessoasQueries contatosPessoasQueries, IContatosPessoasCommand contatosPessoasCommand, IPessoasCommand pessoasCommand, IRegiaoQueries regiaoQueries) 
+        public ContatoPessoaController(IContatosPessoasQueries contatosPessoasQueries, IContatosPessoasCommand contatosPessoasCommand, IPessoasCommand pessoasCommand, IRegiaoQueries regiaoQueries, IContatoPessoaProducer contatoPessoaProducer) 
         {
             _contatosPessoasQueries = contatosPessoasQueries;
             _contatosPessoasCommand = contatosPessoasCommand;
             _pessoasCommand = pessoasCommand;
-            _regiaoQueries = regiaoQueries; 
+            _regiaoQueries = regiaoQueries;
+            _contatoPessoaProducer = contatoPessoaProducer;
         }
 
         [HttpGet("GetContatosPessoas")]
@@ -94,9 +98,9 @@ namespace API_Producer_TechChallenge.Controllers.Contatos
 
                 if (resultValidacao && resultValidacaoContato.IsValid)
                 {
-                    var result = _contatosPessoasCommand.InserirContatoPessoa(contatosPessoaEntity);
+                    var result = _contatoPessoaProducer.InserirContatoPessoa(JsonConvert.SerializeObject(contatosPessoaEntity));
 
-                    if (result > 0)
+                    if (result)
                     {
                         return Ok();
                     }
@@ -137,7 +141,7 @@ namespace API_Producer_TechChallenge.Controllers.Contatos
 
                 if (resultValidacao && resultValidacaoContato.IsValid)
                 {
-                    var result = _contatosPessoasCommand.AlterarContatoPessoa(contatosPessoaEntity, id);
+                    var result = _contatoPessoaProducer.AlterarContatoPessoa(JsonConvert.SerializeObject(contatosPessoaEntity));
 
                     if (result)
                     {
@@ -162,7 +166,7 @@ namespace API_Producer_TechChallenge.Controllers.Contatos
 
             if (contatoPessoaEntity is not null)
             {
-                var result = _contatosPessoasCommand.ExcluirContatoPessoa(contatoPessoaEntity.Id);
+                var result = _contatoPessoaProducer.ExcluirContatoPessoa(id);
 
                 if (result)
                 {
