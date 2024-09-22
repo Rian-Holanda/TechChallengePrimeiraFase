@@ -13,8 +13,8 @@ using DataAccess_TechChallengePrimeiraFase.Regioes.Command;
 using DataAccess_TechChallengePrimeiraFase.Regioes.Interface;
 using static Business_TechChallengePrimeiraFase.Contatos.Domain.ValidaContatoPessoa;
 using Entities_TechChallengePrimeiraFase.Enuns;
-using Infrastructure_TechChallengePrimeiraFase.Util.Rabbit.Gateway.Interface;
 using Newtonsoft.Json;
+using Infrastructure_TechChallengePrimeiraFase.Util.Rabbit.Contatos.Interface;
 
 namespace API_Producer_TechChallenge.Controllers.Contatos
 {

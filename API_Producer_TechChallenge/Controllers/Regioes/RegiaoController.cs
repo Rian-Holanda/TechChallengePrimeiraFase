@@ -2,10 +2,13 @@
 using Business_TechChallengePrimeiraFase.Regioes.Application.Interfaces;
 using DataAccess_TechChallengePrimeiraFase.Regioes.Interface;
 using Entities_TechChallengePrimeiraFase.Entities;
+using Infrastructure_TechChallengePrimeiraFase.Util.Rabbit.Regioes.Interface;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.AspNetCore.Mvc;
+using Newtonsoft.Json;
 using System.Text.Json;
+using System.Text.Json.Serialization;
 
 
 namespace API_Producer_TechChallenge.Controllers.Regioes
@@ -17,13 +20,14 @@ namespace API_Producer_TechChallenge.Controllers.Regioes
         private readonly IRegiaoQueries _regiaoQueries;
         private readonly IRegiaoCommand _regiaoCommand;
         private readonly IValidacoesRegioes _validacoesRegioes;
+        private readonly IRegiaoProducer _regiaoProducer;
 
-        public RegiaoController( IRegiaoQueries regiaoQueries, IRegiaoCommand regiaoCommand, IValidacoesRegioes validacoesRegioes)
+        public RegiaoController( IRegiaoQueries regiaoQueries, IRegiaoCommand regiaoCommand, IValidacoesRegioes validacoesRegioes, IRegiaoProducer regiaoProducer)
         {
-            
             _regiaoQueries = regiaoQueries;
             _regiaoCommand = regiaoCommand;
             _validacoesRegioes = validacoesRegioes;
+            _regiaoProducer = regiaoProducer;
         }
 
         [HttpGet("GetRegioes")]
@@ -65,9 +69,9 @@ namespace API_Producer_TechChallenge.Controllers.Regioes
 
             if (_validacoesRegioes.ValidaRegiao(siglaRegiao))
             {
-                var result = _regiaoCommand.InserirRegiao(regiao);
+                var result = _regiaoProducer.InserirRegiao(JsonConvert.SerializeObject(regiao));
 
-                if (result > 0)
+                if (result)
                 {
                     return Ok();
                 }
@@ -91,7 +95,7 @@ namespace API_Producer_TechChallenge.Controllers.Regioes
 
                 if (_validacoesRegioes.ValidaRegiao(regiaoEntity.Sigla))
                 {
-                    var result = _regiaoCommand.AlterarRegiao(regiaoEntity, id);
+                    var result = _regiaoProducer.AlterarRegiao(JsonConvert.SerializeObject(regiaoEntity)); ;
 
                     if (result)
                     {
@@ -116,7 +120,7 @@ namespace API_Producer_TechChallenge.Controllers.Regioes
 
             if (regiaoEntity is not null)
             {
-                var result = _regiaoCommand.ExcluirRegiao(regiaoEntity.Id);
+                var result = _regiaoProducer.ExcluirRegiao(id);
 
                 if (result)
                 {

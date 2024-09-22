@@ -1,5 +1,5 @@
-﻿using Infrastructure_TechChallengePrimeiraFase.Util.Rabbit.Factory;
-using Infrastructure_TechChallengePrimeiraFase.Util.Rabbit.Gateway.Interface;
+﻿using Infrastructure_TechChallengePrimeiraFase.Util.Rabbit.Contatos.Interface;
+using Infrastructure_TechChallengePrimeiraFase.Util.Rabbit.Factory;
 using Newtonsoft.Json;
 using RabbitMQ.Client;
 using System;
@@ -10,7 +10,7 @@ using System.Text;
 using System.Threading.Channels;
 using System.Threading.Tasks;
 
-namespace Infrastructure_TechChallengePrimeiraFase.Util.Rabbit.Gateway.Producer
+namespace Infrastructure_TechChallengePrimeiraFase.Util.Rabbit.Contatos.Producer
 {
     public class PessoaProducer : IPessoaProducer
     {
@@ -24,7 +24,7 @@ namespace Infrastructure_TechChallengePrimeiraFase.Util.Rabbit.Gateway.Producer
             {
                 bool result = mensagemRabbit.PublicarMensagem(json, "InsertPessoa");
 
-                return  result;
+                return result;
             }
             catch
             {

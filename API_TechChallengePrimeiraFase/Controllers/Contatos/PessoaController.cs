@@ -8,8 +8,8 @@ using System.Text.Json;
 using DataAccess_TechChallengePrimeiraFase.Contatos.Interface;
 using API_TechChallengePrimeiraFase.Models.Pessoa;
 using Business_TechChallengePrimeiraFase.Contatos.Domain;
-using Infrastructure_TechChallengePrimeiraFase.Util.Rabbit.Gateway.Interface;
 using Newtonsoft.Json;
+using Infrastructure_TechChallengePrimeiraFase.Util.Rabbit.Contatos.Interface;
 
 namespace API_TechChallengePrimeiraFase.Controllers.Contatos
 {

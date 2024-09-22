@@ -13,8 +13,8 @@ using Infrastructure_TechChallengePrimeiraFase;
 using Microsoft.EntityFrameworkCore;
 using System.Text.Json.Serialization;
 using Prometheus;
-using Infrastructure_TechChallengePrimeiraFase.Util.Rabbit.Gateway.Interface;
-using Infrastructure_TechChallengePrimeiraFase.Util.Rabbit.Gateway.Producer;
+using Infrastructure_TechChallengePrimeiraFase.Util.Rabbit.Contatos.Producer;
+using Infrastructure_TechChallengePrimeiraFase.Util.Rabbit.Contatos.Interface;
 
 var builder = WebApplication.CreateBuilder(args);
 

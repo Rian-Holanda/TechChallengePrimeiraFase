@@ -3,9 +3,11 @@ using Business_TechChallengePrimeiraFase.Regioes.Application.Interfaces;
 using DataAccess_TechChallengePrimeiraFase.Regioes.Command;
 using DataAccess_TechChallengePrimeiraFase.Regioes.Interface;
 using Entities_TechChallengePrimeiraFase.Entities;
+using Infrastructure_TechChallengePrimeiraFase.Util.Rabbit.Regioes.Interface;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.AspNetCore.Mvc;
+using Newtonsoft.Json;
 using System.Text.Json;
 
 namespace API_Producer_TechChallenge.Controllers.Regioes
@@ -18,13 +20,15 @@ namespace API_Producer_TechChallenge.Controllers.Regioes
         private readonly IRegiaoCodigoAreaCommand _regiaoCodigoAreaCommand;
         private readonly IRegiaoCodigoAreaQueries _regiaoCodigoAreaQueries;
         private readonly IValidacoesRegioes _validacoesRegioes;
+        private readonly IRegiaoCodigoAreaProducer _regiaoCodigoAreaProducer;
 
-        public RegioesCodigosAreasController(IRegiaoQueries regiaoQueries, IRegiaoCodigoAreaCommand regiaoCodigoAreaCommand, IRegiaoCodigoAreaQueries regiaoCodigoAreaQueries, IValidacoesRegioes validacoesRegioes)
+        public RegioesCodigosAreasController(IRegiaoQueries regiaoQueries, IRegiaoCodigoAreaCommand regiaoCodigoAreaCommand, IRegiaoCodigoAreaQueries regiaoCodigoAreaQueries, IValidacoesRegioes validacoesRegioes, IRegiaoCodigoAreaProducer regiaoCodigoAreaProducer)
         {
             _regiaoQueries = regiaoQueries;
             _regiaoCodigoAreaCommand = regiaoCodigoAreaCommand;
             _regiaoCodigoAreaQueries = regiaoCodigoAreaQueries;
             _validacoesRegioes = validacoesRegioes;
+            _regiaoCodigoAreaProducer = regiaoCodigoAreaProducer;
         }
 
         [HttpGet("RegioesCodigosAreas")]
@@ -111,10 +115,9 @@ namespace API_Producer_TechChallenge.Controllers.Regioes
                     DDD = regiaoCodigoAreaModel.DDD,
                 };
 
+                var result = _regiaoCodigoAreaProducer.InserirRegiaoCodigoArea(JsonConvert.SerializeObject(regiaoCodigoArea));
 
-                var result = _regiaoCodigoAreaCommand.InserirRegiaoCodigoArea(regiaoCodigoArea);
-
-                if (result > 0)
+                if (result)
                 {
                     return Ok();
                 }
@@ -138,7 +141,7 @@ namespace API_Producer_TechChallenge.Controllers.Regioes
                 regiaoCodigoArea.IdRegiao = regiao.Id;
                 regiaoCodigoArea.DDD = regiaoCodigoAreaModel.DDD;
 
-                var result = _regiaoCodigoAreaCommand.AlterarRegiaoCodigoArea(regiaoCodigoArea, id);
+                var result = _regiaoCodigoAreaProducer.AlterarRegiaoCodigoArea(JsonConvert.SerializeObject(regiaoCodigoArea)); ;
 
                 if (result)
                 {
@@ -162,7 +165,7 @@ namespace API_Producer_TechChallenge.Controllers.Regioes
 
             if (regiaoCodigoArea is not null)
             {
-                var result = _regiaoCodigoAreaCommand.ExcluirRegiaoCodigoArea(regiaoCodigoArea.Id);
+                var result = _regiaoCodigoAreaProducer.ExcluirRegiaoCodigoArea(id);
 
                 if (result)
                 {

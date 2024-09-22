@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Infrastructure_TechChallengePrimeiraFase.Util.Rabbit.Gateway.Interface
+namespace Infrastructure_TechChallengePrimeiraFase.Util.Rabbit.Contatos.Interface
 {
     public interface IPessoaProducer
     {

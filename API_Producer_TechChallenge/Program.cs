@@ -16,8 +16,10 @@ using System.Text.Json.Serialization;
 using DataAccess_TechChallengePrimeiraFase.Contatos.Interface;
 using DataAccess_TechChallengePrimeiraFase.Contatos.Command;
 using Prometheus;
-using Infrastructure_TechChallengePrimeiraFase.Util.Rabbit.Gateway.Interface;
-using Infrastructure_TechChallengePrimeiraFase.Util.Rabbit.Gateway.Producer;
+using Infrastructure_TechChallengePrimeiraFase.Util.Rabbit.Contatos.Producer;
+using Infrastructure_TechChallengePrimeiraFase.Util.Rabbit.Contatos.Interface;
+using Infrastructure_TechChallengePrimeiraFase.Util.Rabbit.Regioes.Producer;
+using Infrastructure_TechChallengePrimeiraFase.Util.Rabbit.Regioes.Interface;
 
 
 
@@ -55,6 +57,9 @@ builder.Services.AddScoped<IValidaEmailPessoa, ValidaEmailPessoa>();
 builder.Services.AddScoped<IValidacoesRegioes, ValidacoesRegioes>();
 builder.Services.AddScoped<IPessoaProducer, PessoaProducer>();
 builder.Services.AddScoped<IContatoPessoaProducer, ContatoPessoaProducer>();
+builder.Services.AddScoped<IRegiaoProducer, RegiaoProducer>();
+builder.Services.AddScoped<IRegiaoCodigoAreaProducer, RegiaoCodigoAreaProducer>();
+
 
 var app = builder.Build();
 

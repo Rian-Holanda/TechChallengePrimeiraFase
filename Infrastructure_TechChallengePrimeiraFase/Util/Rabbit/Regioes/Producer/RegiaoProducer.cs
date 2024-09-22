@@ -1,24 +1,24 @@
 ﻿using Infrastructure_TechChallengePrimeiraFase.Util.Rabbit.Factory;
-using Infrastructure_TechChallengePrimeiraFase.Util.Rabbit.Gateway.Interface;
+using Infrastructure_TechChallengePrimeiraFase.Util.Rabbit.Regioes.Interface;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Infrastructure_TechChallengePrimeiraFase.Util.Rabbit.Gateway.Producer
+namespace Infrastructure_TechChallengePrimeiraFase.Util.Rabbit.Regioes.Producer
 {
-    public class ContatoPessoaProducer : IContatoPessoaProducer
+    public class RegiaoProducer : IRegiaoProducer
     {
         MensagemRabbit mensagemRabbit = new MensagemRabbit();
         RabbitConfig rabbitConfig = new RabbitConfig();
         private readonly HttpClient _httpClient = new HttpClient();
 
-        public bool InserirContatoPessoa(string json)
+        public bool InserirRegiao(string json)
         {
             try
             {
-                bool result = mensagemRabbit.PublicarMensagem(json, "InsertContatoPessoa");
+                bool result = mensagemRabbit.PublicarMensagem(json, "InsertRegiao");
 
                 return result;
             }
@@ -28,11 +28,11 @@ namespace Infrastructure_TechChallengePrimeiraFase.Util.Rabbit.Gateway.Producer
             }
         }
 
-        public bool AlterarContatoPessoa(string json)
+        public bool AlterarRegiao(string json)
         {
             try
             {
-                return mensagemRabbit.PublicarMensagem(json, "UpdateContatoPessoa");
+                return mensagemRabbit.PublicarMensagem(json, "UpdateRegiao");
             }
             catch
             {
@@ -40,11 +40,11 @@ namespace Infrastructure_TechChallengePrimeiraFase.Util.Rabbit.Gateway.Producer
             }
         }
 
-        public bool ExcluirContatoPessoa(int id)
+        public bool ExcluirRegiao(int id)
         {
             try
             {
-                return mensagemRabbit.PublicarMensagem(id.ToString(), "ExcluirContatoPessoa");
+                return mensagemRabbit.PublicarMensagem(id.ToString(), "ExcluirRegiao");
             }
             catch
             {
