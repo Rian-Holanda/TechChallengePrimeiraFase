@@ -29,11 +29,14 @@ namespace API_Gateway_TechChallenge.Controllers.Contatos
         #region Producer
 
         [HttpGet("GetPessoasProducer")]
-        public IActionResult GetPessoasProducer()
+        public async Task<IActionResult> GetPessoasProducerAsync()
         {
-            if (_pessoa.GetPessoas()) 
+            var pessoas = await _pessoa.GetPessoas();
+
+
+            if (pessoas.Count > 0) 
             {
-                return Ok("Sucesso");
+                return Ok(pessoas);
             }
              
             else

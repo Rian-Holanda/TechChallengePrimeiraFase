@@ -32,7 +32,7 @@ builder.Services.AddDbContext<IApplicationDbContext, ApplicationDbContext>(optio
     options.UseSqlServer(config.GetConnectionString("ConnectionString")));
 
 
-builder.Services.AddScoped<IPessoa, ProducerPessoa>();
+builder.Services.AddScoped<IPessoa, PessoaService>();
 
 var app = builder.Build();
 

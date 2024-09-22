@@ -8,7 +8,7 @@ namespace Infrastructure_TechChallengePrimeiraFase.Util.Rabbit.Gateway.Interface
 {
     public interface IPessoa
     {
-        bool GetPessoas();
+        Task<List<Pessoa>> GetPessoas();
         bool GetPessoa(int id);
         bool InserirPessoa(string json);
         bool AlterarPessoa(string json);
