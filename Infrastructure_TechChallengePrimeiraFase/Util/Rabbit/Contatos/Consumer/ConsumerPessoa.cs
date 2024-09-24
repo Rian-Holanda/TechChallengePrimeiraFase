@@ -1,15 +1,9 @@
-﻿using Infrastructure_TechChallengePrimeiraFase.Util.Rabbit.Factory;
+﻿using Entities_TechChallengePrimeiraFase.Entities;
+using Infrastructure_TechChallengePrimeiraFase.Util.Rabbit.Factory;
 using Newtonsoft.Json;
-using Newtonsoft.Json.Linq;
 using RabbitMQ.Client;
-using RabbitMQ.Client.Events;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Net.Http.Json;
 using System.Text;
-using System.Threading.Channels;
-using System.Threading.Tasks;
+
 
 namespace Infrastructure_TechChallengePrimeiraFase.Util.Rabbit.Contatos.Consumer
 {
@@ -17,37 +11,14 @@ namespace Infrastructure_TechChallengePrimeiraFase.Util.Rabbit.Contatos.Consumer
     {
         RabbitConfig rabbitConfig = new RabbitConfig();
         private readonly HttpClient _httpClient = new HttpClient();
-        public async Task<string> InsertPessoa(string guid)
+        //private readonly PessoasCommand pessoasCommand = new PessoasCommand();
+        public async Task<string> InsertPessoa(PessoasEntity entity)
         {
             string messageConsumer = string.Empty;
 
             try
             {
-                var factory = rabbitConfig.Config();
-                using var connection = factory.CreateConnection();
-                using var channel = connection.CreateModel();
 
-                channel.QueueDeclare(
-                                queue: "Pessoas",
-                                durable: true,
-                                exclusive: false,
-                                autoDelete: false,
-                                arguments: null);
-
-                var data = channel.BasicGet("Pessoas", false);
-                messageConsumer = Encoding.UTF8.GetString(data.Body.ToArray()).ToString();
-
-                dynamic dataRabbit = JObject.Parse(messageConsumer);
-                var ticket = dataRabbit["Ticket"].Value;
-
-                if (guid == ticket)
-                {
-                    var consumer = new EventingBasicConsumer(channel);
-                    consumer.Received += (ch, ea) =>
-                    {
-                        channel.BasicAck(ea.DeliveryTag, false);
-                    };
-                }
 
                 return messageConsumer;
             }
