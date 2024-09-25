@@ -1,0 +1,6 @@
+@Servico_Pessoas_TechChellenge_HostAddress = http://localhost:5272
+
+GET {{Servico_Pessoas_TechChellenge_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###

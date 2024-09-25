@@ -26,6 +26,8 @@
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
+    <PackageReference Include="Newtonsoft.Json" Version="13.0.1" />
+    <PackageReference Include="RabbitMQ.Client" Version="6.8.1" />
   </ItemGroup>
 
   <ItemGroup>
@@ -33,7 +35,8 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Util\" />
+    <Folder Include="Util\Rabbit\Gateway\Interface\" />
+    <Folder Include="Util\Rabbit\Regioes\Consumer\" />
   </ItemGroup>
 
 </Project>

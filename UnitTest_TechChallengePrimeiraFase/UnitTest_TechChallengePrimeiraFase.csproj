@@ -24,6 +24,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\API_Producer_TechChallenge\API_Producer_TechChallenge.csproj" />
     <ProjectReference Include="..\API_TechChallengePrimeiraFase\API_TechChallengePrimeiraFase.csproj" />
     <ProjectReference Include="..\Business_TechChallengePrimeiraFase\Business_TechChallengePrimeiraFase.csproj" />
   </ItemGroup>

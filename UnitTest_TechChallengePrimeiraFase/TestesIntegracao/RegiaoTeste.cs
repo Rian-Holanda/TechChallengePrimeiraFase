@@ -1,5 +1,5 @@
 ﻿using API_TechChallengePrimeiraFase.Models.Regiao;
-using API_TechChallengePrimeiraFase.Teste;
+using API_Producer_TechChallenge.Teste;
 using Microsoft.AspNetCore.Mvc.Testing;
 using System;
 using System.Collections.Generic;

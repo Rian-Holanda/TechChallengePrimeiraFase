@@ -1,60 +1,46 @@
 ﻿using Business_TechChallengePrimeiraFase.Contatos.Application.Interfaces;
+using Business_TechChallengePrimeiraFase.Contatos.Domain;
+using DataAccess_TechChallengePrimeiraFase.Contatos.Interface;
 using DataAccess_TechChallengePrimeiraFase.Contatos.Interfaces;
 using Entities_TechChallengePrimeiraFase.Entities;
-using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Http.HttpResults;
-using Microsoft.AspNetCore.Mvc;
-using System.Text.Json;
-using DataAccess_TechChallengePrimeiraFase.Contatos.Interface;
-using API_TechChallengePrimeiraFase.Models.Pessoa;
-using Business_TechChallengePrimeiraFase.Contatos.Domain;
-using Newtonsoft.Json;
+using Infrastructure_TechChallengePrimeiraFase.Util.Rabbit.Contatos.Consumer;
 using Infrastructure_TechChallengePrimeiraFase.Util.Rabbit.Contatos.Interface;
+using Infrastructure_TechChallengePrimeiraFase.Util.Rabbit.Gateway;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Hosting;
+using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
 
-namespace API_TechChallengePrimeiraFase.Controllers.Contatos
+namespace Servico_Pessoas_TechChellenge.Controllers.Contatos
 {
-    [ApiController]
-    [Route("[controller]")]
     public class PessoaController : ControllerBase
     {
-        private readonly IPessoasQueries _pessoasQueries;
+
         private readonly IPessoasCommand _pessoasCommand;
         private readonly IValidaEmailPessoa _validaEmailPessoa;
-        private readonly IPessoaProducer _pessooaProducer;
+        private readonly IPessoaProducer _pessoaProducer;
+
+        private ConsumerPessoa ConsumerPessoa = new ConsumerPessoa();
         private ValidaPessoa validaPessoa = new ValidaPessoa();
 
-        public PessoaController(IPessoasQueries pessoasQueries, IPessoasCommand pessoasCommand, IValidaEmailPessoa validaEmailPessoa, IPessoaProducer pessoaProducer)
+        public PessoaController( IPessoasCommand pessoasCommand, IValidaEmailPessoa validaEmailPessoa, IPessoaProducer pessoaProducer)
         {
 
             _pessoasCommand = pessoasCommand;
-            _pessoasQueries = pessoasQueries;
             _validaEmailPessoa = validaEmailPessoa;
-            _pessooaProducer = pessoaProducer;
+            _pessoaProducer = pessoaProducer;   
         }
+
 
         [HttpGet("GetPessoas")]
-        public IActionResult GetPessoas()
+        public IActionResult GetPessoas() 
         {
-            List<PessoasModel> pessoasModels = new List<PessoasModel>();
-
             var pessoas = _pessoasCommand.GetPessoas();
 
-            if (pessoas != null)
-            {
-                pessoasModels.AddRange(pessoas.Select(p => new PessoasModel()
-                {
-                    Id = p.Id,
-                    Nome = p.Nome,
-                    Email = p.Email,
-                }));
+            return Ok(pessoas);
 
-                return Ok(pessoasModels);
-            }
-            else
-            {
-                return NoContent();
-            }
         }
+
 
         [HttpGet("{id}")]
         public IActionResult GetPessoa(int id)
@@ -63,9 +49,9 @@ namespace API_TechChallengePrimeiraFase.Controllers.Contatos
 
             if (pessoa != null)
             {
-                PessoasModel pessoasModel = new PessoasModel()
+                Pessoa pessoasModel = new Pessoa()
                 {
-                    Id =pessoa.Id,
+                    Id = pessoa.Id,
                     Nome = pessoa.Nome,
                     Email = pessoa.Email
                 };
@@ -79,36 +65,50 @@ namespace API_TechChallengePrimeiraFase.Controllers.Contatos
         }
 
         [HttpPost("InserirPessoa")]
-        public IActionResult InserirPessoa([FromBody] PessoasModel pessoasModel)
+        public async Task<IActionResult> InserirPessoa([FromBody] object data)
         {
-            
-            PessoasEntity pessoa = new PessoasEntity() 
-            { 
-               Nome = pessoasModel.Nome,
-               Email = pessoasModel.Email
-            };
+            dynamic dynamicGuid = JsonConvert.DeserializeObject<dynamic>(data.ToString());
 
-            if (_validaEmailPessoa.ValidaEmail(pessoa.Email))
+            var guid = dynamicGuid.guid.ToString();
+
+            var resutl = await ConsumerPessoa.InsertPessoa(guid);
+
+            if (resutl != "")
             {
-                var resultValidacao = validaPessoa.Validate(pessoa);
+                dynamic dataResult = JObject.Parse(resutl);
 
-                var result =  _pessooaProducer.InserirPessoa(JsonConvert.SerializeObject(pessoa));
+                var teste = dataResult["Objeto"].Value;
 
-                if (result)
-                {
-                    return Ok("Pessoa inserida na fila");
-                }
-                else
-                {
-                    return NoContent();
-                }
+                Pessoa pessoa = JsonConvert.DeserializeObject<Pessoa>(teste);
+
+                //PessoasEntity pessoa = new PessoasEntity()
+                //{
+                //    Nome = pessoasModel.Nome,
+                //    Email = pessoasModel.Email
+                //};
+
+
+                //if (_validaEmailPessoa.ValidaEmail(pessoa.Email))
+                //{
+                //    var resultValidacao = validaPessoa.Validate(pessoa);
+
+                //    var result = _pessoasCommand.InserirPessoa(pessoa);
+
+                var message = new { Ticket = "Guid", Mensagem = "Pessoa: " + pessoa.Nome + " cadastrada com sucesso" };
+                ConsumerPessoa.StatusInserirPessoa(JsonConvert.SerializeObject(message));
+
+                return Ok("Cadastro da pessoa: " + pessoa.Nome + " concluído");
             }
-            return NoContent();
+            else 
+            {  
+                return BadRequest(); 
+            }
+
 
         }
 
         [HttpPut("AlterarPessoa/id")]
-        public IActionResult AlterarPessoa(int id, [FromBody] PessoasModel pessoasModel)
+        public IActionResult AlterarPessoa(int id, [FromBody] Pessoa pessoasModel)
         {
             var pessoaEntity = _pessoasCommand.GetPessoa(id);
 

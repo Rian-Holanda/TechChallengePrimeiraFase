@@ -6,12 +6,13 @@ using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.AspNetCore.Mvc;
 using System.Text.Json;
 using DataAccess_TechChallengePrimeiraFase.Contatos.Interface;
-using API_TechChallengePrimeiraFase.Models.Pessoa;
+using API_Producer_TechChallenge.Models.Pessoa;
 using Business_TechChallengePrimeiraFase.Contatos.Domain;
 using Newtonsoft.Json;
+using Infrastructure_TechChallengePrimeiraFase.Util.Rabbit.Gateway;
 using Infrastructure_TechChallengePrimeiraFase.Util.Rabbit.Contatos.Interface;
 
-namespace API_TechChallengePrimeiraFase.Controllers.Contatos
+namespace API_Producer_TechChallenge.Controllers.Contatos
 {
     [ApiController]
     [Route("[controller]")]
@@ -21,6 +22,7 @@ namespace API_TechChallengePrimeiraFase.Controllers.Contatos
         private readonly IPessoasCommand _pessoasCommand;
         private readonly IValidaEmailPessoa _validaEmailPessoa;
         private readonly IPessoaProducer _pessooaProducer;
+
         private ValidaPessoa validaPessoa = new ValidaPessoa();
 
         public PessoaController(IPessoasQueries pessoasQueries, IPessoasCommand pessoasCommand, IValidaEmailPessoa validaEmailPessoa, IPessoaProducer pessoaProducer)
@@ -92,11 +94,11 @@ namespace API_TechChallengePrimeiraFase.Controllers.Contatos
             {
                 var resultValidacao = validaPessoa.Validate(pessoa);
 
-                var result =  _pessooaProducer.InserirPessoa(JsonConvert.SerializeObject(pessoa));
+                var result = _pessooaProducer.InserirPessoa(JsonConvert.SerializeObject(pessoa));
 
                 if (result)
                 {
-                    return Ok("Pessoa inserida na fila");
+                    return Ok();
                 }
                 else
                 {
@@ -121,7 +123,7 @@ namespace API_TechChallengePrimeiraFase.Controllers.Contatos
                 {
                     var resultValidacao = validaPessoa.Validate(pessoaEntity);
 
-                    var result = _pessoasCommand.AlterarPessoa(pessoaEntity, id);
+                    var result =  _pessooaProducer.AlterarPessoa(JsonConvert.SerializeObject(pessoaEntity)); ;
 
                     if (result)
                     {
@@ -146,7 +148,7 @@ namespace API_TechChallengePrimeiraFase.Controllers.Contatos
 
             if (pessoaEntity is not null)
             {
-                var result = _pessoasCommand.ExcluirPessoa(pessoaEntity.Id);
+                var result = _pessooaProducer.ExcluirPessoa(id);
 
                 if (result)
                 {
