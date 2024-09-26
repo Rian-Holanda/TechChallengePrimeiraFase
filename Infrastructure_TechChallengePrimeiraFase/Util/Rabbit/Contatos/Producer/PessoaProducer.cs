@@ -44,11 +44,11 @@ namespace Infrastructure_TechChallengePrimeiraFase.Util.Rabbit.Contatos.Producer
             }
         }
 
-        public bool ExcluirPessoa(int id)
+        public bool ExcluirPessoa(string json)
         {
             try
             {
-                return mensagemRabbit.PublicarMensagem(id.ToString(), "ExcluirPessoa");
+                return mensagemRabbit.PublicarMensagem(json, "ExcluirPessoa");
             }
             catch
             {
