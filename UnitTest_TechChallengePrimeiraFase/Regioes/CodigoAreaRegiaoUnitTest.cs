@@ -44,7 +44,7 @@ namespace UnitTest_TechChallengePrimeiraFase.Regioes
         }
 
         [Fact]
-        public void ValidaInsertRegiaoCodigoArea()
+        public async void ValidaInsertRegiaoCodigoArea()
         {
             if (loggerRegiaoCommand is not null)
             {
@@ -66,7 +66,7 @@ namespace UnitTest_TechChallengePrimeiraFase.Regioes
                     {
                         RegiaoCodigoAreaCommand RegiaoCodigoAreaCommand = new RegiaoCodigoAreaCommand(_context, loggerRegiaoCodigoAreaCommand);
 
-                        Assert.True(RegiaoCodigoAreaCommand.InserirRegiaoCodigoArea(regioesCodigosAreasEntity) > 0);
+                        Assert.True(await RegiaoCodigoAreaCommand.InserirRegiaoCodigoArea(regioesCodigosAreasEntity) > 0);
                     }
 
                      
@@ -108,7 +108,7 @@ namespace UnitTest_TechChallengePrimeiraFase.Regioes
 
         [Fact]
 
-        public void UpdateRegiaoCodigoArea()
+        public async void UpdateRegiaoCodigoArea()
         {
             if (loggerRegiaoCodigoAreaCommand is not null) 
             {
@@ -121,13 +121,13 @@ namespace UnitTest_TechChallengePrimeiraFase.Regioes
                 {
                     regiaoCodigoArea.DDD = 33;
 
-                    Assert.True(RegiaoCodigoAreaCommand.AlterarRegiaoCodigoArea(regiaoCodigoArea, regiaoCodigoArea.Id));
+                    Assert.True(await RegiaoCodigoAreaCommand.AlterarRegiaoCodigoArea(regiaoCodigoArea, regiaoCodigoArea.Id));
                 }
             }
         }
 
         [Fact]
-        public void DeleteRegiaoCodigoArea()
+        public async void DeleteRegiaoCodigoArea()
         {
             if (loggerRegiaoCodigoAreaCommand is not null) 
             {
@@ -138,7 +138,7 @@ namespace UnitTest_TechChallengePrimeiraFase.Regioes
 
                 if (regiaoCodigoArea is not null)
                 {
-                    Assert.True(RegiaoCodigoAreaCommand.ExcluirRegiaoCodigoArea(regiaoCodigoArea.Id));
+                    Assert.True(await RegiaoCodigoAreaCommand.ExcluirRegiaoCodigoArea(regiaoCodigoArea.Id));
                 }
             }
     

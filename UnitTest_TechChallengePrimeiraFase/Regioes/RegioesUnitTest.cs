@@ -67,7 +67,7 @@ namespace UnitTest_TechChallengePrimeiraFase.Regioes
         }
 
         [Fact]
-        public void ValidaInsertRegiao()
+        public async void ValidaInsertRegiao()
         {
             if (loggerRegiaoCommand is not null)
             {
@@ -78,7 +78,9 @@ namespace UnitTest_TechChallengePrimeiraFase.Regioes
 
                 RegiaoCommand regiaoCommand = new RegiaoCommand(_context, loggerRegiaoCommand);
 
-                Assert.True(regiaoCommand.InserirRegiao(regioesEntity) > 0);
+                int resultado = await  regiaoCommand.InserirRegiao(regioesEntity);
+
+                Assert.True(resultado > 0);
             }
 
         }
@@ -112,7 +114,7 @@ namespace UnitTest_TechChallengePrimeiraFase.Regioes
 
         [Fact]
 
-        public void UpdateRegiao()
+        public async void UpdateRegiao()
         {
             if (loggerRegiaoCommand is not null)
             {
@@ -125,7 +127,9 @@ namespace UnitTest_TechChallengePrimeiraFase.Regioes
                 {
                     regiao.Sigla = "MG";
 
-                    Assert.True(regiaoCommand.AlterarRegiao(regiao, regiao.Id));
+                    bool result = await regiaoCommand.AlterarRegiao(regiao);
+
+                    Assert.True(result);
                 }
 
             }
@@ -134,7 +138,7 @@ namespace UnitTest_TechChallengePrimeiraFase.Regioes
         }
 
         [Fact]
-        public void DeleteRegiao()
+        public async void DeleteRegiao()
         {
             if (loggerRegiaoCommand is not null)
             {
@@ -145,7 +149,7 @@ namespace UnitTest_TechChallengePrimeiraFase.Regioes
 
                 if (regiao is not null)
                 {
-                    Assert.True(regiaoCommand.ExcluirRegiao(regiao.Id));
+                    Assert.True(await regiaoCommand.ExcluirRegiao(regiao.Id));
                 }
             }
 

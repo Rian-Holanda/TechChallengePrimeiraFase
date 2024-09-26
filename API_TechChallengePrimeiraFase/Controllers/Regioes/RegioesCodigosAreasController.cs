@@ -98,7 +98,7 @@ namespace API_TechChallengePrimeiraFase.Controllers.Regioes
 
 
         [HttpPost("InserirRegiaoCodigoArea")]
-        public IActionResult InserirRegiaoCodigoArea([FromBody] RegiaoCodigoAreaModel regiaoCodigoAreaModel)
+        public async Task<IActionResult> InserirRegiaoCodigoArea([FromBody] RegiaoCodigoAreaModel regiaoCodigoAreaModel)
         {
             var regiao = _regiaoQueries.GetRegiaoExistente(regiaoCodigoAreaModel.siglaRegiao);
 
@@ -112,7 +112,7 @@ namespace API_TechChallengePrimeiraFase.Controllers.Regioes
                 };
 
 
-                var result = _regiaoCodigoAreaCommand.InserirRegiaoCodigoArea(regiaoCodigoArea);
+                var result = await _regiaoCodigoAreaCommand.InserirRegiaoCodigoArea(regiaoCodigoArea);
 
                 if (result > 0)
                 {
@@ -128,7 +128,7 @@ namespace API_TechChallengePrimeiraFase.Controllers.Regioes
         }
 
         [HttpPut("AlterarRegiaoCodigoArea/id")]
-        public IActionResult AlterarRegiaoCodigoArea(int id, [FromBody] RegiaoCodigoAreaModel regiaoCodigoAreaModel)
+        public async Task<IActionResult> AlterarRegiaoCodigoArea(int id, [FromBody] RegiaoCodigoAreaModel regiaoCodigoAreaModel)
         {
             var regiaoCodigoArea = _regiaoCodigoAreaCommand.GetRegiaoCodigoArea(id);
             var regiao = _regiaoQueries.GetRegiaoExistente(regiaoCodigoAreaModel.siglaRegiao);
@@ -138,7 +138,7 @@ namespace API_TechChallengePrimeiraFase.Controllers.Regioes
                 regiaoCodigoArea.IdRegiao = regiao.Id;
                 regiaoCodigoArea.DDD = regiaoCodigoAreaModel.DDD;
 
-                var result = _regiaoCodigoAreaCommand.AlterarRegiaoCodigoArea(regiaoCodigoArea, id);
+                var result = await _regiaoCodigoAreaCommand.AlterarRegiaoCodigoArea(regiaoCodigoArea, id);
 
                 if (result)
                 {
@@ -156,13 +156,13 @@ namespace API_TechChallengePrimeiraFase.Controllers.Regioes
         }
 
         [HttpDelete("DeletarRegiaoCodigoArea/id")]
-        public IActionResult DeletarRegiaoCodigoArea(int id)
+        public async Task<IActionResult> DeletarRegiaoCodigoArea(int id)
         {
             var regiaoCodigoArea = _regiaoCodigoAreaCommand.GetRegiaoCodigoArea(id);
 
             if (regiaoCodigoArea is not null)
             {
-                var result = _regiaoCodigoAreaCommand.ExcluirRegiaoCodigoArea(regiaoCodigoArea.Id);
+                var result = await _regiaoCodigoAreaCommand.ExcluirRegiaoCodigoArea(regiaoCodigoArea.Id);
 
                 if (result)
                 {

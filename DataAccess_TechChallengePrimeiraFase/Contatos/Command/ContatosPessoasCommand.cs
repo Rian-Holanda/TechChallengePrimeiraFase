@@ -25,11 +25,11 @@ namespace DataAccess_TechChallengePrimeiraFase.Regioes.Command
         }
 
 
-        public int InserirContatoPessoa(ContatosPessoaEntity contatoPessoaEntity)
+        public async Task<int> InserirContatoPessoa(ContatosPessoaEntity contatoPessoaEntity)
         {
             try 
             {
-                return context.ContatosPessoas.Add(contatoPessoaEntity).Context.SaveChanges();
+                return await context.ContatosPessoas.Add(contatoPessoaEntity).Context.SaveChangesAsync();
             }
             catch (Exception ex) 
             {
@@ -38,14 +38,14 @@ namespace DataAccess_TechChallengePrimeiraFase.Regioes.Command
             }
         }
 
-        public bool AlterarContatoPessoa(ContatosPessoaEntity contatoPessoaEntity, int idContatoPessoa)
+        public async Task<bool> AlterarContatoPessoa(ContatosPessoaEntity contatoPessoaEntity, int idContatoPessoa)
         {
             try 
             {
                 var contatoPessoa = context.ContatosPessoas.Where(cp => cp.Id == idContatoPessoa).FirstOrDefault();
                 contatoPessoa = contatoPessoaEntity;
 
-                var result = context.ContatosPessoas.Update(contatoPessoa).Context.SaveChanges();
+                var result = await context.ContatosPessoas.Update(contatoPessoa).Context.SaveChangesAsync();
 
                 return (result != 0);
             }
@@ -56,7 +56,7 @@ namespace DataAccess_TechChallengePrimeiraFase.Regioes.Command
             }
         }
 
-        public bool ExcluirContatoPessoa(int idContatoPessoa)
+        public async Task<bool> ExcluirContatoPessoa(int idContatoPessoa)
         {
             try 
             {
@@ -64,7 +64,7 @@ namespace DataAccess_TechChallengePrimeiraFase.Regioes.Command
                                        .Where(cp => cp.Id == idContatoPessoa)
                                        .FirstOrDefault();
 
-                var result = (contatoPessoa is not null)?context.ContatosPessoas.Remove(contatoPessoa).Context.SaveChanges(): 0;
+                var result = (contatoPessoa is not null)?await context.ContatosPessoas.Remove(contatoPessoa).Context.SaveChangesAsync() : 0;
 
                 return (result != 0);
             }
