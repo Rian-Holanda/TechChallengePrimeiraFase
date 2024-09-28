@@ -9,7 +9,7 @@ using static Business_TechChallengePrimeiraFase.Contatos.Domain.ValidaContatoPes
 
 namespace Business_TechChallengePrimeiraFase.Contatos.Domain
 {
-    public class ContatoPessoaDomain : AbstractValidator<ContatosPessoaEntity>
+    public class ContatoPessoaDomain : AbstractValidator<ContatoPessoaEntity>
     {
         public ContatoPessoaDomain() 
         {
@@ -21,9 +21,9 @@ namespace Business_TechChallengePrimeiraFase.Contatos.Domain
                 .NotNull().WithMessage("Informe a Sigla");
         }
 
-        public bool ValidaTipoContato(ValidaContatoPessoa validaContatoPessoa, ContatosPessoaEntity contatosPessoaEntity) 
+        public bool ValidaTipoContato(ValidaContatoPessoa validaContatoPessoa, ContatoPessoaEntity ContatoPessoaEntity) 
         {
-            return validaContatoPessoa.ValidaContato(contatosPessoaEntity);         
+            return validaContatoPessoa.ValidaContato(ContatoPessoaEntity);         
         }
 
        

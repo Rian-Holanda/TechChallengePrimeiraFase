@@ -12,11 +12,11 @@ namespace Business_TechChallengePrimeiraFase.Contatos.Domain
     {
         public abstract IContatoPessoa ValidaContato();
 
-        public bool ValidaContato(ContatosPessoaEntity contatosPessoaEntity)
+        public bool ValidaContato(ContatoPessoaEntity ContatoPessoaEntity)
         {
             var validaContato = ValidaContato();
 
-            return validaContato.ValidaContato(contatosPessoaEntity);
+            return validaContato.ValidaContato(ContatoPessoaEntity);
         }
 
         public class ValidaContatoPessoaFixo : ValidaContatoPessoa

@@ -82,7 +82,7 @@ namespace API_TechChallengePrimeiraFase.Controllers.Contatos
         public IActionResult InserirPessoa([FromBody] PessoasModel pessoasModel)
         {
             
-            PessoasEntity pessoa = new PessoasEntity() 
+            PessoaEntity pessoa = new PessoaEntity() 
             { 
                Nome = pessoasModel.Nome,
                Email = pessoasModel.Email
@@ -121,7 +121,7 @@ namespace API_TechChallengePrimeiraFase.Controllers.Contatos
                 {
                     var resultValidacao = validaPessoa.Validate(pessoaEntity);
 
-                    var result = _pessoasCommand.AlterarPessoa(pessoaEntity, id);
+                    var result = _pessoasCommand.AlterarPessoa(pessoaEntity);
 
                     if (result)
                     {

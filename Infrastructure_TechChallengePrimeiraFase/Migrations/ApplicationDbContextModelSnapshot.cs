@@ -20,7 +20,7 @@ namespace Infrastructure_TechChallengePrimeiraFase.Migrations
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
 
-            modelBuilder.Entity("Entities_TechChallengePrimeiraFase.Entities.ContatosPessoaEntity", b =>
+            modelBuilder.Entity("Entities_TechChallengePrimeiraFase.Entities.ContatoPessoaEntity", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -109,7 +109,7 @@ namespace Infrastructure_TechChallengePrimeiraFase.Migrations
                     b.ToTable("tb_Regiao", (string)null);
                 });
 
-            modelBuilder.Entity("Entities_TechChallengePrimeiraFase.Entities.ContatosPessoaEntity", b =>
+            modelBuilder.Entity("Entities_TechChallengePrimeiraFase.Entities.ContatoPessoaEntity", b =>
                 {
                     b.HasOne("Entities_TechChallengePrimeiraFase.Entities.PessoasEntity", "Pessoa")
                         .WithMany("ContatoPessoas")

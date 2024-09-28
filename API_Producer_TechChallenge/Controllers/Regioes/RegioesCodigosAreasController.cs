@@ -108,7 +108,7 @@ namespace API_Producer_TechChallenge.Controllers.Regioes
 
             if (regiao is not null)
             {
-                RegioesCodigosAreasEntity regiaoCodigoArea = new RegioesCodigosAreasEntity()
+                RegiaoCodigoAreaEntity regiaoCodigoArea = new RegiaoCodigoAreaEntity()
                 {
                     Regiao = regiao,
                     IdRegiao = regiao.Id,

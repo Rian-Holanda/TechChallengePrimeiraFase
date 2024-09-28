@@ -12,7 +12,7 @@ namespace Infrastructure_TechChallengePrimeiraFase.Util.Rabbit.Contatos.Consumer
         RabbitConfig rabbitConfig = new RabbitConfig();
         private readonly HttpClient _httpClient = new HttpClient();
         //private readonly PessoasCommand pessoasCommand = new PessoasCommand();
-        public async Task<string> InsertPessoa(PessoasEntity entity)
+        public async Task<string> InsertPessoa(PessoaEntity entity)
         {
             string messageConsumer = string.Empty;
 

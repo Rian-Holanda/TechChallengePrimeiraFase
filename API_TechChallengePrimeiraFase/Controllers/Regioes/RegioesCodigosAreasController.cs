@@ -104,7 +104,7 @@ namespace API_TechChallengePrimeiraFase.Controllers.Regioes
 
             if (regiao is not null)
             {
-                RegioesCodigosAreasEntity regiaoCodigoArea = new RegioesCodigosAreasEntity()
+                RegiaoCodigoAreaEntity regiaoCodigoArea = new RegiaoCodigoAreaEntity()
                 {
                     Regiao = regiao,
                     IdRegiao = regiao.Id,
@@ -138,7 +138,7 @@ namespace API_TechChallengePrimeiraFase.Controllers.Regioes
                 regiaoCodigoArea.IdRegiao = regiao.Id;
                 regiaoCodigoArea.DDD = regiaoCodigoAreaModel.DDD;
 
-                var result = await _regiaoCodigoAreaCommand.AlterarRegiaoCodigoArea(regiaoCodigoArea, id);
+                var result = await _regiaoCodigoAreaCommand.AlterarRegiaoCodigoArea(regiaoCodigoArea);
 
                 if (result)
                 {

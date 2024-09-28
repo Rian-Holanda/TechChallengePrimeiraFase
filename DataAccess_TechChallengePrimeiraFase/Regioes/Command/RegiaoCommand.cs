@@ -24,7 +24,7 @@ namespace DataAccess_TechChallengePrimeiraFase.Regioes.Command
         }
 
 
-        public async Task<int> InserirRegiao(RegioesEntity regioesEntity)
+        public async Task<int> InserirRegiao(RegiaoEntity regioesEntity)
         {
             try 
             {
@@ -37,7 +37,7 @@ namespace DataAccess_TechChallengePrimeiraFase.Regioes.Command
             }
         }
 
-        public async Task<bool> AlterarRegiao(RegioesEntity regioesEntity)
+        public async Task<bool> AlterarRegiao(RegiaoEntity regioesEntity)
         {
             try 
             {
@@ -69,7 +69,7 @@ namespace DataAccess_TechChallengePrimeiraFase.Regioes.Command
             }
         }
 
-        public RegioesEntity? GetRegiao(int idRegiao) 
+        public RegiaoEntity? GetRegiao(int idRegiao) 
         {
             try 
             {
@@ -85,7 +85,7 @@ namespace DataAccess_TechChallengePrimeiraFase.Regioes.Command
              
         }
 
-        public List<RegioesEntity> GetRegioes()
+        public List<RegiaoEntity> GetRegioes()
         {
             try 
             { 
@@ -99,7 +99,7 @@ namespace DataAccess_TechChallengePrimeiraFase.Regioes.Command
             catch (Exception ex) 
             {
                 logger?.LogError(ex.Message);
-                return new List<RegioesEntity>();
+                return new List<RegiaoEntity>();
             }
 
              

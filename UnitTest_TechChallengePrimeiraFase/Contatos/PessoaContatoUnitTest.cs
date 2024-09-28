@@ -62,7 +62,7 @@ namespace UnitTest_TechChallengePrimeiraFase.Contatos
         //        string contato1 = "3256780987";
         //        string contato2 = "32956780987";
 
-        //        ContatosPessoaEntity contatosPessoaEntity1 = new ContatosPessoaEntity()
+        //        ContatoPessoaEntity ContatoPessoaEntity1 = new ContatoPessoaEntity()
         //        {
         //            Pessoa = pessoa,
         //            Regiao = regiao,
@@ -72,9 +72,9 @@ namespace UnitTest_TechChallengePrimeiraFase.Contatos
         //            TipoContatoPessoa = (int)TipoContatoEnum.Fixo
         //        };
 
-        //        var tipoContatoFixo = contatoPessoaDomain.ValidaTipoContato(new ValidaContatoPessoaFixo(), contatosPessoaEntity1);
+        //        var tipoContatoFixo = contatoPessoaDomain.ValidaTipoContato(new ValidaContatoPessoaFixo(), ContatoPessoaEntity1);
 
-        //        ContatosPessoaEntity contatosPessoaEntity2 = new ContatosPessoaEntity()
+        //        ContatoPessoaEntity ContatoPessoaEntity2 = new ContatoPessoaEntity()
         //        {
         //            Pessoa = pessoa,
         //            Regiao = regiao,
@@ -84,12 +84,12 @@ namespace UnitTest_TechChallengePrimeiraFase.Contatos
         //            TipoContatoPessoa = (int)TipoContatoEnum.Celular
         //        };
 
-        //        var tipoContatoCelular = contatoPessoaDomain.ValidaTipoContato(new ValidaContatoPessoaCelular(), contatosPessoaEntity2);
+        //        var tipoContatoCelular = contatoPessoaDomain.ValidaTipoContato(new ValidaContatoPessoaCelular(), ContatoPessoaEntity2);
 
         //        if (tipoContatoFixo && tipoContatoCelular) 
         //        {
-        //            var result1 = contatosPessoasCommand.InserirContatoPessoa(contatosPessoaEntity1);
-        //            var result2 = contatosPessoasCommand.InserirContatoPessoa(contatosPessoaEntity2);
+        //            var result1 = contatosPessoasCommand.InserirContatoPessoa(ContatoPessoaEntity1);
+        //            var result2 = contatosPessoasCommand.InserirContatoPessoa(ContatoPessoaEntity2);
 
         //            Assert.True(result1 > 0 && result2 > 0);
         //        }

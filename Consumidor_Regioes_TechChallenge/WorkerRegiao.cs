@@ -138,25 +138,25 @@ namespace Consumidor_Regioes_TechChallenge
         }
 
 
-        private RegioesEntity FormataRegiao(dynamic regiao)
+        private RegiaoEntity FormataRegiao(dynamic regiao)
         {
             dynamic data = JsonConvert.DeserializeObject(regiao);
             var objeto = data.Mensagem.ToString();
 
 
-            RegioesEntity regiaoEntity = JsonConvert.DeserializeObject<RegioesEntity>(objeto.ToString());
+            RegiaoEntity regiaoEntity = JsonConvert.DeserializeObject<RegiaoEntity>(objeto.ToString());
 
             return regiaoEntity;
 
         }
 
 
-        private int IdRegiao(RegioesEntity regioesEntity)
+        private int IdRegiao(RegiaoEntity regioesEntity)
         {
             return regioesEntity.Id;
         }
 
-        private string Sigla(RegioesEntity regioesEntity)
+        private string Sigla(RegiaoEntity regioesEntity)
         {
             return regioesEntity.Sigla;
         }

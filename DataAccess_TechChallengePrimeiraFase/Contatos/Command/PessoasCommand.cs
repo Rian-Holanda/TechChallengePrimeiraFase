@@ -23,7 +23,7 @@ namespace DataAccess_TechChallengePrimeiraFase.Contatos.Command
             this.logger = logger;
         }
 
-        public int InserirPessoa(PessoasEntity pessoaEntity)
+        public int InserirPessoa(PessoaEntity pessoaEntity)
         {
             try 
             {
@@ -36,26 +36,13 @@ namespace DataAccess_TechChallengePrimeiraFase.Contatos.Command
             }
         }
 
-        public bool AlterarPessoa(PessoasEntity pessoaEntity)
+        public bool AlterarPessoa(PessoaEntity pessoaEntity)
         {
             try 
             {
+                var result = context.Pessoas.Update(pessoaEntity).Context.SaveChanges();
 
-                var pessoa = context.Pessoas.Where(p => p.Id == pessoaEntity.Id).FirstOrDefault();
-
-                if (pessoa == null)
-                {                   
-                    return false;
-                }
-               
-                pessoa.Nome = pessoaEntity.Nome;
-                pessoa.Email = pessoaEntity.Email;
-                
-               
-                context.Pessoas.Update(pessoa);
-                var result = context.SaveChanges();
-
-                return (result != 0);              
+                return (result != 0);
             }
             catch (Exception ex) 
             {
@@ -83,7 +70,7 @@ namespace DataAccess_TechChallengePrimeiraFase.Contatos.Command
             }
         }
 
-        public PessoasEntity? GetPessoa(int idPessoa)
+        public PessoaEntity? GetPessoa(int idPessoa)
         {
             try 
             {
@@ -99,13 +86,13 @@ namespace DataAccess_TechChallengePrimeiraFase.Contatos.Command
              
         }
 
-        public List<PessoasEntity>? GetPessoas()
+        public List<PessoaEntity>? GetPessoas()
         {
             try 
             { 
                 var pessoas = context.Pessoas
                                      .Select(p => p)
-                                     .Include(cp => cp.ContatoPessoas)
+                                     .Include(cp => cp.ContatoPessoa)
                                      .ToList();
 
                 return pessoas;
@@ -113,7 +100,7 @@ namespace DataAccess_TechChallengePrimeiraFase.Contatos.Command
             catch (Exception ex) 
             {
                 logger?.LogError(ex.Message);
-                return new List<PessoasEntity>();
+                return new List<PessoaEntity>();
             }
 
              

@@ -25,7 +25,7 @@ namespace DataAccess_TechChallengePrimeiraFase.Regioes.Command
         }
 
 
-        public async Task<int> InserirContatoPessoa(ContatosPessoaEntity contatoPessoaEntity)
+        public async Task<int> InserirContatoPessoa(ContatoPessoaEntity contatoPessoaEntity)
         {
             try 
             {
@@ -38,7 +38,7 @@ namespace DataAccess_TechChallengePrimeiraFase.Regioes.Command
             }
         }
 
-        public async Task<bool> AlterarContatoPessoa(ContatosPessoaEntity contatoPessoaEntity, int idContatoPessoa)
+        public async Task<bool> AlterarContatoPessoa(ContatoPessoaEntity contatoPessoaEntity, int idContatoPessoa)
         {
             try 
             {
@@ -75,7 +75,7 @@ namespace DataAccess_TechChallengePrimeiraFase.Regioes.Command
             }
         }
 
-        public ContatosPessoaEntity? GetContatoPessoa(int idContatoPessoa)
+        public ContatoPessoaEntity? GetContatoPessoa(int idContatoPessoa)
         {
             try 
             {
@@ -95,7 +95,7 @@ namespace DataAccess_TechChallengePrimeiraFase.Regioes.Command
              
         }
 
-        public List<ContatosPessoaEntity>? GetContatosPessoas()
+        public List<ContatoPessoaEntity>? GetContatosPessoas()
         {
             try 
             { 
@@ -108,7 +108,7 @@ namespace DataAccess_TechChallengePrimeiraFase.Regioes.Command
             catch (Exception ex) 
             {
                 logger?.LogError(ex.Message);
-                return new List<ContatosPessoaEntity>();
+                return new List<ContatoPessoaEntity>();
             }
 
              

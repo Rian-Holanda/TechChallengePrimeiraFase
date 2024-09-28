@@ -54,7 +54,7 @@ namespace UnitTest_TechChallengePrimeiraFase.Regioes
 
                 if (regiao is not null)
                 {
-                    RegioesCodigosAreasEntity regioesCodigosAreasEntity = new RegioesCodigosAreasEntity()
+                    RegiaoCodigoAreaEntity regioesCodigosAreasEntity = new RegiaoCodigoAreaEntity()
                     {
                         Regiao = regiao,
                         DDD = 32,
@@ -121,7 +121,7 @@ namespace UnitTest_TechChallengePrimeiraFase.Regioes
                 {
                     regiaoCodigoArea.DDD = 33;
 
-                    Assert.True(await RegiaoCodigoAreaCommand.AlterarRegiaoCodigoArea(regiaoCodigoArea, regiaoCodigoArea.Id));
+                    Assert.True(await RegiaoCodigoAreaCommand.AlterarRegiaoCodigoArea(regiaoCodigoArea));
                 }
             }
         }

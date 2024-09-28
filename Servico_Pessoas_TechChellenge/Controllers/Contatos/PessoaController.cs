@@ -121,7 +121,7 @@ namespace Servico_Pessoas_TechChellenge.Controllers.Contatos
                 {
                     var resultValidacao = validaPessoa.Validate(pessoaEntity);
 
-                    var result = _pessoasCommand.AlterarPessoa(pessoaEntity, id);
+                    var result = _pessoasCommand.AlterarPessoa(pessoaEntity);
 
                     if (result)
                     {

@@ -71,7 +71,7 @@ namespace UnitTest_TechChallengePrimeiraFase.Regioes
         {
             if (loggerRegiaoCommand is not null)
             {
-                RegioesEntity regioesEntity = new RegioesEntity
+                RegiaoEntity regioesEntity = new RegiaoEntity
                 {
                     Sigla = "RJ"
                 };

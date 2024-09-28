@@ -40,7 +40,7 @@ namespace DataAccess_TechChallengePrimeiraFase.Regioes.Queries
             }
         }
 
-        public RegioesEntity GetRegiaoExistente(string? sigla) 
+        public RegiaoEntity GetRegiaoExistente(string? sigla) 
         {
             try 
             {
@@ -51,7 +51,7 @@ namespace DataAccess_TechChallengePrimeiraFase.Regioes.Queries
             catch (Exception ex) 
             {
                 logger.LogError(ex.Message);
-                return new RegioesEntity();
+                return new RegiaoEntity();
             }
 
            

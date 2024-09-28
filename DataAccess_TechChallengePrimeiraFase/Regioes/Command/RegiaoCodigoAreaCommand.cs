@@ -24,7 +24,7 @@ namespace DataAccess_TechChallengePrimeiraFase.Regioes.Command
         }
 
 
-        public async Task<int> InserirRegiaoCodigoArea(RegioesCodigosAreasEntity regioesCodigosAreasEntity)
+        public async Task<int> InserirRegiaoCodigoArea(RegiaoCodigoAreaEntity regioesCodigosAreasEntity)
         {
             try 
             {
@@ -37,14 +37,11 @@ namespace DataAccess_TechChallengePrimeiraFase.Regioes.Command
             }
         }
 
-        public async Task<bool> AlterarRegiaoCodigoArea(RegioesCodigosAreasEntity regioesCodigosAreasEntity, int idRegiaoCodigoArea)
+        public async Task<bool> AlterarRegiaoCodigoArea(RegiaoCodigoAreaEntity regioesCodigosAreasEntity)
         {
             try 
             {
-                var regiaoCodigoArea = context.RegioesCodigosAreas.Where(r => r.Id == idRegiaoCodigoArea).FirstOrDefault();
-                regiaoCodigoArea = regioesCodigosAreasEntity;
-
-                var result = await context.RegioesCodigosAreas.Update(regiaoCodigoArea).Context.SaveChangesAsync();
+                var result = await context.RegioesCodigosAreas.Update(regioesCodigosAreasEntity).Context.SaveChangesAsync();
 
                 return (result != 0);
             }
@@ -74,7 +71,7 @@ namespace DataAccess_TechChallengePrimeiraFase.Regioes.Command
             }
         }
 
-        public RegioesCodigosAreasEntity? GetRegiaoCodigoArea(int idRegiaoCodigoArea)
+        public RegiaoCodigoAreaEntity? GetRegiaoCodigoArea(int idRegiaoCodigoArea)
         {
             try 
             {
@@ -90,7 +87,7 @@ namespace DataAccess_TechChallengePrimeiraFase.Regioes.Command
              
         }
 
-        public List<RegioesCodigosAreasEntity>? GetRegioesCodigosAreas()
+        public List<RegiaoCodigoAreaEntity>? GetRegioesCodigosAreas()
         {
             try 
             { 
@@ -104,7 +101,7 @@ namespace DataAccess_TechChallengePrimeiraFase.Regioes.Command
             catch (Exception ex) 
             {
                 logger.LogError(ex.Message);
-                return new List<RegioesCodigosAreasEntity>();
+                return new List<RegiaoCodigoAreaEntity>();
             }
 
              
