@@ -10,9 +10,9 @@ namespace DataAccess_TechChallengePrimeiraFase.Contatos.Interface
     public interface IContatosPessoasCommand
     {
 
-        int InserirContatoPessoa(ContatosPessoaEntity contatoPessoaEntity);
-        bool AlterarContatoPessoa(ContatosPessoaEntity contatoPessoaEntity, int idContatoPessoa);
-        bool ExcluirContatoPessoa(int idContatoPessoa);
+        Task<int> InserirContatoPessoa(ContatosPessoaEntity contatoPessoaEntity);
+        Task<bool> AlterarContatoPessoa(ContatosPessoaEntity contatoPessoaEntity, int idContatoPessoa);
+        Task<bool> ExcluirContatoPessoa(int idContatoPessoa);
         ContatosPessoaEntity? GetContatoPessoa(int idContatoPessoa);
         List<ContatosPessoaEntity>? GetContatosPessoas();
     }

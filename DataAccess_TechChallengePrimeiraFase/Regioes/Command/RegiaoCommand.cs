@@ -24,7 +24,7 @@ namespace DataAccess_TechChallengePrimeiraFase.Regioes.Command
         }
 
 
-        public int InserirRegiao(RegioesEntity regioesEntity)
+        public async Task<int> InserirRegiao(RegioesEntity regioesEntity)
         {
             try 
             {
@@ -37,14 +37,12 @@ namespace DataAccess_TechChallengePrimeiraFase.Regioes.Command
             }
         }
 
-        public bool AlterarRegiao(RegioesEntity regioesEntity, int idRegiao)
+        public async Task<bool> AlterarRegiao(RegioesEntity regioesEntity)
         {
             try 
             {
-                var regiao = context.Regioes.Where(r => r.Id == idRegiao).FirstOrDefault();
-                regiao = regioesEntity;
-
-                var result =  context.Regioes.Update(regioesEntity).Context.SaveChanges();
+                
+                var result = await context.Regioes.Update(regioesEntity).Context.SaveChangesAsync();
 
                 return (result != 0);
             }
@@ -55,12 +53,12 @@ namespace DataAccess_TechChallengePrimeiraFase.Regioes.Command
             }
         }
 
-        public bool ExcluirRegiao (int idRegiao) 
+        public async Task<bool> ExcluirRegiao (int idRegiao) 
         {
             try 
             {
                 var regiao = context.Regioes.Where(r => r.Id == idRegiao).FirstOrDefault();
-                var result = (regiao is not null )?context.Regioes.Remove(regiao).Context.SaveChanges(): 0;
+                var result = (regiao is not null )?await context.Regioes.Remove(regiao).Context.SaveChangesAsync(): 0;
 
                 return (result != 0);
             }

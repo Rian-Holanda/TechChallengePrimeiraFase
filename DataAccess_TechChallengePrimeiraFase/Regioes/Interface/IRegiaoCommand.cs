@@ -10,9 +10,9 @@ namespace DataAccess_TechChallengePrimeiraFase.Regioes.Interface
     public interface IRegiaoCommand
     {
 
-        int InserirRegiao(RegioesEntity regioesEntity);
-        bool AlterarRegiao(RegioesEntity regioesEntity, int idRegiao);
-        bool ExcluirRegiao(int idRegiao);
+        Task<int> InserirRegiao(RegioesEntity regioesEntity);
+        Task<bool> AlterarRegiao(RegioesEntity regioesEntity);
+        Task<bool> ExcluirRegiao(int idRegiao);
         RegioesEntity? GetRegiao(int idRegiao);
         List<RegioesEntity>? GetRegioes();
     }

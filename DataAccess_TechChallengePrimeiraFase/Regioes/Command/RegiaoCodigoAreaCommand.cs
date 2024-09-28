@@ -24,11 +24,11 @@ namespace DataAccess_TechChallengePrimeiraFase.Regioes.Command
         }
 
 
-        public int InserirRegiaoCodigoArea(RegioesCodigosAreasEntity regioesCodigosAreasEntity)
+        public async Task<int> InserirRegiaoCodigoArea(RegioesCodigosAreasEntity regioesCodigosAreasEntity)
         {
             try 
             {
-                return context.RegioesCodigosAreas.Add(regioesCodigosAreasEntity).Context.SaveChanges();
+                return await context.RegioesCodigosAreas.Add(regioesCodigosAreasEntity).Context.SaveChangesAsync();
             }
             catch (Exception ex) 
             {
@@ -37,14 +37,14 @@ namespace DataAccess_TechChallengePrimeiraFase.Regioes.Command
             }
         }
 
-        public bool AlterarRegiaoCodigoArea(RegioesCodigosAreasEntity regioesCodigosAreasEntity, int idRegiaoCodigoArea)
+        public async Task<bool> AlterarRegiaoCodigoArea(RegioesCodigosAreasEntity regioesCodigosAreasEntity, int idRegiaoCodigoArea)
         {
             try 
             {
                 var regiaoCodigoArea = context.RegioesCodigosAreas.Where(r => r.Id == idRegiaoCodigoArea).FirstOrDefault();
                 regiaoCodigoArea = regioesCodigosAreasEntity;
 
-                var result = context.RegioesCodigosAreas.Update(regiaoCodigoArea).Context.SaveChanges();
+                var result = await context.RegioesCodigosAreas.Update(regiaoCodigoArea).Context.SaveChangesAsync();
 
                 return (result != 0);
             }
@@ -55,7 +55,7 @@ namespace DataAccess_TechChallengePrimeiraFase.Regioes.Command
             }
         }
 
-        public bool ExcluirRegiaoCodigoArea(int idRegiaoCodigoArea)
+        public async Task<bool> ExcluirRegiaoCodigoArea(int idRegiaoCodigoArea)
         {
             try 
             {
@@ -63,7 +63,7 @@ namespace DataAccess_TechChallengePrimeiraFase.Regioes.Command
                                        .Where(r => r.Id == idRegiaoCodigoArea)
                                        .FirstOrDefault();
 
-                var result = (regiaoCodigoArea is not null)?context.RegioesCodigosAreas.Remove(regiaoCodigoArea).Context.SaveChanges(): 0;
+                var result = (regiaoCodigoArea is not null)?await context.RegioesCodigosAreas.Remove(regiaoCodigoArea).Context.SaveChangesAsync() : 0;
 
                 return (result != 0);
             }

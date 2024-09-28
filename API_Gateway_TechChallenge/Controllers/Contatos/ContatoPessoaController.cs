@@ -69,7 +69,7 @@ namespace API_Gateway_TechChallenge.Controllers.Contatos
         }
 
         [HttpPost("InserirContatoPessoa")]
-        public IActionResult InserirContatoPessoa([FromBody] ContatoPessoaModel contatoPessoaModel)
+        public async Task<IActionResult> InserirContatoPessoa([FromBody] ContatoPessoaModel contatoPessoaModel)
         {
             var pessoa = _pessoasCommand.GetPessoa(contatoPessoaModel.IdPessoa);
             var regiao = _regiaoQueries.GetRegiaoExistente(contatoPessoaModel.SiglaRegiao);
@@ -94,7 +94,7 @@ namespace API_Gateway_TechChallenge.Controllers.Contatos
 
                 if (resultValidacao && resultValidacaoContato.IsValid)
                 {
-                    var result = _contatosPessoasCommand.InserirContatoPessoa(contatosPessoaEntity);
+                    var result = await _contatosPessoasCommand.InserirContatoPessoa(contatosPessoaEntity);
 
                     if (result > 0)
                     {
@@ -112,7 +112,7 @@ namespace API_Gateway_TechChallenge.Controllers.Contatos
         }
 
         [HttpPut("AlterarContatoPessoa/id")]
-        public IActionResult AlterarContatoPessoa(int id, [FromBody] ContatoPessoaModel contatoPessoaModel)
+        public async Task<IActionResult> AlterarContatoPessoa(int id, [FromBody] ContatoPessoaModel contatoPessoaModel)
         {
             var pessoa = _pessoasCommand.GetPessoa(contatoPessoaModel.IdPessoa);
             var regiao = _regiaoQueries.GetRegiaoExistente(contatoPessoaModel.SiglaRegiao);
@@ -137,7 +137,7 @@ namespace API_Gateway_TechChallenge.Controllers.Contatos
 
                 if (resultValidacao && resultValidacaoContato.IsValid)
                 {
-                    var result = _contatosPessoasCommand.AlterarContatoPessoa(contatosPessoaEntity, id);
+                    var result = await _contatosPessoasCommand.AlterarContatoPessoa(contatosPessoaEntity, id);
 
                     if (result)
                     {
@@ -156,13 +156,13 @@ namespace API_Gateway_TechChallenge.Controllers.Contatos
         }
 
         [HttpDelete("DeletarContatoPessoa/id")]
-        public IActionResult DeletarContatoPessoa(int id)
+        public async Task<IActionResult> DeletarContatoPessoa(int id)
         {
             var contatoPessoaEntity = _contatosPessoasCommand.GetContatoPessoa(id);
 
             if (contatoPessoaEntity is not null)
             {
-                var result = _contatosPessoasCommand.ExcluirContatoPessoa(contatoPessoaEntity.Id);
+                var result = await _contatosPessoasCommand.ExcluirContatoPessoa(contatoPessoaEntity.Id);
 
                 if (result)
                 {

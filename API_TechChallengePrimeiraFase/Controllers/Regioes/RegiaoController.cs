@@ -59,13 +59,13 @@ namespace API_TechChallengePrimeiraFase.Controllers.Regioes
         }
 
         [HttpPost("InserirRegiao/siglaRegiao")]
-        public IActionResult InserirRegiao(string siglaRegiao)
+        public async Task<IActionResult> InserirRegiao(string siglaRegiao)
         {
             RegioesEntity regiao = new RegioesEntity() { Sigla = siglaRegiao.ToUpper() };
 
             if (_validacoesRegioes.ValidaRegiao(siglaRegiao))
             {
-                var result = _regiaoCommand.InserirRegiao(regiao);
+                var result = await _regiaoCommand.InserirRegiao(regiao);
 
                 if (result > 0)
                 {
@@ -81,7 +81,7 @@ namespace API_TechChallengePrimeiraFase.Controllers.Regioes
         }
 
         [HttpPut("AlterarRegiao/id")]
-        public IActionResult AlterarRegiao(int id, [FromBody] RegioesModel regiao)
+        public async Task<IActionResult> AlterarRegiao(int id, [FromBody] RegioesModel regiao)
         {
             var regiaoEntity = _regiaoCommand.GetRegiao(id);
 
@@ -91,7 +91,7 @@ namespace API_TechChallengePrimeiraFase.Controllers.Regioes
 
                 if (_validacoesRegioes.ValidaRegiao(regiaoEntity.Sigla))
                 {
-                    var result = _regiaoCommand.AlterarRegiao(regiaoEntity, id);
+                    var result = await _regiaoCommand.AlterarRegiao(regiaoEntity);
 
                     if (result)
                     {
@@ -110,13 +110,13 @@ namespace API_TechChallengePrimeiraFase.Controllers.Regioes
         }
 
         [HttpDelete("DeletarRegiao/id")]
-        public IActionResult DeletarRegiao(int id)
+        public async Task<IActionResult> DeletarRegiao(int id)
         {
             var regiaoEntity = _regiaoCommand.GetRegiao(id);
 
             if (regiaoEntity is not null)
             {
-                var result = _regiaoCommand.ExcluirRegiao(regiaoEntity.Id);
+                var result = await _regiaoCommand.ExcluirRegiao(regiaoEntity.Id);
 
                 if (result)
                 {
