@@ -36,16 +36,26 @@ namespace DataAccess_TechChallengePrimeiraFase.Contatos.Command
             }
         }
 
-        public bool AlterarPessoa(PessoasEntity pessoaEntity, int idPessoa)
+        public bool AlterarPessoa(PessoasEntity pessoaEntity)
         {
             try 
             {
-                var pessoa = context.Pessoas.Where(p => p.Id == idPessoa).FirstOrDefault();
-                pessoa = pessoaEntity;
 
-                var result = context.Pessoas.Update(pessoa).Context.SaveChanges();
+                var pessoa = context.Pessoas.Where(p => p.Id == pessoaEntity.Id).FirstOrDefault();
 
-                return (result != 0);
+                if (pessoa == null)
+                {                   
+                    return false;
+                }
+               
+                pessoa.Nome = pessoaEntity.Nome;
+                pessoa.Email = pessoaEntity.Email;
+                
+               
+                context.Pessoas.Update(pessoa);
+                var result = context.SaveChanges();
+
+                return (result != 0);              
             }
             catch (Exception ex) 
             {

@@ -15,11 +15,11 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DataAccess_TechChallengePri
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "UnitTest_TechChallengePrimeiraFase", "UnitTest_TechChallengePrimeiraFase\UnitTest_TechChallengePrimeiraFase.csproj", "{7B61715F-70E9-4607-B112-BE40935A6F31}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "API_Gateway_TechChallenge", "API_Gateway_TechChallenge\API_Gateway_TechChallenge.csproj", "{A7DC7E92-B3E0-4C4F-82C8-F67CC46414BB}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "API_Gateway_TechChallenge", "API_Gateway_TechChallenge\API_Gateway_TechChallenge.csproj", "{A7DC7E92-B3E0-4C4F-82C8-F67CC46414BB}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Servico_Regioes_TechChallenge", "Servico_Regioes_TechChallenge\Servico_Regioes_TechChallenge.csproj", "{0AB94B85-8A9B-4B67-A4CF-A8E28E828802}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Servico_Regioes_TechChallenge", "Servico_Regioes_TechChallenge\Servico_Regioes_TechChallenge.csproj", "{0AB94B85-8A9B-4B67-A4CF-A8E28E828802}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Servico_Pessoas_TechChellenge", "Servico_Pessoas_TechChellenge\Servico_Pessoas_TechChellenge.csproj", "{DEED76C3-4907-4BF2-A705-BDADD2324B90}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Servico_Pessoas_TechChellenge", "Servico_Pessoas_TechChellenge\Servico_Pessoas_TechChellenge.csproj", "{DEED76C3-4907-4BF2-A705-BDADD2324B90}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Consumidor", "Consumidor\Consumidor.csproj", "{91CCCB81-7B79-43F1-A8C7-39AA3F37F18F}"
 EndProject

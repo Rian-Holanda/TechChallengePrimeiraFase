@@ -11,7 +11,7 @@ namespace DataAccess_TechChallengePrimeiraFase.Contatos.Interface
     {
 
         int InserirPessoa(PessoasEntity pessoaEntity);
-        bool AlterarPessoa(PessoasEntity pessoaEntity, int idPessoa);
+        bool AlterarPessoa(PessoasEntity pessoaEntity);
         bool ExcluirPessoa(int idPessoa);
         PessoasEntity? GetPessoa(int idPessoa);
         List<PessoasEntity>? GetPessoas();

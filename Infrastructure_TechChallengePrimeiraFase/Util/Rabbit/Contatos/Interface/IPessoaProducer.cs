@@ -10,7 +10,7 @@ namespace Infrastructure_TechChallengePrimeiraFase.Util.Rabbit.Contatos.Interfac
     {
         bool InserirPessoa(string json);
         bool AlterarPessoa(string json);
-        bool ExcluirPessoa(int id);
+        bool ExcluirPessoa(string json);
 
     }
 }
