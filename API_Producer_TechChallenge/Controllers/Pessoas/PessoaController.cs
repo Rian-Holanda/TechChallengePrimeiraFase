@@ -110,9 +110,9 @@ namespace API_Producer_TechChallenge.Controllers.Contatos
         }
 
         [HttpPut("AlterarPessoa/id")]
-        public IActionResult AlterarPessoa(int id, [FromBody] PessoasModel pessoasModel)
+        public IActionResult AlterarPessoa([FromBody] PessoasModel pessoasModel)
         {
-            var pessoaEntity = _pessoasCommand.GetPessoa(id);
+            var pessoaEntity = _pessoasCommand.GetPessoa(pessoasModel.Id);
 
             if (pessoaEntity is not null)
             {
@@ -148,7 +148,7 @@ namespace API_Producer_TechChallenge.Controllers.Contatos
 
             if (pessoaEntity is not null)
             {
-                var result = _pessooaProducer.ExcluirPessoa(id);
+                var result = _pessooaProducer.ExcluirPessoa(JsonConvert.SerializeObject(pessoaEntity));
 
                 if (result)
                 {
