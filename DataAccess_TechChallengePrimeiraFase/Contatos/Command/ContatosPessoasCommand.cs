@@ -42,7 +42,11 @@ namespace DataAccess_TechChallengePrimeiraFase.Regioes.Command
         {
             try 
             {
-                var contatoPessoa = context.ContatosPessoas.Where(cp => cp.Id == idContatoPessoa).FirstOrDefault();
+                var contatoPessoa = context.ContatosPessoas
+                                    .Where(cp => cp.Id == idContatoPessoa)
+                                    .AsNoTracking()
+                                    .FirstOrDefault();
+
                 contatoPessoa = contatoPessoaEntity;
 
                 var result = await context.ContatosPessoas.Update(contatoPessoa).Context.SaveChangesAsync();
@@ -62,6 +66,7 @@ namespace DataAccess_TechChallengePrimeiraFase.Regioes.Command
             {
                 var contatoPessoa = context.ContatosPessoas
                                        .Where(cp => cp.Id == idContatoPessoa)
+                                       .AsNoTracking()
                                        .FirstOrDefault();
 
                 var result = (contatoPessoa is not null)?await context.ContatosPessoas.Remove(contatoPessoa).Context.SaveChangesAsync() : 0;
@@ -83,6 +88,7 @@ namespace DataAccess_TechChallengePrimeiraFase.Regioes.Command
                                     .Where(cp => cp.Id == idContatoPessoa)
                                     .Include(p => p.Pessoa)
                                     .Include(r => r.Regiao)
+                                    .AsNoTracking()
                                     .FirstOrDefault();
 
                 return (contatoPessoa is not null)? contatoPessoa : null;
@@ -101,6 +107,7 @@ namespace DataAccess_TechChallengePrimeiraFase.Regioes.Command
             { 
                 var contatosPessoas = context.ContatosPessoas
                                      .Select(cp => cp)
+                                     .AsNoTracking()
                                      .ToList();
 
                 return contatosPessoas;

@@ -10,6 +10,6 @@
         public int Id { get { return _id; } set { _id = value; } }
         public int DDD { get { return _ddd; } set { _ddd = value; } }
         public int IdRegiao { get { return _idRegiao; } set { _idRegiao = value; } }
-        public required RegiaoEntity Regiao { get; set; }
+        public RegiaoEntity? Regiao { get; set; }
     }
 }

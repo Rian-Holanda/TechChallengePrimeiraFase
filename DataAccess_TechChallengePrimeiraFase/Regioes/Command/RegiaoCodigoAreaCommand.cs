@@ -28,6 +28,7 @@ namespace DataAccess_TechChallengePrimeiraFase.Regioes.Command
         {
             try 
             {
+
                 return await context.RegioesCodigosAreas.Add(regioesCodigosAreasEntity).Context.SaveChangesAsync();
             }
             catch (Exception ex) 
@@ -37,12 +38,16 @@ namespace DataAccess_TechChallengePrimeiraFase.Regioes.Command
             }
         }
 
-        public async Task<bool> AlterarRegiaoCodigoArea(RegiaoCodigoAreaEntity regioesCodigosAreasEntity)
+        public async Task<bool> AlterarRegiaoCodigoArea(RegiaoCodigoAreaEntity regioesCodigosAreasEntity, int id)
         {
             try 
             {
-                var result = await context.RegioesCodigosAreas.Update(regioesCodigosAreasEntity).Context.SaveChangesAsync();
+                var result = await context.RegioesCodigosAreas.Where(r => r.Id == id)
+                                                              .ExecuteUpdateAsync(setters => setters
+                                                                                 .SetProperty(rc => rc.DDD, regioesCodigosAreasEntity.DDD)
+                                                                                 .SetProperty(rc => rc.IdRegiao, regioesCodigosAreasEntity.IdRegiao));
 
+                
                 return (result != 0);
             }
             catch (Exception ex) 
@@ -58,6 +63,7 @@ namespace DataAccess_TechChallengePrimeiraFase.Regioes.Command
             {
                 var regiaoCodigoArea = context.RegioesCodigosAreas
                                        .Where(r => r.Id == idRegiaoCodigoArea)
+                                       .AsNoTracking()
                                        .FirstOrDefault();
 
                 var result = (regiaoCodigoArea is not null)?await context.RegioesCodigosAreas.Remove(regiaoCodigoArea).Context.SaveChangesAsync() : 0;
@@ -75,7 +81,10 @@ namespace DataAccess_TechChallengePrimeiraFase.Regioes.Command
         {
             try 
             {
-                var regiaoCodigoArea = context.RegioesCodigosAreas.Where(r => r.Id == idRegiaoCodigoArea).FirstOrDefault();
+                var regiaoCodigoArea = context.RegioesCodigosAreas
+                    .Where(r => r.Id == idRegiaoCodigoArea)
+                    .AsNoTracking()
+                    .FirstOrDefault();
 
                 return (regiaoCodigoArea is not null)? regiaoCodigoArea : null;
             }
@@ -94,6 +103,7 @@ namespace DataAccess_TechChallengePrimeiraFase.Regioes.Command
                 var regioesCodigosAreas = context.RegioesCodigosAreas
                                                  .Select(r => r)
                                                  .Include(r => r.Regiao)
+                                                 .AsNoTracking()
                                                  .ToList();
 
                 return regioesCodigosAreas;

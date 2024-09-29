@@ -79,7 +79,7 @@ namespace API_TechChallengePrimeiraFase.Controllers.Contatos
         }
 
         [HttpPost("InserirPessoa")]
-        public IActionResult InserirPessoa([FromBody] PessoasModel pessoasModel)
+        public async Task<IActionResult> InserirPessoa([FromBody] PessoasModel pessoasModel)
         {
             
             PessoaEntity pessoa = new PessoaEntity() 
@@ -108,7 +108,7 @@ namespace API_TechChallengePrimeiraFase.Controllers.Contatos
         }
 
         [HttpPut("AlterarPessoa/id")]
-        public IActionResult AlterarPessoa(int id, [FromBody] PessoasModel pessoasModel)
+        public async Task<IActionResult> AlterarPessoa(int id, [FromBody] PessoasModel pessoasModel)
         {
             var pessoaEntity = _pessoasCommand.GetPessoa(id);
 
@@ -121,7 +121,7 @@ namespace API_TechChallengePrimeiraFase.Controllers.Contatos
                 {
                     var resultValidacao = validaPessoa.Validate(pessoaEntity);
 
-                    var result = _pessoasCommand.AlterarPessoa(pessoaEntity);
+                    var result = await _pessoasCommand.AlterarPessoa(pessoaEntity,id);
 
                     if (result)
                     {
@@ -140,13 +140,13 @@ namespace API_TechChallengePrimeiraFase.Controllers.Contatos
         }
 
         [HttpDelete("DeletarPessoa/id")]
-        public IActionResult DeletarPessoa(int id)
+        public async Task<IActionResult> DeletarPessoa(int id)
         {
             var pessoaEntity = _pessoasCommand.GetPessoa(id);
 
             if (pessoaEntity is not null)
             {
-                var result = _pessoasCommand.ExcluirPessoa(pessoaEntity.Id);
+                var result = await _pessoasCommand.ExcluirPessoa(pessoaEntity.Id);
 
                 if (result)
                 {

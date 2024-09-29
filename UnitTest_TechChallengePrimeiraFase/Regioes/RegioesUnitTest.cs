@@ -127,7 +127,7 @@ namespace UnitTest_TechChallengePrimeiraFase.Regioes
                 {
                     regiao.Sigla = "MG";
 
-                    bool result = await regiaoCommand.AlterarRegiao(regiao);
+                    bool result = await regiaoCommand.AlterarRegiao(regiao, regiao.Id);
 
                     Assert.True(result);
                 }

@@ -10,9 +10,9 @@ namespace DataAccess_TechChallengePrimeiraFase.Contatos.Interface
     public interface IPessoasCommand
     {
 
-        int InserirPessoa(PessoaEntity pessoaEntity);
-        bool AlterarPessoa(PessoaEntity pessoaEntity);
-        bool ExcluirPessoa(int idPessoa);
+        Task<int> InserirPessoa(PessoaEntity pessoaEntity);
+        Task<bool> AlterarPessoa(PessoaEntity pessoaEntity, int id);
+        Task<bool> ExcluirPessoa(int idPessoa);
         PessoaEntity? GetPessoa(int idPessoa);
         List<PessoaEntity>? GetPessoas();
     }

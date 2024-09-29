@@ -148,7 +148,7 @@ namespace API_Producer_TechChallenge.Controllers.Contatos
 
             if (pessoaEntity is not null)
             {
-                var result = _pessooaProducer.ExcluirPessoa(pessoaEntity.Id);
+                var result = _pessooaProducer.ExcluirPessoa(pessoaEntity.Id.ToString());
 
                 if (result)
                 {

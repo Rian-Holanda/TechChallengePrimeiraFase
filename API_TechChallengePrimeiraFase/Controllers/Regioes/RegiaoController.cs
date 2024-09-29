@@ -91,7 +91,7 @@ namespace API_TechChallengePrimeiraFase.Controllers.Regioes
 
                 if (_validacoesRegioes.ValidaRegiao(regiaoEntity.Sigla))
                 {
-                    var result = await _regiaoCommand.AlterarRegiao(regiaoEntity);
+                    var result = await _regiaoCommand.AlterarRegiao(regiaoEntity, id);
 
                     if (result)
                     {

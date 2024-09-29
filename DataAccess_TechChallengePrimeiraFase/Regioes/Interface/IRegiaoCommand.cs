@@ -11,7 +11,7 @@ namespace DataAccess_TechChallengePrimeiraFase.Regioes.Interface
     {
 
         Task<int> InserirRegiao(RegiaoEntity regioesEntity);
-        Task<bool> AlterarRegiao(RegiaoEntity regioesEntity);
+        Task<bool> AlterarRegiao(RegiaoEntity regioesEntity, int id);
         Task<bool> ExcluirRegiao(int idRegiao);
         RegiaoEntity? GetRegiao(int idRegiao);
         List<RegiaoEntity>? GetRegioes();

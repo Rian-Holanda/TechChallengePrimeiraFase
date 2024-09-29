@@ -121,7 +121,7 @@ namespace UnitTest_TechChallengePrimeiraFase.Regioes
                 {
                     regiaoCodigoArea.DDD = 33;
 
-                    Assert.True(await RegiaoCodigoAreaCommand.AlterarRegiaoCodigoArea(regiaoCodigoArea));
+                    Assert.True(await RegiaoCodigoAreaCommand.AlterarRegiaoCodigoArea(regiaoCodigoArea,regiaoCodigoArea.Id));
                 }
             }
         }
