@@ -51,17 +51,11 @@ jobs:
         with:
           name: .net-app
       
-      - name: Login to Azure
-        uses: azure/login@v2
-        with:
-          client-id: 68e49894-dedf-4978-82e1-2efaa53ddb57
-          tenant-id: 4bd40509-46e1-44b9-b3bd-75f27d432a43
-          subscription-id: 68e49894-dedf-4978-82e1-2efaa53ddb57
-
-      - name: Deploy to Azure Web App
+       - name: Deploy to Azure Web App
         id: deploy-to-webapp
         uses: azure/webapps-deploy@v3
         with:
           app-name: 'APIProducerTechChallenge'
           slot-name: 'production'
           package: .
+          publish-profile: ${{ secrets.AzureAppService_PublishProfile_ec9a5ff5936f4af98a3eb4d4f736079a }}
