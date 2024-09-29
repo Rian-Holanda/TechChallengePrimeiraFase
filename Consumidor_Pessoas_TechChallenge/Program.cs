@@ -1,4 +1,4 @@
-using Consumidor;
+using Consumidor_Pessoas_TechChallenge;
 using DataAccess_TechChallengePrimeiraFase.Contatos.Command;
 using DataAccess_TechChallengePrimeiraFase.Contatos.Interface;
 using DataAccess_TechChallengePrimeiraFase.Regioes.Command;
