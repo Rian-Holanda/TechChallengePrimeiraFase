@@ -84,7 +84,7 @@ namespace API_Producer_TechChallenge.Controllers.Contatos
         public IActionResult InserirPessoa([FromBody] PessoasModel pessoasModel)
         {
             
-            PessoasEntity pessoa = new PessoasEntity() 
+            PessoaEntity pessoa = new PessoaEntity() 
             { 
                Nome = pessoasModel.Nome,
                Email = pessoasModel.Email
@@ -148,7 +148,7 @@ namespace API_Producer_TechChallenge.Controllers.Contatos
 
             if (pessoaEntity is not null)
             {
-                var result = _pessooaProducer.ExcluirPessoa(JsonConvert.SerializeObject(pessoaEntity));
+                var result = _pessooaProducer.ExcluirPessoa(pessoaEntity.Id.ToString());
 
                 if (result)
                 {

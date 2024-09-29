@@ -17,10 +17,10 @@ public class ApplicationDbContext : DbContext, IApplicationDbContext
 
     }
 
-    public DbSet<PessoasEntity> Pessoas { get; set; }
-    public DbSet<ContatosPessoaEntity> ContatosPessoas { get; set; }
-    public DbSet<RegioesEntity> Regioes { get; set; }
-    public DbSet<RegioesCodigosAreasEntity> RegioesCodigosAreas { get; set; }
+    public DbSet<PessoaEntity> Pessoas { get; set; }
+    public DbSet<ContatoPessoaEntity> ContatosPessoas { get; set; }
+    public DbSet<RegiaoEntity> Regioes { get; set; }
+    public DbSet<RegiaoCodigoAreaEntity> RegioesCodigosAreas { get; set; }
 
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
     {
@@ -39,7 +39,7 @@ public class ApplicationDbContext : DbContext, IApplicationDbContext
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
-        modelBuilder.Entity<PessoasEntity>(entity =>
+        modelBuilder.Entity<PessoaEntity>(entity =>
         {
             entity.ToTable("tb_Pessoa");
             entity.HasKey(e => e.Id);
@@ -47,7 +47,7 @@ public class ApplicationDbContext : DbContext, IApplicationDbContext
             entity.Property(e => e.Email).IsRequired();
         });
 
-        modelBuilder.Entity<ContatosPessoaEntity>(entity =>
+        modelBuilder.Entity<ContatoPessoaEntity>(entity =>
         {
             entity.ToTable("tb_ContatoPessoa");
             entity.HasKey(e => e.Id);
@@ -55,7 +55,7 @@ public class ApplicationDbContext : DbContext, IApplicationDbContext
             entity.Property(e => e.TipoContatoPessoa).IsRequired();
 
             entity.HasOne(d => d.Pessoa)
-                .WithMany(p => p.ContatoPessoas)
+                .WithMany(p => p.ContatoPessoa)
                 .HasForeignKey(d => d.IdPessoa);
 
             entity.HasOne(d => d.Regiao)
@@ -64,14 +64,14 @@ public class ApplicationDbContext : DbContext, IApplicationDbContext
         });
 
 
-        modelBuilder.Entity<RegioesEntity>(entity =>
+        modelBuilder.Entity<RegiaoEntity>(entity =>
         {
             entity.ToTable("tb_Regiao");
             entity.HasKey(e => e.Id);
             entity.Property(e => e.Sigla).IsRequired();
         });
 
-        modelBuilder.Entity<RegioesCodigosAreasEntity>(entity =>
+        modelBuilder.Entity<RegiaoCodigoAreaEntity>(entity =>
         {
             entity.ToTable("tb_RegiaoCodigoArea");
             entity.HasKey(e => e.Id);

@@ -11,6 +11,6 @@ namespace DataAccess_TechChallengePrimeiraFase.Regioes.Interface
     {
         string? GetSigla(int idRegiao);
 
-        RegioesEntity GetRegiaoExistente(string? sigla);
+        RegiaoEntity GetRegiaoExistente(string? sigla);
     }
 }

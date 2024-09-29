@@ -24,11 +24,11 @@ namespace DataAccess_TechChallengePrimeiraFase.Regioes.Command
         }
 
 
-        public async Task<int> InserirRegiao(RegioesEntity regioesEntity)
+        public async Task<int> InserirRegiao(RegiaoEntity regioesEntity)
         {
             try 
             {
-                return context.Regioes.Add(regioesEntity).Context.SaveChanges();
+                return await context.Regioes.Add(regioesEntity).Context.SaveChangesAsync();
             }
             catch (Exception ex) 
             {
@@ -37,12 +37,21 @@ namespace DataAccess_TechChallengePrimeiraFase.Regioes.Command
             }
         }
 
-        public async Task<bool> AlterarRegiao(RegioesEntity regioesEntity)
+        public async Task<bool> AlterarRegiao(RegiaoEntity regioesEntity, int id)
         {
             try 
             {
-                
-                var result = await context.Regioes.Update(regioesEntity).Context.SaveChangesAsync();
+                var regiao = GetRegiao(id);
+                regiao = new RegiaoEntity()
+                {
+                    Id = id,
+                    Sigla = regioesEntity.Sigla,
+                };
+
+
+                var result = await context.Regioes.Where(r => r.Id == id)
+                                                  .ExecuteUpdateAsync(setters => setters
+                                                                     .SetProperty(r => r.Sigla, regioesEntity.Sigla));
 
                 return (result != 0);
             }
@@ -57,7 +66,11 @@ namespace DataAccess_TechChallengePrimeiraFase.Regioes.Command
         {
             try 
             {
-                var regiao = context.Regioes.Where(r => r.Id == idRegiao).FirstOrDefault();
+                var regiao = context.Regioes
+                    .Where(r => r.Id == idRegiao)
+                    .AsNoTracking()
+                    .FirstOrDefault();
+
                 var result = (regiao is not null )?await context.Regioes.Remove(regiao).Context.SaveChangesAsync(): 0;
 
                 return (result != 0);
@@ -69,11 +82,14 @@ namespace DataAccess_TechChallengePrimeiraFase.Regioes.Command
             }
         }
 
-        public RegioesEntity? GetRegiao(int idRegiao) 
+        public RegiaoEntity? GetRegiao(int idRegiao) 
         {
             try 
             {
-                var regiao = context.Regioes.Where(r => r.Id == idRegiao).FirstOrDefault();
+                var regiao = context.Regioes
+                    .Where(r => r.Id == idRegiao)
+                    .AsNoTracking()
+                    .FirstOrDefault();
 
                 return (regiao is not null)? regiao: null;
             }
@@ -85,13 +101,14 @@ namespace DataAccess_TechChallengePrimeiraFase.Regioes.Command
              
         }
 
-        public List<RegioesEntity> GetRegioes()
+        public List<RegiaoEntity> GetRegioes()
         {
             try 
             { 
                 var regioes = context.Regioes
                                      .Select(r => r)
                                      .Include(cr => cr.RegiaoCodigoAreas)
+                                     .AsNoTracking()
                                      .ToList();
 
                 return regioes;
@@ -99,7 +116,7 @@ namespace DataAccess_TechChallengePrimeiraFase.Regioes.Command
             catch (Exception ex) 
             {
                 logger?.LogError(ex.Message);
-                return new List<RegioesEntity>();
+                return new List<RegiaoEntity>();
             }
 
              

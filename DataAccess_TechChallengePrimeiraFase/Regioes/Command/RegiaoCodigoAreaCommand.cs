@@ -24,10 +24,11 @@ namespace DataAccess_TechChallengePrimeiraFase.Regioes.Command
         }
 
 
-        public async Task<int> InserirRegiaoCodigoArea(RegioesCodigosAreasEntity regioesCodigosAreasEntity)
+        public async Task<int> InserirRegiaoCodigoArea(RegiaoCodigoAreaEntity regioesCodigosAreasEntity)
         {
             try 
             {
+
                 return await context.RegioesCodigosAreas.Add(regioesCodigosAreasEntity).Context.SaveChangesAsync();
             }
             catch (Exception ex) 
@@ -37,15 +38,16 @@ namespace DataAccess_TechChallengePrimeiraFase.Regioes.Command
             }
         }
 
-        public async Task<bool> AlterarRegiaoCodigoArea(RegioesCodigosAreasEntity regioesCodigosAreasEntity, int idRegiaoCodigoArea)
+        public async Task<bool> AlterarRegiaoCodigoArea(RegiaoCodigoAreaEntity regioesCodigosAreasEntity, int id)
         {
             try 
             {
-                var regiaoCodigoArea = context.RegioesCodigosAreas.Where(r => r.Id == idRegiaoCodigoArea).FirstOrDefault();
-                regiaoCodigoArea = regioesCodigosAreasEntity;
+                var result = await context.RegioesCodigosAreas.Where(r => r.Id == id)
+                                                              .ExecuteUpdateAsync(setters => setters
+                                                                                 .SetProperty(rc => rc.DDD, regioesCodigosAreasEntity.DDD)
+                                                                                 .SetProperty(rc => rc.IdRegiao, regioesCodigosAreasEntity.IdRegiao));
 
-                var result = await context.RegioesCodigosAreas.Update(regiaoCodigoArea).Context.SaveChangesAsync();
-
+                
                 return (result != 0);
             }
             catch (Exception ex) 
@@ -61,6 +63,7 @@ namespace DataAccess_TechChallengePrimeiraFase.Regioes.Command
             {
                 var regiaoCodigoArea = context.RegioesCodigosAreas
                                        .Where(r => r.Id == idRegiaoCodigoArea)
+                                       .AsNoTracking()
                                        .FirstOrDefault();
 
                 var result = (regiaoCodigoArea is not null)?await context.RegioesCodigosAreas.Remove(regiaoCodigoArea).Context.SaveChangesAsync() : 0;
@@ -74,11 +77,14 @@ namespace DataAccess_TechChallengePrimeiraFase.Regioes.Command
             }
         }
 
-        public RegioesCodigosAreasEntity? GetRegiaoCodigoArea(int idRegiaoCodigoArea)
+        public RegiaoCodigoAreaEntity? GetRegiaoCodigoArea(int idRegiaoCodigoArea)
         {
             try 
             {
-                var regiaoCodigoArea = context.RegioesCodigosAreas.Where(r => r.Id == idRegiaoCodigoArea).FirstOrDefault();
+                var regiaoCodigoArea = context.RegioesCodigosAreas
+                    .Where(r => r.Id == idRegiaoCodigoArea)
+                    .AsNoTracking()
+                    .FirstOrDefault();
 
                 return (regiaoCodigoArea is not null)? regiaoCodigoArea : null;
             }
@@ -90,13 +96,14 @@ namespace DataAccess_TechChallengePrimeiraFase.Regioes.Command
              
         }
 
-        public List<RegioesCodigosAreasEntity>? GetRegioesCodigosAreas()
+        public List<RegiaoCodigoAreaEntity>? GetRegioesCodigosAreas()
         {
             try 
             { 
                 var regioesCodigosAreas = context.RegioesCodigosAreas
                                                  .Select(r => r)
                                                  .Include(r => r.Regiao)
+                                                 .AsNoTracking()
                                                  .ToList();
 
                 return regioesCodigosAreas;
@@ -104,7 +111,7 @@ namespace DataAccess_TechChallengePrimeiraFase.Regioes.Command
             catch (Exception ex) 
             {
                 logger.LogError(ex.Message);
-                return new List<RegioesCodigosAreasEntity>();
+                return new List<RegiaoCodigoAreaEntity>();
             }
 
              

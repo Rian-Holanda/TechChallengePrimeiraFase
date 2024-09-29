@@ -23,11 +23,11 @@ namespace DataAccess_TechChallengePrimeiraFase.Contatos.Command
             this.logger = logger;
         }
 
-        public int InserirPessoa(PessoasEntity pessoaEntity)
+        public async Task<int> InserirPessoa(PessoaEntity pessoaEntity)
         {
             try 
             {
-                return context.Pessoas.Add(pessoaEntity).Context.SaveChanges();
+                return await context.Pessoas.Add(pessoaEntity).Context.SaveChangesAsync();
             }
             catch (Exception ex) 
             {
@@ -36,43 +36,15 @@ namespace DataAccess_TechChallengePrimeiraFase.Contatos.Command
             }
         }
 
-        public bool AlterarPessoa(PessoasEntity pessoaEntity)
+        public async Task<bool> AlterarPessoa(PessoaEntity pessoaEntity, int id)
         {
             try 
             {
+                var result = await context.Pessoas.Where(p => p.Id == id)
+                                                 .ExecuteUpdateAsync(setters => setters
+                                                                    .SetProperty(p => p.Nome, pessoaEntity.Nome)
+                                                                    .SetProperty(p => p.Email, pessoaEntity.Email));
 
-                var pessoa = context.Pessoas.Where(p => p.Id == pessoaEntity.Id).FirstOrDefault();
-
-                if (pessoa == null)
-                {                   
-                    return false;
-                }
-               
-                pessoa.Nome = pessoaEntity.Nome;
-                pessoa.Email = pessoaEntity.Email;
-                
-               
-                context.Pessoas.Update(pessoa);
-                var result = context.SaveChanges();
-
-                return (result != 0);              
-            }
-            catch (Exception ex) 
-            {
-                logger?.LogError(ex.Message);
-                return false;
-            }
-        }
-
-        public bool ExcluirPessoa(int idPessoa)
-        {
-            try 
-            {
-                var pessoa = context.Pessoas
-                                       .Where(p => p.Id == idPessoa)
-                                       .FirstOrDefault();
-
-                var result = (pessoa is not null)?context.Pessoas.Remove(pessoa).Context.SaveChanges(): 0;
 
                 return (result != 0);
             }
@@ -83,11 +55,34 @@ namespace DataAccess_TechChallengePrimeiraFase.Contatos.Command
             }
         }
 
-        public PessoasEntity? GetPessoa(int idPessoa)
+        public async Task<bool> ExcluirPessoa(int idPessoa)
         {
             try 
             {
-                var pessoa = context.Pessoas.Where(cp => cp.Id == idPessoa).FirstOrDefault();
+                var pessoa = context.Pessoas
+                                       .Where(p => p.Id == idPessoa)
+                                       .AsNoTracking()
+                                       .FirstOrDefault();
+
+                var result = (pessoa is not null)? await  context.Pessoas.Remove(pessoa).Context.SaveChangesAsync(): 0;
+
+                return (result != 0);
+            }
+            catch (Exception ex) 
+            {
+                logger?.LogError(ex.Message);
+                return false;
+            }
+        }
+
+        public PessoaEntity? GetPessoa(int idPessoa)
+        {
+            try 
+            {
+                var pessoa = context.Pessoas
+                    .Where(cp => cp.Id == idPessoa)
+                    .AsNoTracking()
+                    .FirstOrDefault();
 
                 return (pessoa is not null)? pessoa : null;
             }
@@ -99,13 +94,14 @@ namespace DataAccess_TechChallengePrimeiraFase.Contatos.Command
              
         }
 
-        public List<PessoasEntity>? GetPessoas()
+        public List<PessoaEntity>? GetPessoas()
         {
             try 
             { 
                 var pessoas = context.Pessoas
                                      .Select(p => p)
-                                     .Include(cp => cp.ContatoPessoas)
+                                     .Include(cp => cp.ContatoPessoa)
+                                     .AsNoTracking()
                                      .ToList();
 
                 return pessoas;
@@ -113,7 +109,7 @@ namespace DataAccess_TechChallengePrimeiraFase.Contatos.Command
             catch (Exception ex) 
             {
                 logger?.LogError(ex.Message);
-                return new List<PessoasEntity>();
+                return new List<PessoaEntity>();
             }
 
              

@@ -108,9 +108,8 @@ namespace API_Producer_TechChallenge.Controllers.Regioes
 
             if (regiao is not null)
             {
-                RegioesCodigosAreasEntity regiaoCodigoArea = new RegioesCodigosAreasEntity()
+                RegiaoCodigoAreaEntity regiaoCodigoArea = new RegiaoCodigoAreaEntity()
                 {
-                    Regiao = regiao,
                     IdRegiao = regiao.Id,
                     DDD = regiaoCodigoAreaModel.DDD,
                 };
@@ -133,28 +132,31 @@ namespace API_Producer_TechChallenge.Controllers.Regioes
         [HttpPut("AlterarRegiaoCodigoArea/id")]
         public IActionResult AlterarRegiaoCodigoArea(int id, [FromBody] RegiaoCodigoAreaModel regiaoCodigoAreaModel)
         {
+
+            bool result = false;
             var regiaoCodigoArea = _regiaoCodigoAreaCommand.GetRegiaoCodigoArea(id);
             var regiao = _regiaoQueries.GetRegiaoExistente(regiaoCodigoAreaModel.siglaRegiao);
 
             if (regiaoCodigoArea is not null && regiao is not null)
             {
-                regiaoCodigoArea.IdRegiao = regiao.Id;
-                regiaoCodigoArea.DDD = regiaoCodigoAreaModel.DDD;
-
-                var result = _regiaoCodigoAreaProducer.AlterarRegiaoCodigoArea(JsonConvert.SerializeObject(regiaoCodigoArea)); ;
-
-                if (result)
+                RegiaoCodigoAreaEntity regiaoCodigoAreaEntity = new RegiaoCodigoAreaEntity()
                 {
-                    return Ok();
-                }
-                else
-                {
-                    return NoContent();
-                }
+                    Id = id,
+                    IdRegiao = regiao.Id,
+                    DDD = regiaoCodigoAreaModel.DDD
+                };
 
+                result = _regiaoCodigoAreaProducer.AlterarRegiaoCodigoArea(JsonConvert.SerializeObject(regiaoCodigoAreaEntity)); ;
             }
 
-            return NoContent();
+            if (result)
+            {
+                return Ok();
+            }
+            else
+            {
+                return NoContent();
+            }
 
         }
 
@@ -178,5 +180,6 @@ namespace API_Producer_TechChallenge.Controllers.Regioes
             }
             return NoContent();
         }
+
     }
 }

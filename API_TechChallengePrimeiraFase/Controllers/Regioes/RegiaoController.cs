@@ -61,7 +61,7 @@ namespace API_TechChallengePrimeiraFase.Controllers.Regioes
         [HttpPost("InserirRegiao/siglaRegiao")]
         public async Task<IActionResult> InserirRegiao(string siglaRegiao)
         {
-            RegioesEntity regiao = new RegioesEntity() { Sigla = siglaRegiao.ToUpper() };
+            RegiaoEntity regiao = new RegiaoEntity() { Sigla = siglaRegiao.ToUpper() };
 
             if (_validacoesRegioes.ValidaRegiao(siglaRegiao))
             {
@@ -91,7 +91,7 @@ namespace API_TechChallengePrimeiraFase.Controllers.Regioes
 
                 if (_validacoesRegioes.ValidaRegiao(regiaoEntity.Sigla))
                 {
-                    var result = await _regiaoCommand.AlterarRegiao(regiaoEntity);
+                    var result = await _regiaoCommand.AlterarRegiao(regiaoEntity, id);
 
                     if (result)
                     {

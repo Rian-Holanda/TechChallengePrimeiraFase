@@ -9,7 +9,7 @@ using Business_TechChallengePrimeiraFase.Contatos.Application.Interfaces;
 
 namespace Business_TechChallengePrimeiraFase.Contatos.Domain
 {
-    public class ValidaPessoa : AbstractValidator<PessoasEntity>
+    public class ValidaPessoa : AbstractValidator<PessoaEntity>
     {
         public ValidaPessoa() 
         {

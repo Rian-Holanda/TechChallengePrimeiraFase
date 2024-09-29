@@ -71,9 +71,9 @@ namespace UnitTest_TechChallengePrimeiraFase.Regioes
         {
             if (loggerRegiaoCommand is not null)
             {
-                RegioesEntity regioesEntity = new RegioesEntity
+                RegiaoEntity regioesEntity = new RegiaoEntity
                 {
-                    Sigla = "RJ"
+                    Sigla = "TO"
                 };
 
                 RegiaoCommand regiaoCommand = new RegiaoCommand(_context, loggerRegiaoCommand);
@@ -120,14 +120,13 @@ namespace UnitTest_TechChallengePrimeiraFase.Regioes
             {
                 RegiaoCommand regiaoCommand = new RegiaoCommand(_context, loggerRegiaoCommand);
 
-                var regioes = regiaoCommand.GetRegioes();
-                var regiao = regiaoCommand.GetRegiao(2);
-
+                var regiao = regiaoCommand.GetRegioes().LastOrDefault();
+                
                 if (regiao is not null)
                 {
                     regiao.Sigla = "MG";
 
-                    bool result = await regiaoCommand.AlterarRegiao(regiao);
+                    bool result = await regiaoCommand.AlterarRegiao(regiao, regiao.Id);
 
                     Assert.True(result);
                 }
@@ -144,9 +143,8 @@ namespace UnitTest_TechChallengePrimeiraFase.Regioes
             {
                 RegiaoCommand regiaoCommand = new RegiaoCommand(_context, loggerRegiaoCommand);
 
-                var regioes = regiaoCommand.GetRegioes();
-                var regiao = regiaoCommand.GetRegiao(1002);
-
+                var regiao = regiaoCommand.GetRegioes().LastOrDefault();
+                
                 if (regiao is not null)
                 {
                     Assert.True(await regiaoCommand.ExcluirRegiao(regiao.Id));

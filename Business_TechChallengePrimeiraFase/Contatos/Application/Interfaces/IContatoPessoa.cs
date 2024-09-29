@@ -10,19 +10,19 @@ namespace Business_TechChallengePrimeiraFase.Contatos.Application.Interfaces
 {
     public interface IContatoPessoa
     {
-        bool ValidaContato(ContatosPessoaEntity contatosPessoaEntity);
+        bool ValidaContato(ContatoPessoaEntity ContatoPessoaEntity);
     }
 
     class ValidaContatoCelular: IContatoPessoa 
     {
-        public bool ValidaContato(ContatosPessoaEntity contatosPessoaEntity) 
+        public bool ValidaContato(ContatoPessoaEntity ContatoPessoaEntity) 
         {
             try
             {
                 bool validacao = false;
 
-                if(contatosPessoaEntity is { Numero.Length: 11, IdRegiao: > 0 } 
-                    && contatosPessoaEntity.Numero.Substring(2,1) == "9") 
+                if(ContatoPessoaEntity is { Numero.Length: 11, IdRegiao: > 0 } 
+                    && ContatoPessoaEntity.Numero.Substring(2,1) == "9") 
                 {
                     validacao = true;
                 }
@@ -38,11 +38,11 @@ namespace Business_TechChallengePrimeiraFase.Contatos.Application.Interfaces
 
     class ValidaContatoFixo : IContatoPessoa
     {
-        public bool ValidaContato(ContatosPessoaEntity contatosPessoaEntity) 
+        public bool ValidaContato(ContatoPessoaEntity ContatoPessoaEntity) 
         {
             try 
             {
-                return contatosPessoaEntity is { Numero.Length: 10, IdRegiao:  > 0 };
+                return ContatoPessoaEntity is { Numero.Length: 10, IdRegiao:  > 0 };
             }
             catch 
             { 

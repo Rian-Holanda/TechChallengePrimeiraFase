@@ -5,10 +5,10 @@ namespace Infrastructure_TechChallengePrimeiraFase
 {
     public interface IApplicationDbContext
     {
-        DbSet<PessoasEntity> Pessoas { get; set; }
-        DbSet<ContatosPessoaEntity> ContatosPessoas { get; set; }
-        DbSet<RegioesEntity> Regioes { get; set; }
-        DbSet<RegioesCodigosAreasEntity> RegioesCodigosAreas { get; set; }
+        DbSet<PessoaEntity> Pessoas { get; set; }
+        DbSet<ContatoPessoaEntity> ContatosPessoas { get; set; }
+        DbSet<RegiaoEntity> Regioes { get; set; }
+        DbSet<RegiaoCodigoAreaEntity> RegioesCodigosAreas { get; set; }
         int SaveChanges();
     }
 }

@@ -25,7 +25,7 @@ namespace DataAccess_TechChallengePrimeiraFase.Regioes.Command
         }
 
 
-        public async Task<int> InserirContatoPessoa(ContatosPessoaEntity contatoPessoaEntity)
+        public async Task<int> InserirContatoPessoa(ContatoPessoaEntity contatoPessoaEntity)
         {
             try 
             {
@@ -38,14 +38,18 @@ namespace DataAccess_TechChallengePrimeiraFase.Regioes.Command
             }
         }
 
-        public async Task<bool> AlterarContatoPessoa(ContatosPessoaEntity contatoPessoaEntity, int idContatoPessoa)
+        public async Task<bool> AlterarContatoPessoa(ContatoPessoaEntity contatoPessoaEntity, int idContatoPessoa)
         {
             try 
             {
-                var contatoPessoa = context.ContatosPessoas.Where(cp => cp.Id == idContatoPessoa).FirstOrDefault();
-                contatoPessoa = contatoPessoaEntity;
+                
+                var result = await context.ContatosPessoas.Where(cp => cp.Id == idContatoPessoa)
+                                                          .ExecuteUpdateAsync(setters => setters
+                                                                     .SetProperty(cp => cp.IdPessoa, contatoPessoaEntity.IdPessoa)
+                                                                     .SetProperty(cp => cp.IdRegiao, contatoPessoaEntity.IdRegiao)
+                                                                     .SetProperty(cp => cp.Numero, contatoPessoaEntity.Numero)
+                                                                     .SetProperty(cp => cp.TipoContatoPessoa, contatoPessoaEntity.TipoContatoPessoa));
 
-                var result = await context.ContatosPessoas.Update(contatoPessoa).Context.SaveChangesAsync();
 
                 return (result != 0);
             }
@@ -62,6 +66,7 @@ namespace DataAccess_TechChallengePrimeiraFase.Regioes.Command
             {
                 var contatoPessoa = context.ContatosPessoas
                                        .Where(cp => cp.Id == idContatoPessoa)
+                                       .AsNoTracking()
                                        .FirstOrDefault();
 
                 var result = (contatoPessoa is not null)?await context.ContatosPessoas.Remove(contatoPessoa).Context.SaveChangesAsync() : 0;
@@ -75,7 +80,7 @@ namespace DataAccess_TechChallengePrimeiraFase.Regioes.Command
             }
         }
 
-        public ContatosPessoaEntity? GetContatoPessoa(int idContatoPessoa)
+        public ContatoPessoaEntity? GetContatoPessoa(int idContatoPessoa)
         {
             try 
             {
@@ -83,6 +88,7 @@ namespace DataAccess_TechChallengePrimeiraFase.Regioes.Command
                                     .Where(cp => cp.Id == idContatoPessoa)
                                     .Include(p => p.Pessoa)
                                     .Include(r => r.Regiao)
+                                    .AsNoTracking()
                                     .FirstOrDefault();
 
                 return (contatoPessoa is not null)? contatoPessoa : null;
@@ -95,12 +101,13 @@ namespace DataAccess_TechChallengePrimeiraFase.Regioes.Command
              
         }
 
-        public List<ContatosPessoaEntity>? GetContatosPessoas()
+        public List<ContatoPessoaEntity>? GetContatosPessoas()
         {
             try 
             { 
                 var contatosPessoas = context.ContatosPessoas
                                      .Select(cp => cp)
+                                     .AsNoTracking()
                                      .ToList();
 
                 return contatosPessoas;
@@ -108,7 +115,7 @@ namespace DataAccess_TechChallengePrimeiraFase.Regioes.Command
             catch (Exception ex) 
             {
                 logger?.LogError(ex.Message);
-                return new List<ContatosPessoaEntity>();
+                return new List<ContatoPessoaEntity>();
             }
 
              

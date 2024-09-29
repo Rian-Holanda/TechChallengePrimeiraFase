@@ -80,10 +80,8 @@ namespace API_Producer_TechChallenge.Controllers.Contatos
 
             if (regiao is not null && pessoa is not null) 
             {
-                ContatosPessoaEntity contatosPessoaEntity = new ContatosPessoaEntity()
+                ContatoPessoaEntity ContatoPessoaEntity = new ContatoPessoaEntity()
                 {
-                    Pessoa = pessoa,
-                    Regiao = regiao,
                     Numero = contatoPessoaModel.Numero,
                     IdPessoa = pessoa.Id,
                     IdRegiao = regiao.Id,
@@ -91,14 +89,14 @@ namespace API_Producer_TechChallenge.Controllers.Contatos
                 };
 
                 var resultValidacao = (contatoPessoaModel.ContatoCelular) ?
-                                       contatoPessoaDomain.ValidaTipoContato(new ValidaContatoPessoaCelular(), contatosPessoaEntity) :
-                                       contatoPessoaDomain.ValidaTipoContato(new ValidaContatoPessoaFixo(), contatosPessoaEntity);
+                                       contatoPessoaDomain.ValidaTipoContato(new ValidaContatoPessoaCelular(), ContatoPessoaEntity) :
+                                       contatoPessoaDomain.ValidaTipoContato(new ValidaContatoPessoaFixo(), ContatoPessoaEntity);
 
-                var resultValidacaoContato = contatoPessoaDomain.Validate(contatosPessoaEntity);
+                var resultValidacaoContato = contatoPessoaDomain.Validate(ContatoPessoaEntity);
 
                 if (resultValidacao && resultValidacaoContato.IsValid)
                 {
-                    var result = _contatoPessoaProducer.InserirContatoPessoa(JsonConvert.SerializeObject(contatosPessoaEntity));
+                    var result = _contatoPessoaProducer.InserirContatoPessoa(JsonConvert.SerializeObject(ContatoPessoaEntity));
 
                     if (result)
                     {
@@ -118,15 +116,15 @@ namespace API_Producer_TechChallenge.Controllers.Contatos
         [HttpPut("AlterarContatoPessoa/id")]
         public IActionResult AlterarContatoPessoa(int id, [FromBody] ContatoPessoaModel contatoPessoaModel)
         {
+            var contatoPessoa = _contatosPessoasCommand.GetContatoPessoa(id);
             var pessoa = _pessoasCommand.GetPessoa(contatoPessoaModel.IdPessoa);
             var regiao = _regiaoQueries.GetRegiaoExistente(contatoPessoaModel.SiglaRegiao);
 
             if (regiao is not null && pessoa is not null)
             {
-                ContatosPessoaEntity contatosPessoaEntity = new ContatosPessoaEntity()
+                ContatoPessoaEntity ContatoPessoaEntity = new ContatoPessoaEntity()
                 {
-                    Pessoa = pessoa,
-                    Regiao = regiao,
+                    Id = id,
                     Numero = contatoPessoaModel.Numero,
                     IdPessoa = pessoa.Id,
                     IdRegiao = regiao.Id,
@@ -134,14 +132,14 @@ namespace API_Producer_TechChallenge.Controllers.Contatos
                 };
 
                 var resultValidacao = (contatoPessoaModel.ContatoCelular) ?
-                                    contatoPessoaDomain.ValidaTipoContato(new ValidaContatoPessoaCelular(), contatosPessoaEntity) :
-                                    contatoPessoaDomain.ValidaTipoContato(new ValidaContatoPessoaFixo(), contatosPessoaEntity);
+                                    contatoPessoaDomain.ValidaTipoContato(new ValidaContatoPessoaCelular(), ContatoPessoaEntity) :
+                                    contatoPessoaDomain.ValidaTipoContato(new ValidaContatoPessoaFixo(), ContatoPessoaEntity);
 
-                var resultValidacaoContato = contatoPessoaDomain.Validate(contatosPessoaEntity);
+                var resultValidacaoContato = contatoPessoaDomain.Validate(ContatoPessoaEntity);
 
                 if (resultValidacao && resultValidacaoContato.IsValid)
                 {
-                    var result = _contatoPessoaProducer.AlterarContatoPessoa(JsonConvert.SerializeObject(contatosPessoaEntity));
+                    var result = _contatoPessoaProducer.AlterarContatoPessoa(JsonConvert.SerializeObject(ContatoPessoaEntity));
 
                     if (result)
                     {

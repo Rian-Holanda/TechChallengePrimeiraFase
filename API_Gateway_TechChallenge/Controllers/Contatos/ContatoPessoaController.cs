@@ -76,7 +76,7 @@ namespace API_Gateway_TechChallenge.Controllers.Contatos
 
             if (regiao is not null && pessoa is not null) 
             {
-                ContatosPessoaEntity contatosPessoaEntity = new ContatosPessoaEntity()
+                ContatoPessoaEntity ContatoPessoaEntity = new ContatoPessoaEntity()
                 {
                     Pessoa = pessoa,
                     Regiao = regiao,
@@ -87,14 +87,14 @@ namespace API_Gateway_TechChallenge.Controllers.Contatos
                 };
 
                 var resultValidacao = (contatoPessoaModel.ContatoCelular) ?
-                                       contatoPessoaDomain.ValidaTipoContato(new ValidaContatoPessoaCelular(), contatosPessoaEntity) :
-                                       contatoPessoaDomain.ValidaTipoContato(new ValidaContatoPessoaFixo(), contatosPessoaEntity);
+                                       contatoPessoaDomain.ValidaTipoContato(new ValidaContatoPessoaCelular(), ContatoPessoaEntity) :
+                                       contatoPessoaDomain.ValidaTipoContato(new ValidaContatoPessoaFixo(), ContatoPessoaEntity);
 
-                var resultValidacaoContato = contatoPessoaDomain.Validate(contatosPessoaEntity);
+                var resultValidacaoContato = contatoPessoaDomain.Validate(ContatoPessoaEntity);
 
                 if (resultValidacao && resultValidacaoContato.IsValid)
                 {
-                    var result = await _contatosPessoasCommand.InserirContatoPessoa(contatosPessoaEntity);
+                    var result = await _contatosPessoasCommand.InserirContatoPessoa(ContatoPessoaEntity);
 
                     if (result > 0)
                     {
@@ -119,7 +119,7 @@ namespace API_Gateway_TechChallenge.Controllers.Contatos
 
             if (regiao is not null && pessoa is not null)
             {
-                ContatosPessoaEntity contatosPessoaEntity = new ContatosPessoaEntity()
+                ContatoPessoaEntity ContatoPessoaEntity = new ContatoPessoaEntity()
                 {
                     Pessoa = pessoa,
                     Regiao = regiao,
@@ -130,14 +130,14 @@ namespace API_Gateway_TechChallenge.Controllers.Contatos
                 };
 
                 var resultValidacao = (contatoPessoaModel.ContatoCelular) ?
-                                    contatoPessoaDomain.ValidaTipoContato(new ValidaContatoPessoaCelular(), contatosPessoaEntity) :
-                                    contatoPessoaDomain.ValidaTipoContato(new ValidaContatoPessoaFixo(), contatosPessoaEntity);
+                                    contatoPessoaDomain.ValidaTipoContato(new ValidaContatoPessoaCelular(), ContatoPessoaEntity) :
+                                    contatoPessoaDomain.ValidaTipoContato(new ValidaContatoPessoaFixo(), ContatoPessoaEntity);
 
-                var resultValidacaoContato = contatoPessoaDomain.Validate(contatosPessoaEntity);
+                var resultValidacaoContato = contatoPessoaDomain.Validate(ContatoPessoaEntity);
 
                 if (resultValidacao && resultValidacaoContato.IsValid)
                 {
-                    var result = await _contatosPessoasCommand.AlterarContatoPessoa(contatosPessoaEntity, id);
+                    var result = await _contatosPessoasCommand.AlterarContatoPessoa(ContatoPessoaEntity, id);
 
                     if (result)
                     {
