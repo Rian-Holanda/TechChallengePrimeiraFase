@@ -1,19 +1,19 @@
-<Project Sdk="Microsoft.NET.Sdk.Worker">
+﻿<Project Sdk="Microsoft.NET.Sdk.Worker">
 
   <PropertyGroup>
     <TargetFramework>net8.0</TargetFramework>
     <Nullable>enable</Nullable>
     <ImplicitUsings>enable</ImplicitUsings>
-    <UserSecretsId>dotnet-Consumidor-f220a46e-3040-4e0e-9859-039c49f26546</UserSecretsId>
+    <UserSecretsId>dotnet-Consumidor_Pessoas_TechChallenge-85c9f3b3-77eb-4aac-8cda-496614d369b8</UserSecretsId>
+    <DockerDefaultTargetOS>Windows</DockerDefaultTargetOS>
   </PropertyGroup>
 
   <ItemGroup>
     <PackageReference Include="Microsoft.Extensions.Hosting" Version="8.0.0" />
-    <PackageReference Include="RabbitMQ.Client" Version="6.8.1" />
+    <PackageReference Include="Microsoft.VisualStudio.Azure.Containers.Tools.Targets" Version="1.19.6" />
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\API_Producer_TechChallenge\API_Producer_TechChallenge.csproj" />
     <ProjectReference Include="..\DataAccess_TechChallengePrimeiraFase\DataAccess_TechChallengePrimeiraFase.csproj" />
     <ProjectReference Include="..\Infrastructure_TechChallengePrimeiraFase\Infrastructure_TechChallengePrimeiraFase.csproj" />
   </ItemGroup>

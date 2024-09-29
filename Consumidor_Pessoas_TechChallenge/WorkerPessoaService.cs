@@ -1,4 +1,3 @@
-using API_Producer_TechChallenge.Models.Pessoa;
 using DataAccess_TechChallengePrimeiraFase.Contatos.Command;
 using DataAccess_TechChallengePrimeiraFase.Contatos.Interface;
 using DataAccess_TechChallengePrimeiraFase.Contatos.Queries;
@@ -20,7 +19,7 @@ using System.Text.Json;
 using static System.Net.Mime.MediaTypeNames;
 using static System.Runtime.InteropServices.JavaScript.JSType;
 
-namespace Consumidor
+namespace Consumidor_Pessoas_TechChallenge
 {
     public class WorkerPessoaService : BackgroundService
     {
