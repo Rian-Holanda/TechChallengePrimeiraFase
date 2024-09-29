@@ -58,4 +58,4 @@ jobs:
           app-name: 'APIProducerTechChallenge'
           slot-name: 'production'
           package: .
-          publish-profile: ${{ secrets.AzureAppService_PublishProfile_ec9a5ff5936f4af98a3eb4d4f736079a }}
+          publish-profile: 'ec9a5ff5936f4af98a3eb4d4f736079a'
