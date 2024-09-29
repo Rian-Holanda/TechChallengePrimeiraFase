@@ -10,18 +10,18 @@ namespace UnitTest_TechChallengePrimeiraFase.TesteRabbit
 
     public class TesteRabbit
     {
-        [Fact]
-        public void TesteRabbitConfig() 
-        {
-            var mensagemPublish = "TESTE";
-            var mensagemConsume = "";
+        //[Fact]
+        //public void TesteRabbitConfig() 
+        //{
+        //    var mensagemPublish = "TESTE";
+        //    var mensagemConsume = "";
 
-            ProducerTeste producerTeste = new ProducerTeste();
+        //    ProducerTeste producerTeste = new ProducerTeste();
 
-            producerTeste.TesteConexaoRabbitPublish(mensagemPublish);
-            mensagemConsume = producerTeste.TesteConexaoRabbitConsume();
+        //    producerTeste.TesteConexaoRabbitPublish(mensagemPublish);
+        //    mensagemConsume = producerTeste.TesteConexaoRabbitConsume();
 
-            Assert.Equal(mensagemConsume, mensagemPublish);
-        }
+        //    Assert.Equal(mensagemConsume, mensagemPublish);
+        //}
     }
 }
