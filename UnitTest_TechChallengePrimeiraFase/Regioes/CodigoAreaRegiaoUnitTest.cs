@@ -56,8 +56,8 @@ namespace UnitTest_TechChallengePrimeiraFase.Regioes
                 {
                     RegiaoCodigoAreaEntity regioesCodigosAreasEntity = new RegiaoCodigoAreaEntity()
                     {
-                        Regiao = regiao,
-                        DDD = 32,
+                        
+                        DDD = 24,
                         IdRegiao = regiao.Id
 
                     };
@@ -114,9 +114,8 @@ namespace UnitTest_TechChallengePrimeiraFase.Regioes
             {
                 RegiaoCodigoAreaCommand RegiaoCodigoAreaCommand = new RegiaoCodigoAreaCommand(_context, loggerRegiaoCodigoAreaCommand);
 
-                var regioesCodigosAreas = RegiaoCodigoAreaCommand.GetRegioesCodigosAreas();
-                var regiaoCodigoArea = RegiaoCodigoAreaCommand.GetRegiaoCodigoArea(1);
-
+                var regiaoCodigoArea = RegiaoCodigoAreaCommand.GetRegioesCodigosAreas()?.LastOrDefault();
+                
                 if (regiaoCodigoArea is not null)
                 {
                     regiaoCodigoArea.DDD = 33;
@@ -133,9 +132,8 @@ namespace UnitTest_TechChallengePrimeiraFase.Regioes
             {
                 RegiaoCodigoAreaCommand RegiaoCodigoAreaCommand = new RegiaoCodigoAreaCommand(_context, loggerRegiaoCodigoAreaCommand);
 
-                var regioesCodigosAreas = RegiaoCodigoAreaCommand.GetRegioesCodigosAreas();
-                var regiaoCodigoArea = RegiaoCodigoAreaCommand.GetRegiaoCodigoArea(1);
-
+                var regiaoCodigoArea = RegiaoCodigoAreaCommand.GetRegioesCodigosAreas()?.LastOrDefault();
+                
                 if (regiaoCodigoArea is not null)
                 {
                     Assert.True(await RegiaoCodigoAreaCommand.ExcluirRegiaoCodigoArea(regiaoCodigoArea.Id));

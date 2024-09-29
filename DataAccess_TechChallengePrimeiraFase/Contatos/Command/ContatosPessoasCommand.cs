@@ -42,14 +42,14 @@ namespace DataAccess_TechChallengePrimeiraFase.Regioes.Command
         {
             try 
             {
-                var contatoPessoa = context.ContatosPessoas
-                                    .Where(cp => cp.Id == idContatoPessoa)
-                                    .AsNoTracking()
-                                    .FirstOrDefault();
+                
+                var result = await context.ContatosPessoas.Where(cp => cp.Id == idContatoPessoa)
+                                                          .ExecuteUpdateAsync(setters => setters
+                                                                     .SetProperty(cp => cp.IdPessoa, contatoPessoaEntity.IdPessoa)
+                                                                     .SetProperty(cp => cp.IdRegiao, contatoPessoaEntity.IdRegiao)
+                                                                     .SetProperty(cp => cp.Numero, contatoPessoaEntity.Numero)
+                                                                     .SetProperty(cp => cp.TipoContatoPessoa, contatoPessoaEntity.TipoContatoPessoa));
 
-                contatoPessoa = contatoPessoaEntity;
-
-                var result = await context.ContatosPessoas.Update(contatoPessoa).Context.SaveChangesAsync();
 
                 return (result != 0);
             }

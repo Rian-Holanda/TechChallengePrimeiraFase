@@ -82,8 +82,6 @@ namespace API_Producer_TechChallenge.Controllers.Contatos
             {
                 ContatoPessoaEntity ContatoPessoaEntity = new ContatoPessoaEntity()
                 {
-                    Pessoa = pessoa,
-                    Regiao = regiao,
                     Numero = contatoPessoaModel.Numero,
                     IdPessoa = pessoa.Id,
                     IdRegiao = regiao.Id,
@@ -118,6 +116,7 @@ namespace API_Producer_TechChallenge.Controllers.Contatos
         [HttpPut("AlterarContatoPessoa/id")]
         public IActionResult AlterarContatoPessoa(int id, [FromBody] ContatoPessoaModel contatoPessoaModel)
         {
+            var contatoPessoa = _contatosPessoasCommand.GetContatoPessoa(id);
             var pessoa = _pessoasCommand.GetPessoa(contatoPessoaModel.IdPessoa);
             var regiao = _regiaoQueries.GetRegiaoExistente(contatoPessoaModel.SiglaRegiao);
 
@@ -125,8 +124,7 @@ namespace API_Producer_TechChallenge.Controllers.Contatos
             {
                 ContatoPessoaEntity ContatoPessoaEntity = new ContatoPessoaEntity()
                 {
-                    Pessoa = pessoa,
-                    Regiao = regiao,
+                    Id = id,
                     Numero = contatoPessoaModel.Numero,
                     IdPessoa = pessoa.Id,
                     IdRegiao = regiao.Id,

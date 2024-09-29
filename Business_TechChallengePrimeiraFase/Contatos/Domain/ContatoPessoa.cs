@@ -17,7 +17,7 @@ namespace Business_TechChallengePrimeiraFase.Contatos.Domain
                 .NotEmpty().WithMessage("Informe o número.")
                 .NotNull().WithMessage("Informe o número.");
 
-            RuleFor(cp => cp.Regiao.Sigla)
+            RuleFor(cp => cp.IdRegiao != 0)
                 .NotNull().WithMessage("Informe a Sigla");
         }
 
