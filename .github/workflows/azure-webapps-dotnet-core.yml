@@ -28,13 +28,13 @@ jobs:
         run: dotnet test --verbosity normal
 
       - name: dotnet publish
-        run: dotnet publish -c Release -o  D:\a\TechChallengePrimeiraFase\TechChallengePrimeiraFase\API_TechChallengePrimeiraFase\bin\Release\net8.0
+        run: dotnet publish -c Release -o  D:\a\TechChallengePrimeiraFase\TechChallengePrimeiraFase\API_Producer_TechChallenge\bin\Release\net8.0
 
       - name: Upload artifact for deployment job
         uses: actions/upload-artifact@v4
         with:
           name: .net-app
-          path: D:\a\TechChallengePrimeiraFase\TechChallengePrimeiraFase\API_TechChallengePrimeiraFase\bin\Release\net8.0
+          path: D:\a\TechChallengePrimeiraFase\TechChallengePrimeiraFase\API_Producer_TechChallenge\bin\Release\net8.0
 
   deploy:
     runs-on: windows-latest
@@ -54,14 +54,14 @@ jobs:
       - name: Login to Azure
         uses: azure/login@v2
         with:
-          client-id: 5bb777b3-3b71-4192-a37d-e4c888c68358
-          tenant-id: 19e1a926-58e8-4e9b-80cd-c303162635e2
-          subscription-id: 7d614e99-401a-4396-b1c6-45c81557f45a
+          client-id: 68e49894-dedf-4978-82e1-2efaa53ddb57
+          tenant-id: 4bd40509-46e1-44b9-b3bd-75f27d432a43
+          subscription-id: 68e49894-dedf-4978-82e1-2efaa53ddb57
 
       - name: Deploy to Azure Web App
         id: deploy-to-webapp
         uses: azure/webapps-deploy@v3
         with:
-          app-name: 'apitechchallengefiap2'
+          app-name: 'APIProducerTechChallenge'
           slot-name: 'production'
           package: .
