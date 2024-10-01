@@ -35,27 +35,3 @@ jobs:
         with:
           name: .net-app
           path: D:\a\TechChallengePrimeiraFase\TechChallengePrimeiraFase\API_Producer_TechChallenge\bin\Release\net8.0\
-
-  deploy:
-    runs-on: windows-latest
-    needs: build
-    environment:
-      name: 'production'
-      url: ${{ steps.deploy-to-webapp.outputs.webapp-url }}
-    permissions:
-      id-token: write #This is required for requesting the JWT
-
-    steps:
-      - name: Download artifact from build job
-        uses: actions/download-artifact@v4
-        with:
-          name: .net-app
-      
-      - name: Deploy to Azure Web App
-        id: deploy-to-webapp
-        uses: azure/webapps-deploy@v3
-        with:
-          app-name: 'APIProducerTechChallenge'
-          slot-name: 'production'
-          package: .
-          publish-profile: '<publishData><publishProfile profileName="APIProducerTechChallenge - Web Deploy" publishMethod="MSDeploy" publishUrl="apiproducertechchallenge.scm.azurewebsites.net:443" msdeploySite="APIProducerTechChallenge" userName="$APIProducerTechChallenge" userPWD="E5jEgTsdtWi4Zdz7E7B1RahoXeuiJ1JZ37Fu7cqcN8YbsZ1Toa6mS46dDCA3" destinationAppUrl="https://apiproducertechchallenge.azurewebsites.net" SQLServerDBConnectionString="" mySQLDBConnectionString="" hostingProviderForumLink="" controlPanelLink="https://portal.azure.com" webSystem="WebSites"><databases /></publishProfile><publishProfile profileName="APIProducerTechChallenge - FTP" publishMethod="FTP" publishUrl="ftps://waws-prod-yt1-003.ftp.azurewebsites.windows.net/site/wwwroot" ftpPassiveMode="True" userName="APIProducerTechChallenge\$APIProducerTechChallenge" userPWD="E5jEgTsdtWi4Zdz7E7B1RahoXeuiJ1JZ37Fu7cqcN8YbsZ1Toa6mS46dDCA3" destinationAppUrl="https://apiproducertechchallenge.azurewebsites.net" SQLServerDBConnectionString="" mySQLDBConnectionString="" hostingProviderForumLink="" controlPanelLink="https://portal.azure.com" webSystem="WebSites"><databases /></publishProfile><publishProfile profileName="APIProducerTechChallenge - Zip Deploy" publishMethod="ZipDeploy" publishUrl="apiproducertechchallenge.scm.azurewebsites.net:443" userName="$APIProducerTechChallenge" userPWD="E5jEgTsdtWi4Zdz7E7B1RahoXeuiJ1JZ37Fu7cqcN8YbsZ1Toa6mS46dDCA3" destinationAppUrl="https://apiproducertechchallenge.azurewebsites.net" SQLServerDBConnectionString="" mySQLDBConnectionString="" hostingProviderForumLink="" controlPanelLink="https://portal.azure.com" webSystem="WebSites"><databases /></publishProfile><publishProfile profileName="APIProducerTechChallenge - ReadOnly - FTP" publishMethod="FTP" publishUrl="ftps://waws-prod-yt1-003dr.ftp.azurewebsites.windows.net/site/wwwroot" ftpPassiveMode="True" userName="APIProducerTechChallenge\$APIProducerTechChallenge" userPWD="E5jEgTsdtWi4Zdz7E7B1RahoXeuiJ1JZ37Fu7cqcN8YbsZ1Toa6mS46dDCA3" destinationAppUrl="https://apiproducertechchallenge.azurewebsites.net" SQLServerDBConnectionString="" mySQLDBConnectionString="" hostingProviderForumLink="" controlPanelLink="https://portal.azure.com" webSystem="WebSites"><databases /></publishProfile></publishData>'
