@@ -30,7 +30,7 @@ jobs:
       - name: dotnet publish
         run: dotnet publish -c Release -o  D:\a\TechChallengePrimeiraFase\TechChallengePrimeiraFase\API_Producer_TechChallenge\bin\Release\net8.0\
 
-      - name: Upload artifact for deployment job
+      - name: Deploy Azure
         uses: actions/upload-artifact@v4
         with:
           name: .net-app
