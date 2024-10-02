@@ -69,7 +69,7 @@ namespace UnitTest_TechChallengePrimeiraFase.TestesIntegracao
 
             Assert.Equal(System.Net.HttpStatusCode.OK, response.StatusCode);
 
-            var ddd = ddds.Where(a => a == 12).Count();
+            var ddd = ddds.Where(a => a == 11).Count();
 
             Assert.Equal(1, ddd);
         }
