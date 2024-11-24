@@ -1,0 +1,13 @@
+{
+  "profiles": {
+    "Docker Compose": {
+      "commandName": "DockerCompose",
+      "commandVersion": "1.0",
+      "serviceActions": {
+        "api_producer_techchallenge": "StartDebugging",
+        "consumidor_pessoas_techchallenge": "StartDebugging",
+        "consumidor_regioes_techchallenge": "StartDebugging"
+      }
+    }
+  }
+}

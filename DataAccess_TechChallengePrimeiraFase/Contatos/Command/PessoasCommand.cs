@@ -59,12 +59,7 @@ namespace DataAccess_TechChallengePrimeiraFase.Contatos.Command
         {
             try 
             {
-                var pessoa = context.Pessoas
-                                       .Where(p => p.Id == idPessoa)
-                                       .AsNoTracking()
-                                       .FirstOrDefault();
-
-                var result = (pessoa is not null)? await  context.Pessoas.Remove(pessoa).Context.SaveChangesAsync(): 0;
+                var result = (idPessoa > 0)? await  context.Pessoas.Where(p => p.Id == idPessoa).ExecuteDeleteAsync():0;
 
                 return (result != 0);
             }

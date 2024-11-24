@@ -13,7 +13,7 @@ namespace Infrastructure_TechChallengePrimeiraFase.Util.Rabbit.Factory
         { 
             var factory = new ConnectionFactory() 
             { 
-                HostName = "localhost",
+                HostName = "rabbitmq",
                 UserName = "guest",
                 Port = 5672,
                 Password = "guest"
