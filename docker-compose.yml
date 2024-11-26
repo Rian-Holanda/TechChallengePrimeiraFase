@@ -36,7 +36,7 @@ services:
       - db 
     
   rabbitmq:    
-    image: 'rabbitmq:3-management'    
+    image: ${DOCKER_HUB_USERNAME}/'rabbitmq:3-management'    
     hostname: 'rabbitmq'    
     ports:    
       - '5672:5672'    
@@ -45,7 +45,7 @@ services:
       - mynetwork  
   
   db:
-    image: mcr.microsoft.com/mssql/server
+    image: ${DOCKER_HUB_USERNAME}/mcr.microsoft.com/mssql/server
     container_name: sqlserver
     environment:
       ACCEPT_EULA: "Y"
@@ -56,14 +56,14 @@ services:
       - mynetwork
        
   prometheus:
-    image: prom/prometheus
+    image: ${DOCKER_HUB_USERNAME}/prom/prometheus
     ports:
       - 9090:9090
     networks:   
       - mynetwork
 
   grafana:
-    image: grafana/grafana
+    image: ${DOCKER_HUB_USERNAME}/grafana/grafana
     ports:
       - 3000:3000
     networks:   
