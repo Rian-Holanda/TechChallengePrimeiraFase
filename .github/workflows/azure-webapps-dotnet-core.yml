@@ -31,4 +31,4 @@ jobs:
         run: DOCKER_HUB_USERNAME=${{ secrets.DOCKER_HUB_USERNAME }} docker-compose -f docker-compose.yml push
 
       - name: Docker compose up  
-        run: docker-compose -f docker-compose.yml up -d  
+        run: DOCKER_HUB_USERNAME=${{ secrets.DOCKER_HUB_USERNAME }} docker-compose -f docker-compose.yml up -d  
