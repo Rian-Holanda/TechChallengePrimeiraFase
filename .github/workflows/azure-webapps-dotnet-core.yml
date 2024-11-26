@@ -1,37 +1,38 @@
-# Docs for the Azure Web Apps Deploy action: https://github.com/Azure/webapps-deploy
-# More GitHub Actions for Azure: https://github.com/Azure/actions
-
-name: Build and deploy ASP.Net Core app to Azure Web App - APITechChallengePrimeiraFase20240717125610
+name: Job Docker-Compose
 
 on:
   push:
     branches:
-      - main
-  workflow_dispatch:
+    - main
+    - features/**
+    - dependabot/**
+  pull_request:
+    branches:
+    - main
 
 jobs:
-  build:
-    runs-on: windows-latest
+  docker:
+    timeout-minutes: 10
+    runs-on: ubuntu-latest
 
     steps:
-      - uses: actions/checkout@v4
+    - name: Checkout
+      uses: actions/checkout@v1
 
-      - name: Set up .NET Core
-        uses: actions/setup-dotnet@v4
-        with:
-          dotnet-version: '8.x'
+    - name: Start containers
+      run: docker-compose -f "docker-compose.yml" up -d --build
 
-      - name: Build with dotnet
-        run: dotnet build --configuration Release
+    - name: Install node
+      uses: actions/setup-node@v1
+      with:
+        node-version: 14.x
 
-      - name: Test with the dotnet CLI
-        run: dotnet test --verbosity normal
+    - name: Install dependencies
+      run: npm install
 
-      - name: dotnet publish
-        run: dotnet publish -c Release -o  D:\a\TechChallengePrimeiraFase\TechChallengePrimeiraFase\API_Producer_TechChallenge\bin\Release\net8.0\
+    - name: Run tests
+      run: npm run test
 
-      - name: Deploy Azure
-        uses: actions/upload-artifact@v4
-        with:
-          name: .net-app
-          path: D:\a\TechChallengePrimeiraFase\TechChallengePrimeiraFase\API_Producer_TechChallenge\bin\Release\net8.0\
+    - name: Stop containers
+      if: always()
+      run: docker-compose -f "docker-compose.yml" down
