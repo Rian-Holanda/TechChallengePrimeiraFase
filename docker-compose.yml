@@ -13,6 +13,7 @@ services:
       - mynetwork
     depends_on:
       - rabbitmq
+      - db  
   consumidor_pessoas_techchallenge:
     image: ${DOCKER_REGISTRY-}consumidorpessoastechchallenge
     build:
@@ -22,6 +23,7 @@ services:
       - mynetwork
     depends_on:
       - rabbitmq
+      - db
   consumidor_regioes_techchallenge:
     image: ${DOCKER_REGISTRY-}consumidorregioestechchallenge
     build:
@@ -31,6 +33,7 @@ services:
       - mynetwork
     depends_on:
       - rabbitmq
+      - db 
     
   rabbitmq:    
     image: 'rabbitmq:3-management'    
@@ -41,5 +44,29 @@ services:
     networks:   
       - mynetwork  
   
+  db:
+    image: mcr.microsoft.com/mssql/server
+    container_name: sqlserver
+    environment:
+      ACCEPT_EULA: "Y"
+      MSSQL_SA_PASSWORD: "1q2w3e4r@#$"
+    ports:
+      - "1433:1433"
+    networks:   
+      - mynetwork
+       
+  prometheus:
+    image: prom/prometheus
+    ports:
+      - 9090:9090
+    networks:   
+      - mynetwork
+
+  grafana:
+    image: grafana/grafana
+    ports:
+      - 3000:3000
+    networks:   
+      - mynetwork
 networks:  
   mynetwork:
