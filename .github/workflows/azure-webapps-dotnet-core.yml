@@ -1,38 +1,26 @@
-name: Job Docker-Compose
-
-on:
-  push:
-    branches:
-    - main
-    - features/**
-    - dependabot/**
-  pull_request:
-    branches:
-    - main
-
-jobs:
-  docker:
-    timeout-minutes: 10
-    runs-on: ubuntu-latest
-
-    steps:
-    - name: Checkout
-      uses: actions/checkout@v1
-
-    - name: Start containers
-      run: docker-compose -f "docker-compose.yml" up -d --build
-
-    - name: Install node
-      uses: actions/setup-node@v1
-      with:
-        node-version: 14.x
-
-    - name: Install dependencies
-      run: npm install
-
-    - name: Run tests
-      run: npm run test
-
-    - name: Stop containers
-      if: always()
-      run: docker-compose -f "docker-compose.yml" down
+name: Docker Compose Actions  
+  
+on:  
+  push:  
+    branches:  
+      - master  
+  
+jobs:  
+  deploy:  
+    runs-on: ubuntu-latest  
+  
+    steps:  
+      - name: Checkout code  
+        uses: actions/checkout@v2  
+  
+      - name: Login to DockerHub  
+        uses: docker/login-action@v1  
+        with:  
+          username: ${{ secrets.DOCKERHUB_USERNAME }}  
+          password: ${{ secrets.DOCKERHUB_TOKEN }}  
+  
+      - name: Docker compose build  
+        run: docker-compose -f docker-compose.yml build  
+  
+      - name: Docker compose push  
+        run: docker-compose -f docker-compose.yml push
