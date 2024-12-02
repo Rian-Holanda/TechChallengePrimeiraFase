@@ -2,7 +2,7 @@ version: '3.4'
 
 services:
   api_producer_techchallenge:
-    image: rianholanda91//apiproducertechchallenge:latest
+    image: rianholanda91/apiproducertechchallenge:latest
     build:
       context: .
       dockerfile: API_Producer_TechChallenge/Dockerfile
@@ -15,7 +15,7 @@ services:
       - rabbitmq
       - db  
   consumidor_pessoas_techchallenge:
-    image: rianholanda91//consumidorpessoastechchallenge:latest
+    image: rianholanda91/consumidorpessoastechchallenge:latest
     build:
       context: .
       dockerfile: Consumidor_Pessoas_TechChallenge/Dockerfile
@@ -25,7 +25,7 @@ services:
       - rabbitmq
       - db
   consumidor_regioes_techchallenge:
-    image: rianholanda91//consumidorregioestechchallenge:latest
+    image: rianholanda91/consumidorregioestechchallenge:latest
     build:
       context: .
       dockerfile: Consumidor_Regioes_TechChallenge/Dockerfile
