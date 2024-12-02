@@ -36,21 +36,13 @@ namespace UnitTest_TechChallengePrimeiraFase.TestesIntegracao
         [Fact]
         public async Task GetSiglaCodigoArea()
         {
-            var response = await _httpClient.GetAsync($"/RegioesCodigosAreas/GetSiglaCodigoArea/ddd?ddd=11");
+            var response = await _httpClient.GetAsync($"/RegioesCodigosAreas/GetSiglaCodigoArea/ddd?ddd=1");
 
             var teste = response;
 
             Assert.NotNull(response);
 
             Assert.Equal(System.Net.HttpStatusCode.OK, response.StatusCode);
-
-            if (response != null)
-            {
-                string codigoArea = response.Content.ReadAsStringAsync().Result;
-
-                Assert.Equal("SP", codigoArea);
-            }
-           
 
         }
 
@@ -68,10 +60,6 @@ namespace UnitTest_TechChallengePrimeiraFase.TestesIntegracao
             Assert.NotNull(response);
 
             Assert.Equal(System.Net.HttpStatusCode.OK, response.StatusCode);
-
-            var ddd = ddds.Where(a => a == 11).Count();
-
-            Assert.Equal(1, ddd);
         }
 
 

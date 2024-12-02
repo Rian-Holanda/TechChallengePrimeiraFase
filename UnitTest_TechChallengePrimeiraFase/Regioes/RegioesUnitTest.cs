@@ -27,7 +27,7 @@ namespace UnitTest_TechChallengePrimeiraFase.Regioes
 
 
         //using the same connection string
-        public static string connectionString = $"Data Source=(localdb)\\MSSQLLocalDB;Initial Catalog=DBFACULDADE;Integrated Security=True;";
+        public static string connectionString = $"Data Source=docker-desktop,30003;Initial Catalog=FIAP_TECH_CHALLENGE;Persist Security Info=True;User ID=sa;Password=1q2w3e4r@#;Encrypt=True;Trust Server Certificate=True;";
 
         public RegioesUnitTest()
         {
