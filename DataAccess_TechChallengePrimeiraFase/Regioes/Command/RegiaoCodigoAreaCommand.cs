@@ -61,12 +61,7 @@ namespace DataAccess_TechChallengePrimeiraFase.Regioes.Command
         {
             try 
             {
-                var regiaoCodigoArea = context.RegioesCodigosAreas
-                                       .Where(r => r.Id == idRegiaoCodigoArea)
-                                       .AsNoTracking()
-                                       .FirstOrDefault();
-
-                var result = (regiaoCodigoArea is not null)?await context.RegioesCodigosAreas.Remove(regiaoCodigoArea).Context.SaveChangesAsync() : 0;
+                var result = (idRegiaoCodigoArea > 0) ? await context.RegioesCodigosAreas.Where(p => p.Id == idRegiaoCodigoArea).ExecuteDeleteAsync() : 0;
 
                 return (result != 0);
             }

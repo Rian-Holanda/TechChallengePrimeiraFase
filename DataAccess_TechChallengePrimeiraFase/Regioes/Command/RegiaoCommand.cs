@@ -7,6 +7,7 @@ using AutoMapper;
 using DataAccess_TechChallengePrimeiraFase.Regioes.Interface;
 using Entities_TechChallengePrimeiraFase.Entities;
 using Infrastructure_TechChallengePrimeiraFase;
+using Infrastructure_TechChallengePrimeiraFase.Util.Rabbit.Gateway;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
 
@@ -66,12 +67,7 @@ namespace DataAccess_TechChallengePrimeiraFase.Regioes.Command
         {
             try 
             {
-                var regiao = context.Regioes
-                    .Where(r => r.Id == idRegiao)
-                    .AsNoTracking()
-                    .FirstOrDefault();
-
-                var result = (regiao is not null )?await context.Regioes.Remove(regiao).Context.SaveChangesAsync(): 0;
+                var result = (idRegiao > 0) ? await context.Regioes.Where(p => p.Id == idRegiao).ExecuteDeleteAsync() : 0;
 
                 return (result != 0);
             }

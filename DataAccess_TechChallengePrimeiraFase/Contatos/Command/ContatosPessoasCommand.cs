@@ -64,12 +64,7 @@ namespace DataAccess_TechChallengePrimeiraFase.Regioes.Command
         {
             try 
             {
-                var contatoPessoa = context.ContatosPessoas
-                                       .Where(cp => cp.Id == idContatoPessoa)
-                                       .AsNoTracking()
-                                       .FirstOrDefault();
-
-                var result = (contatoPessoa is not null)?await context.ContatosPessoas.Remove(contatoPessoa).Context.SaveChangesAsync() : 0;
+                var result = (idContatoPessoa > 0) ? await context.ContatosPessoas.Where(p => p.Id == idContatoPessoa).ExecuteDeleteAsync() : 0;
 
                 return (result != 0);
             }
