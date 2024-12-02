@@ -28,7 +28,7 @@ jobs:
         run: DOCKER_HUB_USERNAME=${{ secrets.DOCKER_HUB_USERNAME }} docker-compose -f docker-compose.yml build  
       
       - name: Test with the dotnet CLI
-        run: dotnet test
+        run: dotnet test UnitTest_TechChallengePrimeiraFase.csproj
   
       - name: Docker compose push  
         run: DOCKER_HUB_USERNAME=${{ secrets.DOCKER_HUB_USERNAME }} docker-compose -f docker-compose.yml push
