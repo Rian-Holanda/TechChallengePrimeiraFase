@@ -1,17 +1,8 @@
-apiVersion: apps/v1  
-kind: Deployment  
+apiVersion: v1  
+kind: Pod  
 metadata:  
-  name: apitechchallenge  
-spec:  
-  replicas: 3  
-  selector:  
-    matchLabels:  
-      app: apitechchallenge  
-  template:  
-    metadata:  
-      labels:  
-        app: apitechchallenge  
-    spec:  
-      containers:  
-      - name: apitechchallenge  
-        image: rianholanda91/apiproducertechchallenge:latest
+  name: apitechchallengeproducer  
+spec: 
+  containers:  
+  - name: apitechchallengeproducer  
+    image: rianholanda91/apiproducertechchallenge:latest 
